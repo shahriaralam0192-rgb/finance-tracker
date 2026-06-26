@@ -6246,7 +6246,12 @@ return /*#__PURE__*/React.createElement(Modal, {
       flexWrap: "wrap",
       gap: 8
     }
-  }, shownCats.map(c => /*#__PURE__*/React.createElement(Pill, {
+  }, (() => {
+    const quickPickIds = !catSearch && !isEditing
+      ? new Set([...new Set([...recentCats, ...freqCats])].slice(0, 5))
+      : new Set();
+    return shownCats.filter(c => !quickPickIds.has(c.id));
+  })().map(c => /*#__PURE__*/React.createElement(Pill, {
     key: c.id,
     label: c.label,
     icon: c.icon,
