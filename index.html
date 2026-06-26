@@ -2765,6 +2765,7 @@ function ManageCatsModal({
   setItems,
   theme,
   setTheme,
+  entries,
   setEntries,
   onPinMgr
 }) {
@@ -2850,31 +2851,82 @@ function ManageCatsModal({
     setMode("main");
     setOpenPicker(null);
   }
+  // Warn before deleting if transactions are tagged to this category/item —
+  // deleting permanently removes those transactions too, not just the label.
+  function confirmDeleteCat(side, id, label) {
+    const count = (entries || []).filter(e => e.catId === id).length;
+    if (count > 0) {
+      const ok = window.confirm(
+        `"${label}" category-te ${count} ta transaction tagged ache. Delete korle oi ${count} ta transaction-o permanently delete hoye jabe. Continue korben?`
+      );
+      if (!ok) return;
+    }
+    withPin(() => deleteCat(side, id));
+  }
+  function confirmDeleteSubCat(side, parentId, subId, label) {
+    const count = (entries || []).filter(e => e.subCatId === subId).length;
+    if (count > 0) {
+      const ok = window.confirm(
+        `"${label}" sub-category-te ${count} ta transaction tagged ache. Delete korle oi ${count} ta transaction-o permanently delete hoye jabe. Continue korben?`
+      );
+      if (!ok) return;
+    }
+    withPin(() => deleteSubCat(side, parentId, subId));
+  }
+  function confirmDeleteItem(group, id, label) {
+    const count = (entries || []).filter(e => e.itemId === id).length;
+    if (count > 0) {
+      const ok = window.confirm(
+        `"${label}" item-te ${count} ta transaction tagged ache. Delete korle oi ${count} ta transaction-o permanently delete hoye jabe. Continue korben?`
+      );
+      if (!ok) return;
+    }
+    withPin(() => deleteItem(group, id));
+  }
   function deleteCat(side, id) {
-    setCats(p => ({
-      ...p,
-      [side]: p[side].filter(c => c.id !== id)
-    }));
-    setEntries(p => p.filter(e => e.catId !== id));
+    // Persist synchronously inside the updater itself (not via the next-render
+    // useEffect) — on iOS PWA/Safari the page can be suspended right after a
+    // quick action, before the entries useEffect-save fires, leaving entries
+    // orphaned (catId pointing at a now-deleted category). Saving immediately
+    // here closes that gap. (Documents-by-Readdle's embedded browser doesn't
+    // suspend as aggressively, which is why this never showed up there.)
+    setCats(p => {
+      const next = { ...p, [side]: p[side].filter(c => c.id !== id) };
+      save(KEYS.cats, next);
+      return next;
+    });
+    setEntries(p => {
+      const next = p.filter(e => e.catId !== id);
+      save(KEYS.entries, next);
+      return next;
+    });
   }
   function deleteSubCat(side, parentId, subId) {
-    setCats(p => ({
-      ...p,
-      [side]: p[side].map(c => {
-        if (c.id !== parentId) return c;
-        const sub = (c.sub || []).filter(s => s.id !== subId);
-        if (sub.length) return {
-          ...c,
-          sub
-        };
-        const {
-          sub: removedSub,
-          ...rest
-        } = c;
-        return rest;
-      })
-    }));
-    setEntries(p => p.filter(e => e.subCatId !== subId));
+    setCats(p => {
+      const next = {
+        ...p,
+        [side]: p[side].map(c => {
+          if (c.id !== parentId) return c;
+          const sub = (c.sub || []).filter(s => s.id !== subId);
+          if (sub.length) return {
+            ...c,
+            sub
+          };
+          const {
+            sub: removedSub,
+            ...rest
+          } = c;
+          return rest;
+        })
+      };
+      save(KEYS.cats, next);
+      return next;
+    });
+    setEntries(p => {
+      const next = p.filter(e => e.subCatId !== subId);
+      save(KEYS.entries, next);
+      return next;
+    });
   }
   function startEditCat(side, cat, parentId = null) {
     setEditingCat({
@@ -2982,11 +3034,16 @@ function ManageCatsModal({
     setEditingItem(null);
   }
   function deleteItem(g, id) {
-    setItems(p => ({
-      ...p,
-      [g]: p[g].filter(i => i.id !== id)
-    }));
-    setEntries(p => p.filter(e => e.itemId !== id));
+    setItems(p => {
+      const next = { ...p, [g]: p[g].filter(i => i.id !== id) };
+      save(KEYS.items, next);
+      return next;
+    });
+    setEntries(p => {
+      const next = p.filter(e => e.itemId !== id);
+      save(KEYS.entries, next);
+      return next;
+    });
   }
   function updateTheme(key, value) {
     setTheme(p => mergeTheme({
@@ -3226,7 +3283,7 @@ function ManageCatsModal({
             }, "Edit"),
 
             /*#__PURE__*/React.createElement("button", {
-              onClick: () => withPin(() => deleteCat(side, c.id)),
+              onClick: () => confirmDeleteCat(side, c.id, c.label),
               title: "Delete",
               style: { ...inlineBtnBase, background: "#FF453A22", color: "#FF453A", minWidth: 26, display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 7px" }
             }, /*#__PURE__*/React.createElement("svg", {
@@ -3298,7 +3355,7 @@ function ManageCatsModal({
               style: { ...inlineBtnBase, background: t.primary + "22", color: t.primary, fontSize: 11 }
             }, "Edit"),
             /*#__PURE__*/React.createElement("button", {
-              onClick: () => withPin(() => deleteSubCat(side, c.id, s.id)),
+              onClick: () => confirmDeleteSubCat(side, c.id, s.id, s.label),
               title: "Delete sub-menu",
               style: { ...inlineBtnBase, background: "#FF453A22", color: "#FF453A", minWidth: 26, display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 7px" }
             }, /*#__PURE__*/React.createElement("svg", {
@@ -3425,7 +3482,7 @@ function ManageCatsModal({
 
         /* 🗑 delete (all items) */
         /*#__PURE__*/React.createElement("button", {
-          onClick: () => withPin(() => deleteItem(group, item.id)),
+          onClick: () => confirmDeleteItem(group, item.id, item.label),
           title: "Delete",
           style: { ...inlineBtnBase, background: "#FF453A22", color: "#FF453A", minWidth: 26, display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 7px" }
         }, /*#__PURE__*/React.createElement("svg", {
@@ -4242,9 +4299,12 @@ function DailyHistoryScreen({ entries, cats, items, theme, onEdit, onDelete }) {
     const cat  = allCats.find(c => c.id === entry.catId);
     const sub  = allCats.find(c => c.id === entry.subCatId);
     const item = entry.itemId ? allItems.find(i => i.id === entry.itemId) : null;
+    // Fallback to a friendly "Other" label instead of leaking the raw internal
+    // catId string when a category/sub/item id no longer resolves (e.g. deleted
+    // or orphaned reference) — never show ids like "custom_xxxx" to the user.
     return {
-      icon:  item?.icon || sub?.icon || cat?.icon || "💸",
-      label: item?.label?.split("/")[0].trim() || sub?.label || cat?.label || entry.catId,
+      icon:  item?.icon || sub?.icon || cat?.icon || "❓",
+      label: item?.label?.split("/")[0].trim() || sub?.label || cat?.label || "Other",
       color: sub?.color || cat?.color || "#8E8E93",
       parent: item ? sub?.label || "" : sub ? cat?.label : ""
     };
@@ -6302,7 +6362,11 @@ function DataModal({
   open,
   onClose,
   entries,
-  onImport
+  cats,
+  items,
+  onImport,
+  setCats,
+  setItems
 }) {
   const fileRef = useRef();
   const [shareText, setShareText] = useState("");
@@ -6357,7 +6421,12 @@ function DataModal({
     }
   }
   function doExportJSON() {
-    const txt = JSON.stringify(entries, null, 2);
+    // Full backup: entries + cats + items together, so a future restore can never
+    // produce orphaned catId/subCatId/itemId references (the bug that happened
+    // when an entries-only backup was restored after categories had changed).
+    // backupVersion:2 marks the new combined format; handleImportFile/Text below
+    // still accept the old plain-array (entries-only) format for backward compat.
+    const txt = JSON.stringify({ backupVersion: 2, entries, cats, items }, null, 2);
     iosExportFile(txt, `finance_${nowISO().slice(0, 10)}.json`, "application/json");
   }
   function doExportCSV() {
@@ -6423,7 +6492,7 @@ function DataModal({
       const sub = allCL.find(c=>c.id===e.subCatId);
       const itm = allIL.find(i=>i.id===e.itemId);
       const itemLbl = itm && itm.label ? itm.label.split('/')[0].trim() : '';
-      return {cat:cat?cat.label:e.catId||'', sub:sub?sub.label:'', item:itemLbl};
+      return {cat:cat?cat.label:'Other', sub:sub?sub.label:'', item:itemLbl};
     };
     const incTotal = incList.reduce(function(s,e){return s+e.amount;},0);
     const expTotal = expList.reduce(function(s,e){return s+e.amount;},0);
@@ -8280,8 +8349,10 @@ function TxRow({
   const cat = allCats.find(c => c.id === entry.catId);
   const sub = allCats.find(s => s.id === entry.subCatId);
   const item = entry.itemId ? allItems.find(i => i.id === entry.itemId) : null;
-  const icon = item?.icon || sub?.icon || cat?.icon || "💸";
-  const label = item?.label?.split("/")[0].trim() || sub?.label || cat?.label || entry.catId;
+  // Fallback to "Other" instead of leaking the raw internal catId string
+  // (e.g. "custom_xxxx") when the referenced category/sub/item no longer exists.
+  const icon = item?.icon || sub?.icon || cat?.icon || "❓";
+  const label = item?.label?.split("/")[0].trim() || sub?.label || cat?.label || "Other";
   const parent = item ? sub?.label || "" : sub ? cat?.label : "";
   const color = sub?.color || cat?.color || "#8E8E93";
 
@@ -10238,7 +10309,11 @@ return /*#__PURE__*/React.createElement("div", {
     open: showData,
     onClose: () => setShowData(false),
     entries: entries,
-    onImport: setEntries
+    cats: cats,
+    items: items,
+    onImport: setEntries,
+    setCats: setCats,
+    setItems: setItems
   }), /*#__PURE__*/React.createElement(ManageCatsModal, {
     open: showMgr,
     onClose: () => setShowMgr(false),
@@ -10248,6 +10323,7 @@ return /*#__PURE__*/React.createElement("div", {
     setItems: setItems,
     theme: theme,
     setTheme: setTheme,
+    entries: entries,
     setEntries: setEntries,
     onPinMgr: () => setShowPinMgr(true)
   }), /*#__PURE__*/React.createElement(PinManageModal, {
