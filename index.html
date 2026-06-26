@@ -6359,8 +6359,13 @@ function DataModal({
       if (!raw) throw new Error("finance_data.json file not found in gist");
       const parsed = JSON.parse(raw);
       if (parsed.backupVersion !== 2) throw new Error("Invalid backup format");
-      onImport(parsed);
+      const ok = applyImport(parsed);
+      if (parsed.budgets && typeof parsed.budgets === "object") {
+        save(KEYS.budgets, parsed.budgets);
+      }
+      if (!ok) throw new Error("Data format টা ঠিক নেই");
       setStatus("✅ Sync সম্পন্ন! ডেটা আপডেট হয়েছে 🎉");
+      setTimeout(() => onClose(), 1800);
     } catch(e) {
       setStatus("❌ Pull failed: " + e.message);
     } finally { setGistSyncing(false); }
