@@ -5,11 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">  
     <meta name="apple-mobile-web-app-capable" content="yes">  
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">  
-    <meta name="theme-color" content="#0D0B1E">
-    <meta name="apple-mobile-web-app-title" content="FinTracker">
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="icon-180.png">
-    <link rel="icon" href="icon-192.png">
     <title>Finance Tracker v23.0 AI</title>
     <!-- React & ReactDOM embedded inline for fully offline use -->
     <script>/**
@@ -2765,7 +2760,6 @@ function ManageCatsModal({
   setItems,
   theme,
   setTheme,
-  entries,
   setEntries,
   onPinMgr
 }) {
@@ -2851,82 +2845,31 @@ function ManageCatsModal({
     setMode("main");
     setOpenPicker(null);
   }
-  // Warn before deleting if transactions are tagged to this category/item —
-  // deleting permanently removes those transactions too, not just the label.
-  function confirmDeleteCat(side, id, label) {
-    const count = (entries || []).filter(e => e.catId === id).length;
-    if (count > 0) {
-      const ok = window.confirm(
-        `"${label}" category-te ${count} ta transaction tagged ache. Delete korle oi ${count} ta transaction-o permanently delete hoye jabe. Continue korben?`
-      );
-      if (!ok) return;
-    }
-    withPin(() => deleteCat(side, id));
-  }
-  function confirmDeleteSubCat(side, parentId, subId, label) {
-    const count = (entries || []).filter(e => e.subCatId === subId).length;
-    if (count > 0) {
-      const ok = window.confirm(
-        `"${label}" sub-category-te ${count} ta transaction tagged ache. Delete korle oi ${count} ta transaction-o permanently delete hoye jabe. Continue korben?`
-      );
-      if (!ok) return;
-    }
-    withPin(() => deleteSubCat(side, parentId, subId));
-  }
-  function confirmDeleteItem(group, id, label) {
-    const count = (entries || []).filter(e => e.itemId === id).length;
-    if (count > 0) {
-      const ok = window.confirm(
-        `"${label}" item-te ${count} ta transaction tagged ache. Delete korle oi ${count} ta transaction-o permanently delete hoye jabe. Continue korben?`
-      );
-      if (!ok) return;
-    }
-    withPin(() => deleteItem(group, id));
-  }
   function deleteCat(side, id) {
-    // Persist synchronously inside the updater itself (not via the next-render
-    // useEffect) — on iOS PWA/Safari the page can be suspended right after a
-    // quick action, before the entries useEffect-save fires, leaving entries
-    // orphaned (catId pointing at a now-deleted category). Saving immediately
-    // here closes that gap. (Documents-by-Readdle's embedded browser doesn't
-    // suspend as aggressively, which is why this never showed up there.)
-    setCats(p => {
-      const next = { ...p, [side]: p[side].filter(c => c.id !== id) };
-      save(KEYS.cats, next);
-      return next;
-    });
-    setEntries(p => {
-      const next = p.filter(e => e.catId !== id);
-      save(KEYS.entries, next);
-      return next;
-    });
+    setCats(p => ({
+      ...p,
+      [side]: p[side].filter(c => c.id !== id)
+    }));
+    setEntries(p => p.filter(e => e.catId !== id));
   }
   function deleteSubCat(side, parentId, subId) {
-    setCats(p => {
-      const next = {
-        ...p,
-        [side]: p[side].map(c => {
-          if (c.id !== parentId) return c;
-          const sub = (c.sub || []).filter(s => s.id !== subId);
-          if (sub.length) return {
-            ...c,
-            sub
-          };
-          const {
-            sub: removedSub,
-            ...rest
-          } = c;
-          return rest;
-        })
-      };
-      save(KEYS.cats, next);
-      return next;
-    });
-    setEntries(p => {
-      const next = p.filter(e => e.subCatId !== subId);
-      save(KEYS.entries, next);
-      return next;
-    });
+    setCats(p => ({
+      ...p,
+      [side]: p[side].map(c => {
+        if (c.id !== parentId) return c;
+        const sub = (c.sub || []).filter(s => s.id !== subId);
+        if (sub.length) return {
+          ...c,
+          sub
+        };
+        const {
+          sub: removedSub,
+          ...rest
+        } = c;
+        return rest;
+      })
+    }));
+    setEntries(p => p.filter(e => e.subCatId !== subId));
   }
   function startEditCat(side, cat, parentId = null) {
     setEditingCat({
@@ -3034,16 +2977,11 @@ function ManageCatsModal({
     setEditingItem(null);
   }
   function deleteItem(g, id) {
-    setItems(p => {
-      const next = { ...p, [g]: p[g].filter(i => i.id !== id) };
-      save(KEYS.items, next);
-      return next;
-    });
-    setEntries(p => {
-      const next = p.filter(e => e.itemId !== id);
-      save(KEYS.entries, next);
-      return next;
-    });
+    setItems(p => ({
+      ...p,
+      [g]: p[g].filter(i => i.id !== id)
+    }));
+    setEntries(p => p.filter(e => e.itemId !== id));
   }
   function updateTheme(key, value) {
     setTheme(p => mergeTheme({
@@ -3283,7 +3221,7 @@ function ManageCatsModal({
             }, "Edit"),
 
             /*#__PURE__*/React.createElement("button", {
-              onClick: () => confirmDeleteCat(side, c.id, c.label),
+              onClick: () => withPin(() => deleteCat(side, c.id)),
               title: "Delete",
               style: { ...inlineBtnBase, background: "#FF453A22", color: "#FF453A", minWidth: 26, display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 7px" }
             }, /*#__PURE__*/React.createElement("svg", {
@@ -3355,7 +3293,7 @@ function ManageCatsModal({
               style: { ...inlineBtnBase, background: t.primary + "22", color: t.primary, fontSize: 11 }
             }, "Edit"),
             /*#__PURE__*/React.createElement("button", {
-              onClick: () => confirmDeleteSubCat(side, c.id, s.id, s.label),
+              onClick: () => withPin(() => deleteSubCat(side, c.id, s.id)),
               title: "Delete sub-menu",
               style: { ...inlineBtnBase, background: "#FF453A22", color: "#FF453A", minWidth: 26, display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 7px" }
             }, /*#__PURE__*/React.createElement("svg", {
@@ -3482,7 +3420,7 @@ function ManageCatsModal({
 
         /* 🗑 delete (all items) */
         /*#__PURE__*/React.createElement("button", {
-          onClick: () => confirmDeleteItem(group, item.id, item.label),
+          onClick: () => withPin(() => deleteItem(group, item.id)),
           title: "Delete",
           style: { ...inlineBtnBase, background: "#FF453A22", color: "#FF453A", minWidth: 26, display: "flex", alignItems: "center", justifyContent: "center", padding: "4px 7px" }
         }, /*#__PURE__*/React.createElement("svg", {
@@ -4299,12 +4237,9 @@ function DailyHistoryScreen({ entries, cats, items, theme, onEdit, onDelete }) {
     const cat  = allCats.find(c => c.id === entry.catId);
     const sub  = allCats.find(c => c.id === entry.subCatId);
     const item = entry.itemId ? allItems.find(i => i.id === entry.itemId) : null;
-    // Fallback to a friendly "Other" label instead of leaking the raw internal
-    // catId string when a category/sub/item id no longer resolves (e.g. deleted
-    // or orphaned reference) — never show ids like "custom_xxxx" to the user.
     return {
-      icon:  item?.icon || sub?.icon || cat?.icon || "❓",
-      label: item?.label?.split("/")[0].trim() || sub?.label || cat?.label || "Other",
+      icon:  item?.icon || sub?.icon || cat?.icon || "💸",
+      label: item?.label?.split("/")[0].trim() || sub?.label || cat?.label || entry.catId,
       color: sub?.color || cat?.color || "#8E8E93",
       parent: item ? sub?.label || "" : sub ? cat?.label : ""
     };
@@ -6426,11 +6361,6 @@ function DataModal({
     }
   }
   function doExportJSON() {
-    // Full backup: entries + cats + items together, so a future restore can never
-    // produce orphaned catId/subCatId/itemId references (the bug that happened
-    // when an entries-only backup was restored after categories had changed).
-    // backupVersion:2 marks the new combined format; handleImportFile/Text below
-    // still accept the old plain-array (entries-only) format for backward compat.
     const txt = JSON.stringify({ backupVersion: 2, entries, cats, items }, null, 2);
     iosExportFile(txt, `finance_${nowISO().slice(0, 10)}.json`, "application/json");
   }
@@ -6497,7 +6427,7 @@ function DataModal({
       const sub = allCL.find(c=>c.id===e.subCatId);
       const itm = allIL.find(i=>i.id===e.itemId);
       const itemLbl = itm && itm.label ? itm.label.split('/')[0].trim() : '';
-      return {cat:cat?cat.label:'Other', sub:sub?sub.label:'', item:itemLbl};
+      return {cat:cat?cat.label:e.catId||'', sub:sub?sub.label:'', item:itemLbl};
     };
     const incTotal = incList.reduce(function(s,e){return s+e.amount;},0);
     const expTotal = expList.reduce(function(s,e){return s+e.amount;},0);
@@ -7011,18 +6941,13 @@ function DataModal({
     }
   }
   function applyImport(d) {
-    // Handle backupVersion:2 format (object with entries + cats + items)
     if (d && typeof d === "object" && !Array.isArray(d) && d.backupVersion === 2) {
       if (Array.isArray(d.entries)) onImport(d.entries);
       if (d.cats && typeof d.cats === "object") setCats(d.cats);
       if (d.items && typeof d.items === "object") setItems(d.items);
       return true;
     }
-    // Handle legacy format (plain array of entries only)
-    if (Array.isArray(d)) {
-      onImport(d);
-      return true;
-    }
+    if (Array.isArray(d)) { onImport(d); return true; }
     return false;
   }
   function handleImportFile(e) {
@@ -7043,7 +6968,7 @@ function DataModal({
       }
     };
     r.readAsText(f);
-    e.target.value = null; // Reset input so same file can be imported again
+    e.target.value = null;
   }
   function handleImportText() {
     try {
@@ -8367,10 +8292,8 @@ function TxRow({
   const cat = allCats.find(c => c.id === entry.catId);
   const sub = allCats.find(s => s.id === entry.subCatId);
   const item = entry.itemId ? allItems.find(i => i.id === entry.itemId) : null;
-  // Fallback to "Other" instead of leaking the raw internal catId string
-  // (e.g. "custom_xxxx") when the referenced category/sub/item no longer exists.
-  const icon = item?.icon || sub?.icon || cat?.icon || "❓";
-  const label = item?.label?.split("/")[0].trim() || sub?.label || cat?.label || "Other";
+  const icon = item?.icon || sub?.icon || cat?.icon || "💸";
+  const label = item?.label?.split("/")[0].trim() || sub?.label || cat?.label || entry.catId;
   const parent = item ? sub?.label || "" : sub ? cat?.label : "";
   const color = sub?.color || cat?.color || "#8E8E93";
 
@@ -10341,7 +10264,6 @@ return /*#__PURE__*/React.createElement("div", {
     setItems: setItems,
     theme: theme,
     setTheme: setTheme,
-    entries: entries,
     setEntries: setEntries,
     onPinMgr: () => setShowPinMgr(true)
   }), /*#__PURE__*/React.createElement(PinManageModal, {
@@ -10421,14 +10343,6 @@ if (window.__storageReady) {
   __mountApp();
 } else {
   window.addEventListener('__storageReady', __mountApp, { once: true });
-}
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function () {
-    navigator.serviceWorker.register('service-worker.js').catch(function (err) {
-      console.warn('Service worker registration failed:', err);
-    });
-  });
-}
-</script>  
+}</script>  
 </body>  
 </html>  
