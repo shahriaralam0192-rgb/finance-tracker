@@ -7005,6 +7005,21 @@ function DataModal({
       }
     }
   }
+  function applyImport(d) {
+    // Handle backupVersion:2 format (object with entries + cats + items)
+    if (d && typeof d === "object" && !Array.isArray(d) && d.backupVersion === 2) {
+      if (Array.isArray(d.entries)) onImport(d.entries);
+      if (d.cats && typeof d.cats === "object") setCats(d.cats);
+      if (d.items && typeof d.items === "object") setItems(d.items);
+      return true;
+    }
+    // Handle legacy format (plain array of entries only)
+    if (Array.isArray(d)) {
+      onImport(d);
+      return true;
+    }
+    return false;
+  }
   function handleImportFile(e) {
     const f = e.target.files[0];
     if (!f) return;
@@ -7012,12 +7027,11 @@ function DataModal({
     r.onload = ev => {
       try {
         const d = JSON.parse(ev.target.result);
-        if (Array.isArray(d)) {
-          onImport(d);
+        if (applyImport(d)) {
           setStatus("Restored from file! 🎉");
           setTimeout(() => onClose(), 1500);
         } else {
-          alert("Bad format: File must contain an array of entries.");
+          alert("Bad format: File must contain a valid backup.");
         }
       } catch {
         alert("Read error: Not a valid JSON file.");
@@ -7029,14 +7043,13 @@ function DataModal({
   function handleImportText() {
     try {
       const d = JSON.parse(pastedJSON.trim());
-      if (Array.isArray(d)) {
-        onImport(d);
+      if (applyImport(d)) {
         setStatus("Data imported successfully! 🎉");
         setPasteMode(false);
         setPastedJSON("");
         setTimeout(() => onClose(), 1500);
       } else {
-        alert("Invalid format: Backed up data must be an array.");
+        alert("Invalid format: Backed up data must be a valid backup.");
       }
     } catch (e) {
       alert("Failed to parse text. Please ensure it is accurate valid JSON backup text.");
