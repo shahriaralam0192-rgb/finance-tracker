@@ -1275,6 +1275,10 @@ const FONT_STACK = "-apple-system,BlinkMacSystemFont,sans-serif";
 //                 helpers since v17.5; daily/charts/bike already delegate to their own components)
 //
 // Changelog (brief, newest first):
+//   v26.0 — Modal UX overhaul: drag-to-dismiss (pill bar touch gesture, 100px threshold,
+//           snap-back, dynamic backdrop opacity) + ✕ close button top-right corner on
+//           all modals. Gist Pull bug fixed (inlined applyImport). Push step-by-step
+//           status messages. Android Gist ID manual paste support.
 //   v25.0 — GitHub Gist Sync added to DataModal: Push ⬆ / Pull ⬇ buttons sync full JSON
 //           (entries + cats + items + budgets) to a private GitHub Gist. Token stored in
 //           localStorage (ft_gist_token_v1), Gist ID auto-saved after first push
@@ -1623,17 +1627,53 @@ function Modal({
   onClose,
   children
 }) {
+  const [dragY, setDragY] = React.useState(0);
+  const [dragging, setDragging] = React.useState(false);
+  const [visible, setVisible] = React.useState(false);
+  const startYRef = React.useRef(null);
+
+  React.useEffect(() => {
+    if (open) {
+      requestAnimationFrame(() => requestAnimationFrame(() => setVisible(true)));
+    } else {
+      setVisible(false);
+      setDragY(0);
+      setDragging(false);
+    }
+  }, [open]);
+
+  function onTouchStart(e) {
+    startYRef.current = e.touches[0].clientY;
+    setDragging(true);
+  }
+  function onTouchMove(e) {
+    if (startYRef.current === null) return;
+    const dy = e.touches[0].clientY - startYRef.current;
+    if (dy > 0) setDragY(dy);
+  }
+  function onTouchEnd() {
+    if (dragY > 100) {
+      setDragY(0); setDragging(false);
+      startYRef.current = null;
+      onClose();
+    } else {
+      setDragY(0); setDragging(false);
+      startYRef.current = null;
+    }
+  }
+
   if (!open) return null;
+
+  const slideY = dragging ? dragY : (visible ? 0 : 120);
+  const opacity = Math.max(0.3, 0.7 - dragY / 400);
+
   return /*#__PURE__*/React.createElement("div", {
     style: {
-      position: "fixed",
-      inset: 0,
-      zIndex: 1000,
-      background: "rgba(0,0,0,0.7)",
+      position: "fixed", inset: 0, zIndex: 1000,
+      background: "rgba(0,0,0," + opacity + ")",
       backdropFilter: "blur(8px)",
-      display: "flex",
-      alignItems: "flex-end",
-      justifyContent: "center"
+      display: "flex", alignItems: "flex-end", justifyContent: "center",
+      transition: dragging ? "none" : "background .28s"
     },
     onClick: onClose
   }, /*#__PURE__*/React.createElement("div", {
@@ -1641,14 +1681,38 @@ function Modal({
     style: {
       background: "#1C1C1E",
       borderRadius: "22px 22px 0 0",
-      padding: `0 0 calc(20px + env(safe-area-inset-bottom))`,
-      width: "100%",
-      maxWidth: 430,
-      maxHeight: "94vh",
-      overflowY: "auto",
-      animation: "slideUp .28s cubic-bezier(.4,0,.2,1)"
+      padding: "0 0 calc(20px + env(safe-area-inset-bottom))",
+      width: "100%", maxWidth: 430, maxHeight: "94vh", overflowY: "auto",
+      transform: "translateY(" + slideY + "px)",
+      transition: dragging ? "none" : "transform .32s cubic-bezier(.4,0,.2,1)",
+      willChange: "transform"
     }
-  }, children));
+  }, /*#__PURE__*/React.createElement("div", {
+    onTouchStart: onTouchStart,
+    onTouchMove: onTouchMove,
+    onTouchEnd: onTouchEnd,
+    style: {
+      padding: "12px 0 4px", cursor: "grab", touchAction: "none",
+      display: "flex", justifyContent: "center", position: "relative"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 36, height: 4, background: "#48484A",
+      borderRadius: 2, pointerEvents: "none"
+    }
+  }), /*#__PURE__*/React.createElement("button", {
+    onClick: onClose,
+    style: {
+      position: "absolute", right: 14, top: "50%",
+      transform: "translateY(-50%)",
+      width: 28, height: 28, borderRadius: "50%",
+      background: "#3A3A3C", border: "none",
+      color: "#8E8E93", fontSize: 14, fontWeight: 700,
+      display: "flex", alignItems: "center", justifyContent: "center",
+      cursor: "pointer", outline: "none", lineHeight: 1,
+      touchAction: "manipulation"
+    }
+  }, "✕")), children));
 }
 function MiniBar({
   value,
@@ -6324,25 +6388,62 @@ function DataModal({
   const [gistId,    setGistId]        = useState(() => localStorage.getItem(GIST_ID_KEY)    || "");
   const [showGistSetup, setShowGistSetup] = useState(false);
   const [gistTokenInput, setGistTokenInput] = useState("");
+  const [gistIdInput, setGistIdInput] = useState("");
   const [gistSyncing, setGistSyncing] = useState(false);
 
   async function gistPush() {
     if (!gistToken) { setShowGistSetup(true); return; }
     setGistSyncing(true);
-    setStatus("☁️ আপলোড হচ্ছে…");
     try {
-      const payload = JSON.stringify({ backupVersion: 2, entries, cats, items, budgets: load(KEYS.budgets, {}), syncedAt: new Date().toISOString() }, null, 2);
-      const body = { description: "Finance Tracker — Auto Sync", public: false, files: { "finance_data.json": { content: payload } } };
-      let url = "https://api.github.com/gists";
-      let method = "POST";
-      if (gistId) { url += "/" + gistId; method = "PATCH"; }
-      const res = await fetch(url, { method, headers: { Authorization: "Bearer " + gistToken, "Content-Type": "application/json", "X-GitHub-Api-Version": "2022-11-28" }, body: JSON.stringify(body) });
-      if (!res.ok) { const e = await res.json(); throw new Error(e.message || res.status); }
-      const data = await res.json();
-      if (!gistId) { localStorage.setItem(GIST_ID_KEY, data.id); setGistId(data.id); }
-      setStatus("✅ Gist-এ সেভ হয়েছে! (Private)");
+      // Step 1 — build payload
+      setStatus("⏳ Step 1/3: Data তৈরি হচ্ছে…");
+      const payload = JSON.stringify({
+        backupVersion: 2, entries, cats, items,
+        budgets: load(KEYS.budgets, {}),
+        syncedAt: new Date().toISOString()
+      }, null, 2);
+      setStatus("⏳ Step 2/3: GitHub-এ connect হচ্ছে… (" + (payload.length / 1024).toFixed(1) + " KB)");
+
+      // Step 2 — API call
+      const isUpdate = !!gistId;
+      const url = isUpdate ? "https://api.github.com/gists/" + gistId : "https://api.github.com/gists";
+      const method = isUpdate ? "PATCH" : "POST";
+      let res;
+      try {
+        res = await fetch(url, {
+          method,
+          headers: {
+            Authorization: "Bearer " + gistToken,
+            "Content-Type": "application/json",
+            "X-GitHub-Api-Version": "2022-11-28"
+          },
+          body: JSON.stringify({
+            description: "Finance Tracker — Auto Sync",
+            public: false,
+            files: { "finance_data.json": { content: payload } }
+          })
+        });
+      } catch(netErr) {
+        throw new Error("Network error — internet connection আছে? (" + netErr.message + ")");
+      }
+
+      // Step 3 — parse response
+      setStatus("⏳ Step 3/3: Response পড়া হচ্ছে… (HTTP " + res.status + ")");
+      const respText = await res.text();
+      if (!res.ok) {
+        let msg = "HTTP " + res.status;
+        try { const j = JSON.parse(respText); msg = j.message || msg; } catch(e) {}
+        throw new Error(msg + " — token-এ gist scope আছে?");
+      }
+      const data = JSON.parse(respText);
+      if (!isUpdate) {
+        localStorage.setItem(GIST_ID_KEY, data.id);
+        setGistId(data.id);
+      }
+      const count = entries.length;
+      setStatus("✅ Push সফল! " + count + "টা transaction, Gist ID: " + (data.id || gistId).slice(0, 10) + "…");
     } catch(e) {
-      setStatus("❌ Push failed: " + e.message);
+      setStatus("❌ " + (e.message || String(e)));
     } finally { setGistSyncing(false); }
   }
 
@@ -6351,17 +6452,28 @@ function DataModal({
     setGistSyncing(true);
     setStatus("☁️ ডাউনলোড হচ্ছে…");
     try {
-      const res = await fetch("https://api.github.com/gists/" + gistId, { headers: { Authorization: "Bearer " + gistToken, "X-GitHub-Api-Version": "2022-11-28" } });
-      if (!res.ok) throw new Error("Gist পাওয়া যায়নি — " + res.status);
+      const res = await fetch("https://api.github.com/gists/" + gistId, {
+        headers: { Authorization: "Bearer " + gistToken, "X-GitHub-Api-Version": "2022-11-28" }
+      });
+      if (!res.ok) throw new Error("HTTP " + res.status + " — token বা Gist ID চেক করুন");
       const data = await res.json();
-      const raw = data.files?.["finance_data.json"]?.content;
-      if (!raw) throw new Error("finance_data.json file not found in gist");
+      const fileObj = data.files && data.files["finance_data.json"];
+      if (!fileObj) throw new Error("Gist-এ finance_data.json নেই");
+      let raw = fileObj.content;
+      if (fileObj.truncated && fileObj.raw_url) {
+        const r2 = await fetch(fileObj.raw_url);
+        raw = await r2.text();
+      }
       const parsed = JSON.parse(raw);
-      if (parsed.backupVersion !== 2) throw new Error("Invalid backup format");
-      onImport(parsed);
-      setStatus("✅ Sync সম্পন্ন! ডেটা আপডেট হয়েছে 🎉");
+      if (!parsed || parsed.backupVersion !== 2) throw new Error("Backup format ঠিক নেই (v" + (parsed && parsed.backupVersion) + ")");
+      if (Array.isArray(parsed.entries)) onImport(parsed.entries);
+      if (parsed.cats && typeof parsed.cats === "object") setCats(parsed.cats);
+      if (parsed.items && typeof parsed.items === "object") setItems(parsed.items);
+      if (parsed.budgets && typeof parsed.budgets === "object") save(KEYS.budgets, parsed.budgets);
+      setStatus("✅ Sync সম্পন্ন! " + (parsed.entries ? parsed.entries.length : 0) + "টা transaction restore হয়েছে 🎉");
+      setTimeout(() => onClose(), 1800);
     } catch(e) {
-      setStatus("❌ Pull failed: " + e.message);
+      setStatus("❌ " + (e.message || String(e)));
     } finally { setGistSyncing(false); }
   }
 
@@ -6370,15 +6482,17 @@ function DataModal({
     if (!t) return;
     localStorage.setItem(GIST_TOKEN_KEY, t);
     setGistToken(t);
-    setGistTokenInput("");
+    const gid = gistIdInput.trim();
+    if (gid) { localStorage.setItem(GIST_ID_KEY, gid); setGistId(gid); }
+    setGistTokenInput(""); setGistIdInput("");
     setShowGistSetup(false);
-    setStatus("✅ Token সেভ হয়েছে! এখন Push করুন।");
+    setStatus(gid ? "✅ Token + Gist ID সেভ হয়েছে! Pull করুন।" : "✅ Token সেভ হয়েছে! এখন Push করুন।");
   }
 
   function clearGistToken() {
     localStorage.removeItem(GIST_TOKEN_KEY);
     localStorage.removeItem(GIST_ID_KEY);
-    setGistToken(""); setGistId("");
+    setGistToken(""); setGistId(""); setGistIdInput("");
     setShowGistSetup(false);
     setStatus("Token মুছে ফেলা হয়েছে।");
   }
@@ -7211,13 +7325,23 @@ function DataModal({
       }, gistSyncing ? "⏳ কাজ হচ্ছে…" : "⬇️ Pull — ডাউনলোড")
     ),
     gistToken
-      ? /*#__PURE__*/React.createElement("div", { style: { textAlign: "center", marginBottom: 8 } },
-          /*#__PURE__*/React.createElement("span", { style: { color: "#34C759", fontSize: 11 } }, "✅ Token সেট আছে "),
-          gistId && /*#__PURE__*/React.createElement("span", { style: { color: "#636366", fontSize: 10 } }, "• Gist: " + gistId.slice(0,8) + "…"),
-          /*#__PURE__*/React.createElement("span", {
-            onClick: () => { setShowGistSetup(true); setGistTokenInput(""); },
-            style: { color: "#FF453A", fontSize: 11, marginLeft: 8, cursor: "pointer", textDecoration: "underline" }
-          }, "পরিবর্তন করুন")
+      ? /*#__PURE__*/React.createElement("div", { style: { marginBottom: 8 } },
+          /*#__PURE__*/React.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 4 } },
+            /*#__PURE__*/React.createElement("span", { style: { color: "#34C759", fontSize: 11 } }, "✅ Token সেট আছে"),
+            /*#__PURE__*/React.createElement("span", {
+              onClick: () => { setShowGistSetup(true); setGistTokenInput(""); setGistIdInput(""); },
+              style: { color: "#FF453A", fontSize: 11, cursor: "pointer", textDecoration: "underline" }
+            }, "পরিবর্তন করুন")
+          ),
+          gistId
+            ? /*#__PURE__*/React.createElement("div", {
+                onClick: () => { navigator.clipboard && navigator.clipboard.writeText(gistId).then(() => setStatus("✅ Gist ID copied! Android-এ paste করুন।")); },
+                style: { background: "#1C1C1E", borderRadius: 10, padding: "8px 12px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }
+              },
+                /*#__PURE__*/React.createElement("span", { style: { color: "#8E8E93", fontSize: 10, fontFamily: "monospace", wordBreak: "break-all", flex: 1 } }, "Gist ID: " + gistId),
+                /*#__PURE__*/React.createElement("span", { style: { color: "#0A84FF", fontSize: 11, flexShrink: 0 } }, "📋 Copy")
+              )
+            : /*#__PURE__*/React.createElement("div", { style: { color: "#FF9F0A", fontSize: 11, textAlign: "center" } }, "⬆️ আগে iOS থেকে Push করুন, তারপর Gist ID পাবে")
         )
       : /*#__PURE__*/React.createElement("div", {
           onClick: () => setShowGistSetup(true),
@@ -7242,7 +7366,17 @@ function DataModal({
         value: gistTokenInput, onChange: e => setGistTokenInput(e.target.value),
         style: { width: "100%", padding: "10px 12px", borderRadius: 10, border: "1px solid #3A3A3C",
           background: "#2C2C2E", color: "#fff", fontSize: 13, outline: "none",
-          boxSizing: "border-box", marginBottom: 10 }
+          boxSizing: "border-box", marginBottom: 8 }
+      }),
+      /*#__PURE__*/React.createElement("div", { style: { color: "#8E8E93", fontSize: 11, marginBottom: 6 } },
+        "📋 Gist ID ", /*#__PURE__*/React.createElement("span", { style: { color: "#636366" } }, "(Android-এ দরকার — iOS থেকে Copy করুন, optional)")
+      ),
+      /*#__PURE__*/React.createElement("input", {
+        type: "text", placeholder: "iOS-এ Gist ID copy করে এখানে paste করুন",
+        value: gistIdInput, onChange: e => setGistIdInput(e.target.value),
+        style: { width: "100%", padding: "10px 12px", borderRadius: 10, border: "1px solid #3A3A3C",
+          background: "#2C2C2E", color: "#fff", fontSize: 12, outline: "none",
+          boxSizing: "border-box", marginBottom: 10, fontFamily: "monospace" }
       }),
       /*#__PURE__*/React.createElement("div", { style: { display: "flex", gap: 8 } },
         /*#__PURE__*/React.createElement("button", {
@@ -9531,6 +9665,17 @@ function WhatsNewModal({ open, onClose }) {
   if (!open) return null;
   const notes = [
     {
+      version: "v26.0",
+      date: "27 Jun 2026",
+      items: [
+        { icon: "✕", label: "New", text: "সব modal-এ top-right corner-এ close button যোগ হয়েছে — যেকোনো জায়গা থেকে one tap-এ বের হওয়া যাবে।" },
+        { icon: "👆", label: "New", text: "Drag-to-dismiss — modal-এর pill bar ধরে নিচে টানলে close হবে, iOS ও Android দুটোতেই।" },
+        { icon: "🐛", label: "Bug Fix", text: "Android-এ Gist Pull করলে 'something went wrong' error আসত — applyImport dependency সরিয়ে fix করা হয়েছে।" },
+        { icon: "🔍", label: "Improvement", text: "Gist Push-এ step-by-step status দেখায় (Step 1/3, 2/3, 3/3) — কোথায় আটকাচ্ছে সহজে বোঝা যায়।" },
+        { icon: "📋", label: "Improvement", text: "iOS থেকে Gist ID copy করে Android-এ paste করার সুবিধা যোগ হয়েছে — cross-device setup আরো সহজ।" },
+      ]
+    },
+    {
       version: "v25.0",
       date: "27 Jun 2026",
       items: [
@@ -10593,8 +10738,9 @@ class AppErrorBoundary extends React.Component {
         React.createElement('div', { style: { fontSize: 56, marginBottom: 16 } }, '⚙️'),
         React.createElement('h2', { style: { fontSize: 22, marginBottom: 12, fontWeight: 900 } }, 'Something went wrong'),
         React.createElement('p', { style: { color: '#8E8E93', fontSize: 13, lineHeight: 1.6, marginBottom: 24 } },
-          'The app encountered an error. Your data is safe.\n', React.createElement('br'),
-          React.createElement('code', { style: { fontSize: 11, color: '#FF453A' } }, this.state.errorMsg)
+          'The app encountered an error. Your data is safe.', React.createElement('br'),
+          React.createElement('br'),
+          React.createElement('code', { style: { fontSize: 12, color: '#FF453A', background: '#1C1C1E', padding: '8px 12px', borderRadius: 8, display: 'block', wordBreak: 'break-all' } }, this.state.errorMsg)
         ),
         React.createElement('button', {
           onClick: () => { this.setState({ hasError: false }); },
