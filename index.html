@@ -6324,6 +6324,7 @@ function DataModal({
   const [gistId,    setGistId]        = useState(() => localStorage.getItem(GIST_ID_KEY)    || "");
   const [showGistSetup, setShowGistSetup] = useState(false);
   const [gistTokenInput, setGistTokenInput] = useState("");
+  const [gistIdInput, setGistIdInput] = useState("");
   const [gistSyncing, setGistSyncing] = useState(false);
 
   async function gistPush() {
@@ -6370,15 +6371,17 @@ function DataModal({
     if (!t) return;
     localStorage.setItem(GIST_TOKEN_KEY, t);
     setGistToken(t);
-    setGistTokenInput("");
+    const gid = gistIdInput.trim();
+    if (gid) { localStorage.setItem(GIST_ID_KEY, gid); setGistId(gid); }
+    setGistTokenInput(""); setGistIdInput("");
     setShowGistSetup(false);
-    setStatus("✅ Token সেভ হয়েছে! এখন Push করুন।");
+    setStatus(gid ? "✅ Token + Gist ID সেভ হয়েছে! Pull করুন।" : "✅ Token সেভ হয়েছে! এখন Push করুন।");
   }
 
   function clearGistToken() {
     localStorage.removeItem(GIST_TOKEN_KEY);
     localStorage.removeItem(GIST_ID_KEY);
-    setGistToken(""); setGistId("");
+    setGistToken(""); setGistId(""); setGistIdInput("");
     setShowGistSetup(false);
     setStatus("Token মুছে ফেলা হয়েছে।");
   }
@@ -7211,13 +7214,23 @@ function DataModal({
       }, gistSyncing ? "⏳ কাজ হচ্ছে…" : "⬇️ Pull — ডাউনলোড")
     ),
     gistToken
-      ? /*#__PURE__*/React.createElement("div", { style: { textAlign: "center", marginBottom: 8 } },
-          /*#__PURE__*/React.createElement("span", { style: { color: "#34C759", fontSize: 11 } }, "✅ Token সেট আছে "),
-          gistId && /*#__PURE__*/React.createElement("span", { style: { color: "#636366", fontSize: 10 } }, "• Gist: " + gistId.slice(0,8) + "…"),
-          /*#__PURE__*/React.createElement("span", {
-            onClick: () => { setShowGistSetup(true); setGistTokenInput(""); },
-            style: { color: "#FF453A", fontSize: 11, marginLeft: 8, cursor: "pointer", textDecoration: "underline" }
-          }, "পরিবর্তন করুন")
+      ? /*#__PURE__*/React.createElement("div", { style: { marginBottom: 8 } },
+          /*#__PURE__*/React.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 4 } },
+            /*#__PURE__*/React.createElement("span", { style: { color: "#34C759", fontSize: 11 } }, "✅ Token সেট আছে"),
+            /*#__PURE__*/React.createElement("span", {
+              onClick: () => { setShowGistSetup(true); setGistTokenInput(""); setGistIdInput(""); },
+              style: { color: "#FF453A", fontSize: 11, cursor: "pointer", textDecoration: "underline" }
+            }, "পরিবর্তন করুন")
+          ),
+          gistId
+            ? /*#__PURE__*/React.createElement("div", {
+                onClick: () => { navigator.clipboard && navigator.clipboard.writeText(gistId).then(() => setStatus("✅ Gist ID copied! Android-এ paste করুন।")); },
+                style: { background: "#1C1C1E", borderRadius: 10, padding: "8px 12px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }
+              },
+                /*#__PURE__*/React.createElement("span", { style: { color: "#8E8E93", fontSize: 10, fontFamily: "monospace", wordBreak: "break-all", flex: 1 } }, "Gist ID: " + gistId),
+                /*#__PURE__*/React.createElement("span", { style: { color: "#0A84FF", fontSize: 11, flexShrink: 0 } }, "📋 Copy")
+              )
+            : /*#__PURE__*/React.createElement("div", { style: { color: "#FF9F0A", fontSize: 11, textAlign: "center" } }, "⬆️ আগে iOS থেকে Push করুন, তারপর Gist ID পাবে")
         )
       : /*#__PURE__*/React.createElement("div", {
           onClick: () => setShowGistSetup(true),
@@ -7242,7 +7255,17 @@ function DataModal({
         value: gistTokenInput, onChange: e => setGistTokenInput(e.target.value),
         style: { width: "100%", padding: "10px 12px", borderRadius: 10, border: "1px solid #3A3A3C",
           background: "#2C2C2E", color: "#fff", fontSize: 13, outline: "none",
-          boxSizing: "border-box", marginBottom: 10 }
+          boxSizing: "border-box", marginBottom: 8 }
+      }),
+      /*#__PURE__*/React.createElement("div", { style: { color: "#8E8E93", fontSize: 11, marginBottom: 6 } },
+        "📋 Gist ID ", /*#__PURE__*/React.createElement("span", { style: { color: "#636366" } }, "(Android-এ দরকার — iOS থেকে Copy করুন, optional)")
+      ),
+      /*#__PURE__*/React.createElement("input", {
+        type: "text", placeholder: "iOS-এ Gist ID copy করে এখানে paste করুন",
+        value: gistIdInput, onChange: e => setGistIdInput(e.target.value),
+        style: { width: "100%", padding: "10px 12px", borderRadius: 10, border: "1px solid #3A3A3C",
+          background: "#2C2C2E", color: "#fff", fontSize: 12, outline: "none",
+          boxSizing: "border-box", marginBottom: 10, fontFamily: "monospace" }
       }),
       /*#__PURE__*/React.createElement("div", { style: { display: "flex", gap: 8 } },
         /*#__PURE__*/React.createElement("button", {
