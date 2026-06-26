@@ -1629,11 +1629,17 @@ function Modal({
 }) {
   const [dragY, setDragY] = React.useState(0);
   const [dragging, setDragging] = React.useState(false);
+  const [visible, setVisible] = React.useState(false);
   const startYRef = React.useRef(null);
-  const sheetRef = React.useRef(null);
 
   React.useEffect(() => {
-    if (!open) { setDragY(0); setDragging(false); }
+    if (open) {
+      requestAnimationFrame(() => requestAnimationFrame(() => setVisible(true)));
+    } else {
+      setVisible(false);
+      setDragY(0);
+      setDragging(false);
+    }
   }, [open]);
 
   function onTouchStart(e) {
@@ -1658,25 +1664,27 @@ function Modal({
 
   if (!open) return null;
 
+  const slideY = dragging ? dragY : (visible ? 0 : 120);
+  const opacity = Math.max(0.3, 0.7 - dragY / 400);
+
   return /*#__PURE__*/React.createElement("div", {
     style: {
       position: "fixed", inset: 0, zIndex: 1000,
-      background: "rgba(0,0,0," + Math.max(0.3, 0.7 - dragY / 400) + ")",
+      background: "rgba(0,0,0," + opacity + ")",
       backdropFilter: "blur(8px)",
-      display: "flex", alignItems: "flex-end", justifyContent: "center"
+      display: "flex", alignItems: "flex-end", justifyContent: "center",
+      transition: dragging ? "none" : "background .28s"
     },
     onClick: onClose
   }, /*#__PURE__*/React.createElement("div", {
-    ref: sheetRef,
     onClick: e => e.stopPropagation(),
     style: {
       background: "#1C1C1E",
       borderRadius: "22px 22px 0 0",
       padding: "0 0 calc(20px + env(safe-area-inset-bottom))",
       width: "100%", maxWidth: 430, maxHeight: "94vh", overflowY: "auto",
-      transform: "translateY(" + dragY + "px)",
-      transition: dragging ? "none" : "transform .3s cubic-bezier(.4,0,.2,1)",
-      animation: dragY === 0 && !dragging ? "slideUp .28s cubic-bezier(.4,0,.2,1)" : "none",
+      transform: "translateY(" + slideY + "px)",
+      transition: dragging ? "none" : "transform .32s cubic-bezier(.4,0,.2,1)",
       willChange: "transform"
     }
   }, /*#__PURE__*/React.createElement("div", {
