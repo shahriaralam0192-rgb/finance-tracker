@@ -10343,6 +10343,23 @@ if (window.__storageReady) {
   __mountApp();
 } else {
   window.addEventListener('__storageReady', __mountApp, { once: true });
-}</script>  
+}
+
+// ── Service Worker: unregister ALL old SWs, then register fresh one ──
+if ('serviceWorker' in navigator) {
+  // First unregister every existing SW to kill stale caches
+  navigator.serviceWorker.getRegistrations().then(function(regs) {
+    regs.forEach(function(reg) { reg.unregister(); });
+  });
+  // Then register the new SW after a short delay
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      navigator.serviceWorker.register('service-worker.js').catch(function(err) {
+        console.warn('SW registration failed:', err);
+      });
+    }, 500);
+  });
+}
+</script>  
 </body>  
 </html>  
