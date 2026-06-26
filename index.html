@@ -6330,20 +6330,56 @@ function DataModal({
   async function gistPush() {
     if (!gistToken) { setShowGistSetup(true); return; }
     setGistSyncing(true);
-    setStatus("☁️ আপলোড হচ্ছে…");
     try {
-      const payload = JSON.stringify({ backupVersion: 2, entries, cats, items, budgets: load(KEYS.budgets, {}), syncedAt: new Date().toISOString() }, null, 2);
-      const body = { description: "Finance Tracker — Auto Sync", public: false, files: { "finance_data.json": { content: payload } } };
-      let url = "https://api.github.com/gists";
-      let method = "POST";
-      if (gistId) { url += "/" + gistId; method = "PATCH"; }
-      const res = await fetch(url, { method, headers: { Authorization: "Bearer " + gistToken, "Content-Type": "application/json", "X-GitHub-Api-Version": "2022-11-28" }, body: JSON.stringify(body) });
-      if (!res.ok) { const e = await res.json(); throw new Error(e.message || res.status); }
-      const data = await res.json();
-      if (!gistId) { localStorage.setItem(GIST_ID_KEY, data.id); setGistId(data.id); }
-      setStatus("✅ Gist-এ সেভ হয়েছে! (Private)");
+      // Step 1 — build payload
+      setStatus("⏳ Step 1/3: Data তৈরি হচ্ছে…");
+      const payload = JSON.stringify({
+        backupVersion: 2, entries, cats, items,
+        budgets: load(KEYS.budgets, {}),
+        syncedAt: new Date().toISOString()
+      }, null, 2);
+      setStatus("⏳ Step 2/3: GitHub-এ connect হচ্ছে… (" + (payload.length / 1024).toFixed(1) + " KB)");
+
+      // Step 2 — API call
+      const isUpdate = !!gistId;
+      const url = isUpdate ? "https://api.github.com/gists/" + gistId : "https://api.github.com/gists";
+      const method = isUpdate ? "PATCH" : "POST";
+      let res;
+      try {
+        res = await fetch(url, {
+          method,
+          headers: {
+            Authorization: "Bearer " + gistToken,
+            "Content-Type": "application/json",
+            "X-GitHub-Api-Version": "2022-11-28"
+          },
+          body: JSON.stringify({
+            description: "Finance Tracker — Auto Sync",
+            public: false,
+            files: { "finance_data.json": { content: payload } }
+          })
+        });
+      } catch(netErr) {
+        throw new Error("Network error — internet connection আছে? (" + netErr.message + ")");
+      }
+
+      // Step 3 — parse response
+      setStatus("⏳ Step 3/3: Response পড়া হচ্ছে… (HTTP " + res.status + ")");
+      const respText = await res.text();
+      if (!res.ok) {
+        let msg = "HTTP " + res.status;
+        try { const j = JSON.parse(respText); msg = j.message || msg; } catch(e) {}
+        throw new Error(msg + " — token-এ gist scope আছে?");
+      }
+      const data = JSON.parse(respText);
+      if (!isUpdate) {
+        localStorage.setItem(GIST_ID_KEY, data.id);
+        setGistId(data.id);
+      }
+      const count = entries.length;
+      setStatus("✅ Push সফল! " + count + "টা transaction, Gist ID: " + (data.id || gistId).slice(0, 10) + "…");
     } catch(e) {
-      setStatus("❌ Push failed: " + e.message);
+      setStatus("❌ " + (e.message || String(e)));
     } finally { setGistSyncing(false); }
   }
 
@@ -6352,22 +6388,28 @@ function DataModal({
     setGistSyncing(true);
     setStatus("☁️ ডাউনলোড হচ্ছে…");
     try {
-      const res = await fetch("https://api.github.com/gists/" + gistId, { headers: { Authorization: "Bearer " + gistToken, "X-GitHub-Api-Version": "2022-11-28" } });
-      if (!res.ok) throw new Error("Gist পাওয়া যায়নি — " + res.status);
+      const res = await fetch("https://api.github.com/gists/" + gistId, {
+        headers: { Authorization: "Bearer " + gistToken, "X-GitHub-Api-Version": "2022-11-28" }
+      });
+      if (!res.ok) throw new Error("HTTP " + res.status + " — token বা Gist ID চেক করুন");
       const data = await res.json();
-      const raw = data.files?.["finance_data.json"]?.content;
-      if (!raw) throw new Error("finance_data.json file not found in gist");
-      const parsed = JSON.parse(raw);
-      if (parsed.backupVersion !== 2) throw new Error("Invalid backup format");
-      const ok = applyImport(parsed);
-      if (parsed.budgets && typeof parsed.budgets === "object") {
-        save(KEYS.budgets, parsed.budgets);
+      const fileObj = data.files && data.files["finance_data.json"];
+      if (!fileObj) throw new Error("Gist-এ finance_data.json নেই");
+      let raw = fileObj.content;
+      if (fileObj.truncated && fileObj.raw_url) {
+        const r2 = await fetch(fileObj.raw_url);
+        raw = await r2.text();
       }
-      if (!ok) throw new Error("Data format টা ঠিক নেই");
-      setStatus("✅ Sync সম্পন্ন! ডেটা আপডেট হয়েছে 🎉");
+      const parsed = JSON.parse(raw);
+      if (!parsed || parsed.backupVersion !== 2) throw new Error("Backup format ঠিক নেই (v" + (parsed && parsed.backupVersion) + ")");
+      if (Array.isArray(parsed.entries)) onImport(parsed.entries);
+      if (parsed.cats && typeof parsed.cats === "object") setCats(parsed.cats);
+      if (parsed.items && typeof parsed.items === "object") setItems(parsed.items);
+      if (parsed.budgets && typeof parsed.budgets === "object") save(KEYS.budgets, parsed.budgets);
+      setStatus("✅ Sync সম্পন্ন! " + (parsed.entries ? parsed.entries.length : 0) + "টা transaction restore হয়েছে 🎉");
       setTimeout(() => onClose(), 1800);
     } catch(e) {
-      setStatus("❌ Pull failed: " + e.message);
+      setStatus("❌ " + (e.message || String(e)));
     } finally { setGistSyncing(false); }
   }
 
@@ -10621,8 +10663,9 @@ class AppErrorBoundary extends React.Component {
         React.createElement('div', { style: { fontSize: 56, marginBottom: 16 } }, '⚙️'),
         React.createElement('h2', { style: { fontSize: 22, marginBottom: 12, fontWeight: 900 } }, 'Something went wrong'),
         React.createElement('p', { style: { color: '#8E8E93', fontSize: 13, lineHeight: 1.6, marginBottom: 24 } },
-          'The app encountered an error. Your data is safe.\n', React.createElement('br'),
-          React.createElement('code', { style: { fontSize: 11, color: '#FF453A' } }, this.state.errorMsg)
+          'The app encountered an error. Your data is safe.', React.createElement('br'),
+          React.createElement('br'),
+          React.createElement('code', { style: { fontSize: 12, color: '#FF453A', background: '#1C1C1E', padding: '8px 12px', borderRadius: 8, display: 'block', wordBreak: 'break-all' } }, this.state.errorMsg)
         ),
         React.createElement('button', {
           onClick: () => { this.setState({ hasError: false }); },
