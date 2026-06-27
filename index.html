@@ -1674,35 +1674,39 @@ function Modal({
       borderRadius: "22px 22px 0 0",
       padding: "0 0 calc(20px + env(safe-area-inset-bottom))",
       width: "100%", maxWidth: 430, maxHeight: "94vh", overflowY: "auto",
+      overflowX: "visible",
       transform: "translateY(" + dragY + "px)",
       transition: dragging ? "none" : "transform .3s cubic-bezier(.4,0,.2,1)",
       animation: dragY === 0 && !dragging ? "slideUp .28s cubic-bezier(.4,0,.2,1)" : "none",
       willChange: "transform"
     }
   }, /*#__PURE__*/React.createElement("div", {
+    style: { position: "relative" }
+  }, /*#__PURE__*/React.createElement("div", {
     onTouchStart: onTouchStart,
     onTouchMove: onTouchMove,
     onTouchEnd: onTouchEnd,
     style: {
-      padding: "12px 0 4px", cursor: "grab", touchAction: "none",
-      display: "flex", justifyContent: "center", position: "relative"
+      padding: "14px 0 10px", cursor: "grab", touchAction: "none",
+      display: "flex", justifyContent: "center", alignItems: "center"
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       width: 36, height: 4, background: "#48484A",
       borderRadius: 2, pointerEvents: "none"
     }
-  }), /*#__PURE__*/React.createElement("button", {
+  })), /*#__PURE__*/React.createElement("button", {
     onClick: onClose,
     style: {
-      position: "absolute", right: 14, top: "50%",
-      transform: "translateY(-50%)",
-      width: 28, height: 28, borderRadius: "50%",
+      position: "absolute", right: 14, top: 10,
+      width: 32, height: 32, borderRadius: "50%",
       background: "#3A3A3C", border: "none",
-      color: "#8E8E93", fontSize: 14, fontWeight: 700,
+      color: "#8E8E93", fontSize: 15, fontWeight: 700,
       display: "flex", alignItems: "center", justifyContent: "center",
       cursor: "pointer", outline: "none", lineHeight: 1,
-      touchAction: "manipulation"
+      touchAction: "manipulation",
+      WebkitTapHighlightColor: "transparent",
+      zIndex: 10
     }
   }, "✕")), children));
 }
@@ -9657,6 +9661,16 @@ function WhatsNewModal({ open, onClose }) {
   if (!open) return null;
   const notes = [
     {
+      version: "v27.0",
+      date: "27 Jun 2026",
+      items: [
+        { icon: "🐛", label: "Bug Fix", text: "Modal close button (✕) আর half কাটা যাবে না — drag pill-এর নিচে সঠিক জায়গায় বসানো হয়েছে।" },
+        { icon: "🐛", label: "Bug Fix", text: "Close button touch area বাড়ানো হয়েছে (32px) — আঙুলে সহজে tap হবে।" },
+        { icon: "🔧", label: "Improvement", text: "Close button এখন drag gesture থেকে আলাদা wrapper-এ — drag করতে গিয়ে ভুলে close হবে না।" },
+        { icon: "🔧", label: "Improvement", text: "iOS Safari-তে button tap করলে নীল highlight আসবে না।" },
+      ]
+    },
+    {
       version: "v26.0",
       date: "27 Jun 2026",
       items: [
@@ -9735,14 +9749,25 @@ function WhatsNewModal({ open, onClose }) {
           React.createElement("div", { style: { fontSize: 20, fontWeight: 900, color: "#fff" } }, "📋 What's New"),
           React.createElement("div", { style: { fontSize: 12, color: "#8E8E93", marginTop: 2 } }, "Finance Tracker — Release Notes")
         ),
-        React.createElement("button", {
-          onClick: onClose,
-          style: {
-            background: "#3A3A3C", border: "none", borderRadius: "50%",
-            width: 30, height: 30, color: "#fff", fontSize: 16,
-            cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center"
-          }
-        }, "×")
+        React.createElement("div", { style: { display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6 } },
+          React.createElement("div", {
+            style: {
+              fontSize: 9, fontWeight: 800, letterSpacing: 0.8,
+              color: "#f0a500", border: "1px solid #f0a500",
+              borderRadius: 6, padding: "3px 7px",
+              textTransform: "uppercase", opacity: 0.9,
+              lineHeight: 1.3
+            }
+          }, "✦ GitHub Special Edition"),
+          React.createElement("button", {
+            onClick: onClose,
+            style: {
+              background: "#3A3A3C", border: "none", borderRadius: "50%",
+              width: 30, height: 30, color: "#fff", fontSize: 16,
+              cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center"
+            }
+          }, "×")
+        )
       ),
       // Release sections
       notes.map(release =>
