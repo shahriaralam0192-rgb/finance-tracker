@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">  
     <meta name="apple-mobile-web-app-capable" content="yes">  
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">  
-    <title>Finance Tracker v26 · Android</title>
+    <title>Finance Tracker v24.0 AI</title>
     <!-- React & ReactDOM embedded inline for fully offline use -->
     <script>/**
  * @license React
@@ -364,148 +364,6 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
             display: none;  
         }  
   
-        /* ── Android Version Identifier ── */
-        :root { --platform: "android"; }
-
-        /* ── Android Material You Slide Transitions ──────────────────────
-           Shared-axis horizontal — content slides in, previous fades+shrinks.
-           Matches Material Motion: https://m3.material.io/styles/motion
-        ── */
-        @keyframes md3SlideInRight {
-            0%   { transform: translateX(60px); opacity: 0; }
-            100% { transform: translateX(0);    opacity: 1; }
-        }
-        @keyframes md3SlideInLeft {
-            0%   { transform: translateX(-60px); opacity: 0; }
-            100% { transform: translateX(0);     opacity: 1; }
-        }
-        @keyframes md3FadeScaleIn {
-            0%   { transform: scale(0.92); opacity: 0; }
-            100% { transform: scale(1);    opacity: 1; }
-        }
-        .md3-slide-in-right { animation: md3SlideInRight 0.30s cubic-bezier(0.2,0,0,1) both; }
-        .md3-slide-in-left  { animation: md3SlideInLeft  0.30s cubic-bezier(0.2,0,0,1) both; }
-        .md3-fade-in        { animation: md3FadeScaleIn  0.25s cubic-bezier(0.2,0,0,1) both; }
-
-        /* ── Material Ripple ─────────────────────────────────────────────── */
-        @keyframes md3Ripple {
-            0%   { transform: scale(0);   opacity: 0.28; }
-            100% { transform: scale(2.5); opacity: 0; }
-        }
-        .md3-ripple-host {
-            position: relative;
-            overflow: hidden;
-        }
-        .md3-ripple-host::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at var(--rx,50%) var(--ry,50%), rgba(255,255,255,0.22) 0%, transparent 60%);
-            opacity: 0;
-            pointer-events: none;
-            border-radius: inherit;
-            transition: opacity 0.08s;
-        }
-        .md3-ripple-host:active::after { opacity: 1; }
-
-        /* ── Android Bottom Navigation Bar ──────────────────────────────── */
-        .md3-bottom-nav {
-            position: fixed;
-            bottom: 0; left: 0; right: 0;
-            height: calc(64px + env(safe-area-inset-bottom));
-            padding-bottom: env(safe-area-inset-bottom);
-            background: rgba(16,16,20,0.96);
-            border-top: 1px solid rgba(255,255,255,0.07);
-            display: flex;
-            align-items: stretch;
-            z-index: 200;
-            /* Material elevation shadow */
-            box-shadow: 0 -2px 12px rgba(0,0,0,0.35);
-        }
-        .md3-nav-item {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            padding: 8px 4px 4px;
-            -webkit-tap-highlight-color: transparent;
-            outline: none;
-            user-select: none;
-            -webkit-user-select: none;
-            position: relative;
-            overflow: hidden;
-            transition: background 0.15s ease;
-        }
-        /* Ripple on tap */
-        .md3-nav-item::before {
-            content: "";
-            position: absolute;
-            width: 48px; height: 32px;
-            border-radius: 16px;
-            background: rgba(255,255,255,0);
-            top: 6px; left: 50%; transform: translateX(-50%);
-            transition: background 0.15s ease;
-        }
-        .md3-nav-item.active::before {
-            background: rgba(76,175,80,0.18);
-        }
-        .md3-nav-item:active::before {
-            background: rgba(255,255,255,0.12);
-        }
-        /* Active indicator pill */
-        .md3-nav-indicator {
-            position: absolute;
-            top: 6px; left: 50%;
-            transform: translateX(-50%);
-            width: 48px; height: 32px;
-            border-radius: 16px;
-            background: rgba(76,175,80,0.22);
-            opacity: 0;
-            transition: opacity 0.2s ease, width 0.2s cubic-bezier(0.2,0,0,1);
-        }
-        .md3-nav-item.active .md3-nav-indicator {
-            opacity: 1;
-            width: 56px;
-        }
-        .md3-nav-icon {
-            font-size: 22px;
-            line-height: 1;
-            position: relative;
-            z-index: 1;
-            transition: transform 0.2s cubic-bezier(0.2,0,0,1);
-        }
-        .md3-nav-item.active .md3-nav-icon {
-            transform: translateY(-1px) scale(1.06);
-        }
-        .md3-nav-label {
-            font-size: 10px;
-            font-weight: 500;
-            letter-spacing: 0.3px;
-            position: relative;
-            z-index: 1;
-            transition: color 0.15s ease, font-weight 0.15s ease;
-            font-family: 'Google Sans', 'Roboto', system-ui, sans-serif;
-        }
-        .md3-nav-item.active .md3-nav-label {
-            color: #4CAF50;
-            font-weight: 700;
-        }
-        .md3-nav-item:not(.active) .md3-nav-label {
-            color: #757575;
-        }
-        .md3-nav-item:not(.active) .md3-nav-icon {
-            filter: grayscale(0.5) opacity(0.65);
-        }
-        /* Content padding for nav bar */
-        .md3-content-pad {
-            padding-bottom: calc(76px + env(safe-area-inset-bottom));
-        }
-
         /* CSS Animation Sequences */  
         @keyframes slideUp {  
             from {  
@@ -1771,17 +1629,11 @@ function Modal({
 }) {
   const [dragY, setDragY] = React.useState(0);
   const [dragging, setDragging] = React.useState(false);
-  const [visible, setVisible] = React.useState(false);
   const startYRef = React.useRef(null);
+  const sheetRef = React.useRef(null);
 
   React.useEffect(() => {
-    if (open) {
-      requestAnimationFrame(() => requestAnimationFrame(() => setVisible(true)));
-    } else {
-      setVisible(false);
-      setDragY(0);
-      setDragging(false);
-    }
+    if (!open) { setDragY(0); setDragging(false); }
   }, [open]);
 
   function onTouchStart(e) {
@@ -1806,27 +1658,25 @@ function Modal({
 
   if (!open) return null;
 
-  const slideY = dragging ? dragY : (visible ? 0 : 120);
-  const opacity = Math.max(0.3, 0.7 - dragY / 400);
-
   return /*#__PURE__*/React.createElement("div", {
     style: {
       position: "fixed", inset: 0, zIndex: 1000,
-      background: "rgba(0,0,0," + opacity + ")",
+      background: "rgba(0,0,0," + Math.max(0.3, 0.7 - dragY / 400) + ")",
       backdropFilter: "blur(8px)",
-      display: "flex", alignItems: "flex-end", justifyContent: "center",
-      transition: dragging ? "none" : "background .28s"
+      display: "flex", alignItems: "flex-end", justifyContent: "center"
     },
     onClick: onClose
   }, /*#__PURE__*/React.createElement("div", {
+    ref: sheetRef,
     onClick: e => e.stopPropagation(),
     style: {
       background: "#1C1C1E",
       borderRadius: "22px 22px 0 0",
       padding: "0 0 calc(20px + env(safe-area-inset-bottom))",
       width: "100%", maxWidth: 430, maxHeight: "94vh", overflowY: "auto",
-      transform: "translateY(" + slideY + "px)",
-      transition: dragging ? "none" : "transform .32s cubic-bezier(.4,0,.2,1)",
+      transform: "translateY(" + dragY + "px)",
+      transition: dragging ? "none" : "transform .3s cubic-bezier(.4,0,.2,1)",
+      animation: dragY === 0 && !dragging ? "slideUp .28s cubic-bezier(.4,0,.2,1)" : "none",
       willChange: "transform"
     }
   }, /*#__PURE__*/React.createElement("div", {
@@ -9954,24 +9804,6 @@ function App() {
   const [budgets, setBudgets] = useState(() => load(KEYS.budgets, {}));
   const [view, setView] = useState("daily");
   const [mainTab, setMainTab] = useState("overview");
-  const [androidSlideDir, setAndroidSlideDir] = React.useState("right");
-
-  // Wire Android bottom nav events to React state
-  React.useEffect(() => {
-    const handler = (e) => {
-      if (e.detail && e.detail.tab) {
-        setAndroidSlideDir(e.detail.dir || "right");
-        setMainTab(e.detail.tab);
-      }
-    };
-    window.addEventListener("androidTabChange", handler);
-    return () => window.removeEventListener("androidTabChange", handler);
-  }, [mainTab]);
-
-  // Sync Android nav bar when tab changes from inside app
-  React.useEffect(() => {
-    window.dispatchEvent(new CustomEvent("androidTabSynced", { detail: { tab: mainTab } }));
-  }, [mainTab]);
   const [search, setSearch] = useState("");
   const [showAdd, setShowAdd] = useState(false);
   const [addType, setAddType] = useState("expense");
@@ -10791,7 +10623,6 @@ return /*#__PURE__*/React.createElement("div", {
       border: "none",
       cursor: "pointer",
       flexShrink: 0,
-      display: "none",
       background: mainTab === t ? theme.primary : theme.surface,
       color: mainTab === t ? "#fff" : "#8E8E93",
       fontWeight: mainTab === t ? 800 : 600,
@@ -10800,8 +10631,7 @@ return /*#__PURE__*/React.createElement("div", {
     }
   }, i, " ", t.charAt(0).toUpperCase() + t.slice(1)))), !search.trim() && /*#__PURE__*/React.createElement("div", {
     key: mainTab,
-    "data-androidcontent": "1",
-    className: androidSlideDir === "right" ? "md3-slide-in-right md3-content-pad" : "md3-slide-in-left md3-content-pad"
+    style: { animation: "chartFadeIn .35s cubic-bezier(.22,1,.36,1) both" }
   }, mainTab === "overview" && renderOverviewTab(), mainTab === "units" && renderUnitsTab(), mainTab === "daily" && /*#__PURE__*/React.createElement(DailyHistoryScreen, {
     entries: entries,
     cats: cats,
@@ -10959,66 +10789,6 @@ if ('serviceWorker' in navigator) {
     }, 500);
   });
 }
-// ── Android Material You Bottom Nav — dynamic inject ─────────────────────
-(function() {
-  var TAB_ORDER = ["overview","units","daily","charts","bike","transactions"];
-  var TAB_META  = {
-    overview:     { icon: "📊", label: "Overview" },
-    units:        { icon: "📦", label: "Units"     },
-    daily:        { icon: "📅", label: "Daily"     },
-    charts:       { icon: "📈", label: "Charts"    },
-    bike:         { icon: "🏍️", label: "Bike"      },
-    transactions: { icon: "📋", label: "History"   }
-  };
-
-  var currentTab = "overview";
-  var nav = document.createElement("nav");
-  nav.className = "md3-bottom-nav";
-  nav.id = "androidBottomNav";
-
-  function buildNav(activeTab) {
-    nav.innerHTML = "";
-    TAB_ORDER.forEach(function(key) {
-      var m   = TAB_META[key];
-      var btn = document.createElement("button");
-      btn.className = "md3-nav-item md3-ripple-host" + (key === activeTab ? " active" : "");
-      btn.setAttribute("aria-label", m.label);
-      btn.innerHTML =
-        '<span class="md3-nav-indicator"></span>' +
-        '<span class="md3-nav-icon">' + m.icon + '</span>' +
-        '<span class="md3-nav-label">' + m.label + '</span>';
-
-      // Ripple position tracking
-      btn.addEventListener("pointerdown", function(e) {
-        var r = btn.getBoundingClientRect();
-        btn.style.setProperty("--rx", ((e.clientX - r.left) / r.width * 100) + "%");
-        btn.style.setProperty("--ry", ((e.clientY - r.top)  / r.height * 100) + "%");
-      });
-
-      btn.addEventListener("click", function() {
-        if (key === currentTab) return;
-        var fromIdx = TAB_ORDER.indexOf(currentTab);
-        var toIdx   = TAB_ORDER.indexOf(key);
-        var dir     = toIdx > fromIdx ? "right" : "left";
-        var evt = new CustomEvent("androidTabChange", { detail: { tab: key, dir: dir } });
-        window.dispatchEvent(evt);
-        currentTab = key;
-        buildNav(key);
-      });
-      nav.appendChild(btn);
-    });
-  }
-
-  window.addEventListener("androidTabSynced", function(e) {
-    if (e.detail && e.detail.tab && e.detail.tab !== currentTab) {
-      currentTab = e.detail.tab;
-      buildNav(e.detail.tab);
-    }
-  });
-
-  buildNav("overview");
-  document.body.appendChild(nav);
-})();
 </script>  
 </body>  
 </html>  
