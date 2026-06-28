@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">  
     <meta name="apple-mobile-web-app-capable" content="yes">  
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">  
-    <title>Finance Tracker v36.0</title>
+    <title>Finance Tracker v42.0</title>
     <!-- React & ReactDOM embedded inline for fully offline use -->
     <script>/**
  * @license React
@@ -889,6 +889,24 @@ const DEFAULT_GROCERY = [
   { id: "groc_flour",         label: "Wheat Flour / আটা",               icon: "🌾", unit: "kg" },
   { id: "groc_maida",         label: "Refined Flour / ময়দা",            icon: "🌾", unit: "kg" },
   { id: "groc_suji",          label: "Semolina / সুজি",                 icon: "🌾", unit: "kg" },
+  { id: "groc_pasta",         label: "Pasta / পাস্তা",                  icon: "🍝", unit: "gram",
+    aliases: ["pasta", "spaghetti", "macaroni", "penne"] },
+  { id: "groc_sago",          label: "Sago Pearls / সাগু",              icon: "🌾", unit: "gram",
+    aliases: ["sago", "shagu", "sago pearls", "tapioca", "sabu dana"] },
+  { id: "groc_corn_flour",    label: "Corn Flour / কর্ন ফ্লাওয়ার",    icon: "🌽", unit: "gram",
+    aliases: ["corn flour", "corn starch", "cornflour", "maize flour"] },
+  { id: "groc_tempura_flour", label: "Tempura Flour / টেমপুরা ফ্লাওয়ার", icon: "🌾", unit: "gram",
+    aliases: ["tempura flour", "tempura mix", "tempura batter"] },
+  { id: "groc_yeast",         label: "Yeast / ইস্ট",                    icon: "🫙", unit: "gram",
+    aliases: ["yeast", "instant yeast", "dry yeast", "bread yeast", "ist"] },
+  { id: "groc_vanilla",       label: "Vanilla Essence / ভ্যানিলা এসেন্স", icon: "🫙", unit: "piece",
+    aliases: ["vanilla essence", "vanilla extract", "vanilla flavor"] },
+  { id: "groc_dal_chola",     label: "Chickpea Dal / চোলার ডাল",         icon: "🫘", unit: "kg",
+    aliases: ["cholar dal", "chola dal", "chana dal", "cholar daal"] },
+  { id: "groc_chola_whole",   label: "Whole Chickpea / আস্ত ছোলা",        icon: "🫘", unit: "kg",
+    aliases: ["asto chola", "whole chickpea", "kabuli chana", "boot", "chhola"] },
+  { id: "groc_beson",         label: "Gram Flour / বেসন",                  icon: "🌾", unit: "kg",
+    aliases: ["beson", "besan", "chickpea flour", "gram flour"] },
   { id: "groc_dal_other",     label: "Other Pulse / অন্য ডাল",          icon: "🫘", unit: "kg" },
 
   /* ── Cooking Oil / তেল ── */
@@ -896,22 +914,70 @@ const DEFAULT_GROCERY = [
     aliases: ["rupchada", "soyabean oil", "soybean oil", "fresh soyabean", "pran soyabean", "teer soyabean", "bashundhara soyabean"] },
   { id: "groc_oil_mustard",   label: "Mustard Oil / সরিষার তেল",        icon: "🫙", unit: "liter" },
   { id: "groc_ghee",          label: "Ghee / ঘি",                       icon: "🫙", unit: "kg" },
+  { id: "groc_tomato_sauce",  label: "Tomato Sauce / টমেটো সস",         icon: "🥫", unit: "piece",
+    aliases: ["tomato sauce", "tomato ketchup", "ketchup", "tomsauce"] },
+  { id: "groc_garlic_sauce",  label: "Garlic Sauce / গার্লিক সস",       icon: "🥫", unit: "piece",
+    aliases: ["garlic sauce", "garlic paste sauce", "garlic chili sauce"] },
+  { id: "groc_soy_sauce",     label: "Soy Sauce / সোয়া সস",             icon: "🥫", unit: "piece",
+    aliases: ["soy sauce", "soya sauce", "dark soy sauce"] },
+  { id: "groc_chicken_sauce", label: "Chicken Sauce / চিকেন সস",        icon: "🥫", unit: "piece",
+    aliases: ["chicken sauce", "chicken chili sauce", "nando sauce"] },
+  { id: "groc_vinegar",       label: "Vinegar / ভিনেগার",               icon: "🫙", unit: "piece",
+    aliases: ["vinegar", "white vinegar", "distilled vinegar"] },
+  { id: "groc_acv",           label: "Apple Cider Vinegar / অ্যাপেল সিডার ভিনেগার", icon: "🫙", unit: "piece",
+    aliases: ["apple cider vinegar", "acv", "apple vinegar", "braggs acv"] },
+  { id: "groc_honey",         label: "Honey / মধু",                     icon: "🍯", unit: "piece",
+    aliases: ["honey", "modhu", "pure honey", "raw honey", "natural honey"] },
   { id: "groc_oil_other",     label: "Other Oil / অন্য তেল",            icon: "🫙", unit: "liter" },
 
   /* ── Spices / মসলা ── */
-  { id: "groc_turmeric",      label: "Turmeric / হলুদ",                 icon: "🌿", unit: "gram",
+  { id: "groc_turmeric",       label: "Turmeric Powder / হলুদ গুড়া",               icon: "🌿", unit: "gram",
     aliases: ["radhuni turmeric", "turmeric powder", "haldi powder"] },
-  { id: "groc_chili",         label: "Chili / মরিচ",                    icon: "🌶️", unit: "gram",
+  { id: "groc_turmeric_whole", label: "Whole Turmeric / আস্ত হলুদ",                icon: "🌿", unit: "gram",
+    aliases: ["asto holud", "raw turmeric", "kachi holud"] },
+  { id: "groc_chili",          label: "Red Chili Powder / মরিচ গুড়া",                icon: "🌶️", unit: "gram",
     aliases: ["radhuni chili", "radhuni morich", "chili powder", "morich powder"] },
-  { id: "groc_coriander",     label: "Coriander / ধনিয়া",              icon: "🌿", unit: "gram",
+  { id: "groc_dried_chili",    label: "Dried Red Chili / শুকনো মরিচ",              icon: "🌶️", unit: "gram",
+    aliases: ["shukno morich", "dry chili", "whole red chili", "asto morich"] },
+  { id: "groc_coriander",      label: "Coriander Powder / ধনিয়া গুড়া",             icon: "🌿", unit: "gram",
     aliases: ["radhuni coriander", "dhonia powder"] },
-  { id: "groc_cumin",         label: "Cumin / জিরা",                    icon: "🌿", unit: "gram",
+  { id: "groc_coriander_whole", label: "Whole Coriander / আস্ত ধনিয়া",           icon: "🌿", unit: "gram",
+    aliases: ["asto dhonia", "whole coriander seeds", "dhonia bij"] },
+  { id: "groc_cumin",         label: "Cumin Powder / জিরা গুড়া",                    icon: "🌿", unit: "gram",
     aliases: ["daily shopping cumin", "radhuni cumin", "jeera"] },
+  { id: "groc_garam_masala",  label: "Garam Masala Powder / গরম মসলা গুড়া",          icon: "🌿", unit: "gram",
+    aliases: ["gorom mosla", "mixed spice", "garam masala powder"] },
+  { id: "groc_black_pepper",  label: "Black Pepper Powder / গোলমরিচ গুড়া",          icon: "🌿", unit: "gram",
+    aliases: ["golmorich powder", "black pepper powder", "kali mirch", "golmorich gura"] },
+  { id: "groc_chicken_powder",label: "Chicken Powder / চিকেন পাউডার",                icon: "🌿", unit: "gram",
+    aliases: ["chicken powder", "chicken stock powder", "chicken bouillon", "maggi chicken"] },
+  { id: "groc_food_color",    label: "Food Color / ফুড কালার",                        icon: "🎨", unit: "piece",
+    aliases: ["food color", "food colour", "food dye", "biryani color"] },
   { id: "groc_spice_other",   label: "Other Spice / অন্য মসলা",         icon: "🌶️", unit: "gram" },
+
+  /* ── Whole Spices / গোটা মসলা ── */
+  { id: "groc_cardamom",      label: "Cardamom / এলাচি",                 icon: "🌿", unit: "gram",
+    aliases: ["elachi", "elaichi", "cardamom pods"] },
+  { id: "groc_cinnamon",      label: "Cinnamon / দারুচিনি",              icon: "🌿", unit: "gram",
+    aliases: ["daruchini", "darchini"] },
+  { id: "groc_bay_leaf",      label: "Bay Leaf / তেজপাতা",               icon: "🍃", unit: "gram",
+    aliases: ["tejpata", "tej pata"] },
+  { id: "groc_cloves",        label: "Cloves / লবঙ্গ",                   icon: "🌿", unit: "gram",
+    aliases: ["lobongo", "lavang"] },
+  { id: "groc_whole_cumin",   label: "Whole Cumin / গোটা জিরা",          icon: "🌿", unit: "gram",
+    aliases: ["gota jira", "whole jeera", "cumin seeds"] },
+  { id: "groc_panch_phoron",  label: "Five-Spice / পাঁচ ফোড়ন",          icon: "🌿", unit: "gram",
+    aliases: ["panch phoron", "paanch foron", "five spice"] },
 
   /* ── Taste Enhancers ── */
   { id: "groc_salt",          label: "Salt / লবণ",                      icon: "🧂", unit: "kg",
     aliases: ["aci pure salt", "aci salt", "pure salt", "molla salt"] },
+  { id: "groc_rock_salt",     label: "Rock Salt / রক সল্ট",              icon: "🧂", unit: "gram",
+    aliases: ["rock salt", "korkoch lobon", "rock lobon", "sendha namak"] },
+  { id: "groc_pink_salt",     label: "Pink Salt / পিঙ্ক সল্ট",           icon: "🧂", unit: "gram",
+    aliases: ["pink salt", "himalayan pink salt", "himalayan salt"] },
+  { id: "groc_testing_salt",  label: "Testing Salt / টেস্টিং সল্ট",     icon: "🧂", unit: "gram",
+    aliases: ["testing salt", "msg", "monosodium glutamate", "ajinomoto"] },
   { id: "groc_sugar",         label: "Sugar / চিনি",                    icon: "🍚", unit: "kg",
     aliases: ["bsfic akher chini", "bsfic chini", "akher chini", "akher chini sugar"] },
 
@@ -924,8 +990,46 @@ const DEFAULT_GROCERY = [
   { id: "groc_potato",        label: "Potato / আলু",                    icon: "🥔", unit: "kg" },
   { id: "groc_tomato",        label: "Tomato / টমেটো",                  icon: "🍅", unit: "kg" },
   { id: "groc_eggplant",      label: "Eggplant / বেগুন",                icon: "🍆", unit: "kg" },
-  { id: "groc_gourd",         label: "Bottle Gourd / লাউ",              icon: "🥬", unit: "piece" },
-  { id: "groc_spinach",       label: "Spinach / পালং শাক",              icon: "🥬", unit: "kg" },
+  { id: "groc_okra",          label: "Okra / ঢেঁড়স",                   icon: "🥦", unit: "kg",
+    aliases: ["dherosh", "dheros", "ladies finger", "bhindi"] },
+  { id: "groc_potol",         label: "Pointed Gourd / পটল",             icon: "🥬", unit: "kg",
+    aliases: ["parwal", "pointed gourd"] },
+  { id: "groc_bitter_gourd",  label: "Bitter Gourd / করলা",             icon: "🥦", unit: "kg",
+    aliases: ["korola", "karela", "bitter melon"] },
+  { id: "groc_gourd",         label: "Bottle Gourd / লাউ",              icon: "🥬", unit: "piece",
+    aliases: ["lau", "lauki", "bottle gourd"] },
+  { id: "groc_sweet_gourd",   label: "Sweet Gourd / মিষ্টি কুমড়া",     icon: "🎃", unit: "kg",
+    aliases: ["misti kumra", "sweet pumpkin", "kumra"] },
+  { id: "groc_green_papaya",  label: "Green Papaya / কাঁচা পেঁপে",      icon: "🥭", unit: "kg",
+    aliases: ["kacha pepe", "raw papaya", "green papaw"] },
+  { id: "groc_green_chili",   label: "Green Chili / কাঁচা মরিচ",        icon: "🌶️", unit: "gram",
+    aliases: ["kacha morich", "green pepper", "hari mirch"] },
+  { id: "groc_lemon",         label: "Lemon / লেবু",                    icon: "🍋", unit: "piece",
+    aliases: ["lebu", "lime", "citrus"] },
+  { id: "groc_capsicum",      label: "Capsicum / ক্যাপ্সিকাম",          icon: "🫑", unit: "piece",
+    aliases: ["capsicum", "bell pepper", "shimla mirch", "sweet pepper", "colored pepper"] },
+
+  /* ── Winter & Root Vegetables / শীতকালীন সবজি ── */
+  { id: "groc_carrot",        label: "Carrot / গাজর",                   icon: "🥕", unit: "kg",
+    aliases: ["gajor", "gajar"] },
+  { id: "groc_cauliflower",   label: "Cauliflower / ফুল কপি",           icon: "🥦", unit: "piece",
+    aliases: ["phul kopi", "phulkopi"] },
+  { id: "groc_cabbage",       label: "Cabbage / বাঁধা কপি",             icon: "🥬", unit: "piece",
+    aliases: ["badha kopi", "bandhakopi"] },
+  { id: "groc_radish",        label: "Radish / মুলা",                   icon: "🥬", unit: "kg",
+    aliases: ["mula", "moola", "daikon"] },
+  { id: "groc_bean",          label: "Bean / শিম",                      icon: "🫘", unit: "kg",
+    aliases: ["shim", "country bean", "flat bean"] },
+
+  /* ── Leafy Greens & Herbs / শাক-সবজি ── */
+  { id: "groc_spinach",       label: "Spinach / পালং শাক",              icon: "🥬", unit: "kg",
+    aliases: ["palong shak", "palak"] },
+  { id: "groc_lal_shak",      label: "Red Amaranth / লাল শাক",          icon: "🥬", unit: "kg",
+    aliases: ["lal shak", "red spinach", "red amaranth"] },
+  { id: "groc_kolmi_shak",    label: "Water Spinach / কলমি শাক",        icon: "🥬", unit: "kg",
+    aliases: ["kolmi shak", "water morning glory", "kangkong"] },
+  { id: "groc_dhonia_pata",   label: "Coriander Leaves / ধনিয়া পাতা",  icon: "🌿", unit: "gram",
+    aliases: ["dhonia pata", "cilantro", "fresh coriander", "dhone pata"] },
   { id: "groc_veg_other",     label: "Other Vegetable / অন্য সবজি",     icon: "🥦", unit: "kg" },
 
   /* ── Dairy / দুগ্ধজাত ── */
@@ -935,6 +1039,12 @@ const DEFAULT_GROCERY = [
   { id: "groc_egg_deshi",     label: "Deshi Egg / দেশি ডিম",            icon: "🥚", unit: "piece" },
   { id: "groc_cheese",        label: "Cheese / চিজ",                    icon: "🧀", unit: "piece",
     aliases: ["mozzarella", "mozzarella cheese", "cheese slice", "cheddar cheese"] },
+  { id: "groc_tok_doi",       label: "Sour Yogurt / টক দই",             icon: "🥛", unit: "piece",
+    aliases: ["tok doi", "tok dahi", "sour curd", "dahi"] },
+  { id: "groc_mishti_doi",    label: "Sweet Yogurt / মিষ্টি দই",        icon: "🍮", unit: "piece",
+    aliases: ["mishti doi", "mistindoi", "sweet yogurt", "sweet curd", "misti doi"] },
+  { id: "groc_baby_milk",     label: "Baby Milk Powder / বেবি মিল্ক পাউডার", icon: "🍼", unit: "gram",
+    aliases: ["baby milk", "baby formula", "nan", "lactogen", "aptamil", "similac", "enfamil", "bebelo", "meji"] },
   { id: "groc_dairy_other",   label: "Other Dairy / অন্য দুগ্ধজাত",    icon: "🥛", unit: "piece" },
 
   /* ── Breakfast & Snacks / নাস্তা ── */
@@ -945,17 +1055,101 @@ const DEFAULT_GROCERY = [
     aliases: ["maggi", "maggi noodles", "maggi masala"] },
   { id: "groc_puffrice",      label: "Puffed Rice / মুড়ি",             icon: "🌾", unit: "kg" },
   { id: "groc_chanachur",     label: "Chanachur / চানাচুর",             icon: "🥡", unit: "kg" },
+  { id: "groc_chocolate",     label: "Chocolate / চকলেট",               icon: "🍫", unit: "piece",
+    aliases: ["chocolate", "dairy milk", "dairy milk chocolate", "cadbury", "kitkat", "mars"] },
+  { id: "groc_raisins",       label: "Raisins / কিশমিশ",                icon: "🍇", unit: "gram",
+    aliases: ["raisins", "kismis", "kishmish", "dry grapes", "sultana"] },
+  { id: "groc_almond",        label: "Almonds / বাদাম",                 icon: "🥜", unit: "gram",
+    aliases: ["almond", "almonds", "badam", "kath badam", "cashew", "pistachio", "walnut", "mixed nuts"] },
+  { id: "groc_chia_seeds",    label: "Chia Seeds / চিয়া সিড",          icon: "🌱", unit: "gram",
+    aliases: ["chia seeds", "chia seed", "chia"] },
+  { id: "groc_halim",         label: "Halim Mix / হালিম",               icon: "🫕", unit: "piece",
+    aliases: ["halim mix", "halim", "haleem mix", "haleem"] },
   { id: "groc_tea",           label: "Tea / চা",                        icon: "🍵", unit: "gram" },
   { id: "groc_snack_other",   label: "Other Snack / অন্য নাস্তা",       icon: "🍿", unit: "piece" },
+
+  /* ── Beverages / পানীয় ── */
+  { id: "groc_cola",          label: "Coca Cola / কোকা কোলা",           icon: "🥤", unit: "piece",
+    aliases: ["coca cola", "coke", "koka kola", "coke can", "cola"] },
+  { id: "groc_mojo",          label: "Mojo / মোজো",                      icon: "🥤", unit: "piece",
+    aliases: ["mojo cola", "mojo drink", "akij mojo"] },
+  { id: "groc_pepsi",         label: "Pepsi / পেপসি",                    icon: "🥤", unit: "piece",
+    aliases: ["pepsi cola", "pepsi can", "pepsi bottle"] },
+  { id: "groc_bev_other",     label: "Other Beverage / অন্য পানীয়",     icon: "🥤", unit: "piece",
+    aliases: ["sprite", "fanta", "rc cola", "mountain dew", "7up", "mirinda", "lemu", "pran juice", "shezan"] },
+
+  /* ── Sweets & Fruits / মিষ্টি ও ফল ── */
+  { id: "groc_mishti",        label: "Sweets / মিষ্টি",                  icon: "🍬", unit: "piece",
+    aliases: ["mishti", "rosogolla", "rasgulla", "sandesh", "kalojam", "gulab jamun", "laddu", "halwa", "payesh", "zarda"] },
+  { id: "groc_banana",        label: "Ripe Banana / পাকা কলা",           icon: "🍌", unit: "piece",
+    aliases: ["pakka kola", "sagar kola", "amrit sagar", "champa kola", "paka kola"] },
+  { id: "groc_green_banana",  label: "Green Banana / কাঁচা কলা",          icon: "🍌", unit: "piece",
+    aliases: ["kacha kola", "raw banana", "green banana", "kancha kola"] },
+  { id: "groc_coconut",       label: "Green Coconut / সবুজ ডাব",          icon: "🥥", unit: "piece",
+    aliases: ["green dub", "dab", "daab", "narikel", "coconut water", "sobuj dab"] },
+  { id: "groc_apple",         label: "Apple / আপেল",                      icon: "🍎", unit: "piece",
+    aliases: ["apple", "aapel", "fuji apple", "red apple", "green apple"] },
+  { id: "groc_orange",        label: "Orange / কমলা",                     icon: "🍊", unit: "piece",
+    aliases: ["komla", "orange", "komla lebu", "darjeeling orange"] },
+  { id: "groc_malta",         label: "Malta / মাল্টা",                    icon: "🍊", unit: "piece",
+    aliases: ["malta", "malta lebu", "malta fruit", "sweet orange"] },
+  { id: "groc_date",          label: "Date / খেজুর",                      icon: "🌴", unit: "gram",
+    aliases: ["khejur", "khezur", "dates", "ajwa date", "medjool date", "madinah khejur"] },
+  { id: "groc_grape",         label: "Grape / আঙুর",                      icon: "🍇", unit: "gram",
+    aliases: ["angur", "aangur", "grapes", "green grape", "black grape", "kashmiri angur"] },
+  { id: "groc_lotkon",        label: "Lotkon / লটকন",                     icon: "🍈", unit: "kg",
+    aliases: ["lotkon", "lotkan", "burmese grape", "local lotkon"] },
+  { id: "groc_mango",         label: "Mango / আম",                        icon: "🥭", unit: "kg",
+    aliases: ["aam", "himsagar", "langra", "fazli", "amrapali", "ashwina", "gobindabhog"] },
+  { id: "groc_guava",         label: "Guava / পেয়ারা",                   icon: "🍐", unit: "kg",
+    aliases: ["peyara", "payara", "thai peyara", "kazi peyara"] },
+  { id: "groc_watermelon",    label: "Watermelon / তরমুজ",                icon: "🍉", unit: "piece",
+    aliases: ["tarbuj", "tarmuj", "watermelon"] },
+  { id: "groc_jackfruit",     label: "Jackfruit / কাঁঠাল",               icon: "🍈", unit: "piece",
+    aliases: ["kathal", "kanthal", "jackfruit", "kacha kathal"] },
+  { id: "groc_lychee",        label: "Lychee / লিচু",                    icon: "🍒", unit: "piece",
+    aliases: ["lichu", "lichi", "lychee"] },
+  { id: "groc_boroi",         label: "Jujube / বরই",                      icon: "🍒", unit: "kg",
+    aliases: ["boroi", "kul", "indian plum", "apple kul", "narikel kul"] },
+  { id: "groc_jamrul",        label: "Java Apple / জামরুল",               icon: "🍒", unit: "kg",
+    aliases: ["jamrul", "wax apple", "java apple"] },
+  { id: "groc_jambura",       label: "Pomelo / জাম্বুরা",                 icon: "🍋", unit: "piece",
+    aliases: ["jambura", "batabi lebu", "pomelo", "grapefruit"] },
+  { id: "groc_fruit_other",   label: "Other Fruit / অন্য ফল",            icon: "🍎", unit: "piece",
+    aliases: ["papaya", "pepe", "amloki", "gooseberry", "amra", "star fruit"] },
 
   /* ── Cleaning Supplies / পরিষ্কার সামগ্রী ── */
   { id: "groc_detergent",     label: "Detergent / ডিটারজেন্ট পাউডার",  icon: "🫧", unit: "kg",
     aliases: ["rin power", "rin powder", "rin power white", "wheel powder", "surf excel"] },
+  { id: "groc_harpic",        label: "Harpic / হারপিক",                 icon: "🧹", unit: "piece",
+    aliases: ["harpic", "toilet cleaner", "toilet liquid", "commode cleaner"] },
+  { id: "groc_vim",           label: "Vim Bar / ভিম বার",               icon: "🧹", unit: "piece",
+    aliases: ["vim bar", "vim", "vim dishwash bar", "dish bar"] },
+  { id: "groc_pureit",        label: "Pureit Filter / পিউরিট ফিল্টার",  icon: "💧", unit: "piece",
+    aliases: ["pureit", "pureit filter", "pureit kit", "water purifier kit", "water filter"] },
+  { id: "groc_toilet_tissue", label: "Toilet Tissue / টয়লেট টিস্যু",   icon: "🧻", unit: "piece",
+    aliases: ["toilet tissue", "toilet paper", "tissue roll", "bathroom tissue"] },
+  { id: "groc_kitchen_tissue",label: "Kitchen Tissue / কিচেন টিস্যু",   icon: "🧻", unit: "piece",
+    aliases: ["kitchen tissue", "kitchen paper", "kitchen roll", "paper towel"] },
+  { id: "groc_wet_tissue",    label: "Wet Tissue / ওয়েট টিস্যু",       icon: "🧻", unit: "piece",
+    aliases: ["wet tissue", "wet wipes", "baby wipes", "wet napkin"] },
   { id: "groc_dishwash",      label: "Dishwash Liquid / থালাবাসন লিকুইড",icon:"🧴",unit: "bottle" },
   { id: "groc_clean_other",   label: "Other Cleaner / অন্য ক্লিনার",    icon: "🧹", unit: "piece" },
 
   /* ── Personal Care / ব্যক্তিগত যত্ন ── */
   { id: "groc_soap",          label: "Bathing Soap / গোসলের সাবান",     icon: "🧼", unit: "piece" },
+  { id: "groc_shampoo",       label: "Shampoo / শ্যাম্পু",              icon: "🧴", unit: "piece",
+    aliases: ["shampoo", "kodomo shampoo", "kids shampoo", "minipack shampoo", "baby shampoo", "head shoulders", "dove shampoo", "pantene", "saffat shampoo"] },
+  { id: "groc_facewash",      label: "Face Wash / ফেইস ওয়াশ",          icon: "🧴", unit: "piece",
+    aliases: ["face wash", "facewash", "face scrubber", "scrubber", "facial wash", "cleanser"] },
+  { id: "groc_perfume",       label: "Perfume / পারফিউম",               icon: "🌸", unit: "piece",
+    aliases: ["perfume", "parfum", "perfume oil", "attar", "itar", "body spray", "deodorant"] },
+  { id: "groc_hair_oil",      label: "Hair Oil / চুলের তেল",            icon: "🫙", unit: "piece",
+    aliases: ["hair oil", "chulor tel", "coconut hair oil", "parachute", "dabur", "keo karpin"] },
+  { id: "groc_toothbrush",    label: "Toothbrush / ব্রাশ",              icon: "🪥", unit: "piece",
+    aliases: ["toothbrush", "brush", "dental brush", "electric brush"] },
+  { id: "groc_sunglasses",    label: "Sunglasses / সানগ্লাস",           icon: "🕶️", unit: "piece",
+    aliases: ["sunglasses", "sunglass", "shades", "uv glasses"] },
   { id: "groc_handwash",      label: "Handwash / হ্যান্ডওয়াশ",         icon: "🖐️", unit: "bottle",
     aliases: ["savlon handwash", "savlon hand wash", "ocean blue handwash", "iris handwash", "lifebuoy handwash"] },
   { id: "groc_antiseptic",    label: "Antiseptic / জীবাণুনাশক",         icon: "💊", unit: "bottle",
@@ -965,12 +1159,33 @@ const DEFAULT_GROCERY = [
     aliases: ["pepsodent", "pepsodent tp", "tp advanced salt", "colgate", "closeup", "sensodyne"] },
   { id: "groc_care_other",    label: "Other Personal Care / অন্য যত্ন", icon: "🪥", unit: "piece" },
 
+  /* ── Pharmacy / ওষুধ ও স্বাস্থ্য ── */
+  { id: "groc_birth_control",  label: "Birth Control Pill / পিল",       icon: "💊", unit: "piece",
+    aliases: ["pill", "birth control", "contraceptive", "nordette", "ovral", "microgynon"] },
+  { id: "groc_condom",         label: "Condom / কনডম",                   icon: "🩺", unit: "piece",
+    aliases: ["condom", "kobodom", "contraceptive", "durex", "trojan", "sensation"] },
+  { id: "groc_preg_test",      label: "Pregnancy Test / প্রেগন্যান্সি কিট", icon: "🩺", unit: "piece",
+    aliases: ["pregnancy test", "pregnancy test kit", "preg test", "home pregnancy test", "hpt"] },
+  { id: "groc_medicine",       label: "Medicine / ওষুধ",                 icon: "💊", unit: "piece",
+    aliases: ["medicine", "osud", "tablet", "syrup", "paracetamol", "napa", "ace", "vitamin"] },
+
+  /* ── Home & Lifestyle / ঘর ও জীবনযাপন ── */
+  { id: "groc_toy",            label: "Toy / খেলনা",                     icon: "🧸", unit: "piece",
+    aliases: ["toy", "khelna", "kids toy", "baby toy", "educational toy"] },
+  { id: "groc_umbrella",       label: "Umbrella / ছাতা",                 icon: "☂️", unit: "piece",
+    aliases: ["umbrella", "chata", "rain umbrella", "folding umbrella"] },
+  { id: "groc_plant",          label: "Gardening Plant / গাছের চারা",    icon: "🌱", unit: "piece",
+    aliases: ["plant", "chara", "garden plant", "sapling", "flower plant", "vegetable seedling"] },
+  { id: "groc_fertilizer",     label: "Fertilizer / সার",                icon: "🌿", unit: "kg",
+    aliases: ["fertilizer", "sar", "compost", "garden fertilizer", "plant food"] },
+
   /* ── Others ── */
   { id: "groc_other",         label: "Other Grocery / অন্যান্য",        icon: "🛒", unit: "piece" },
 ];
 const DEFAULT_MEAT = [
   /* ── Chicken / মুরগি ── */
-  { id: "meat_broiler",    label: "Broiler Chicken / ব্রয়লার মুরগি",  icon: "🍗", unit: "kg",    subgroup: "food_meat_chicken", subgroupDetail: "food_meat_broiler" },
+  { id: "meat_broiler",    label: "Broiler Chicken / ব্রয়লার মুরগি",  icon: "🍗", unit: "kg",    subgroup: "food_meat_chicken", subgroupDetail: "food_meat_broiler",
+    aliases: ["farm chicken", "farm murgi", "broiler murgi", "broiler chicken"] },
   { id: "meat_roast",      label: "Roast Chicken / রোস্টের মুরগি",    icon: "🍗", unit: "kg",    subgroup: "food_meat_chicken", subgroupDetail: "food_meat_roast" },
   { id: "meat_layer",      label: "Layer Chicken / লেয়ার মুরগি",      icon: "🍗", unit: "kg",    subgroup: "food_meat_chicken", subgroupDetail: "food_meat_layer" },
   { id: "meat_soup",       label: "Soup Chicken / স্যুপের মুরগি",      icon: "🍗", unit: "kg",    subgroup: "food_meat_chicken", subgroupDetail: "food_meat_soup" },
@@ -988,6 +1203,10 @@ const DEFAULT_MEAT = [
   /* ── Others ── */
   { id: "meat_koil",       label: "Quail / কোয়েল",                    icon: "🐦", unit: "piece", subgroup: "food_meat_other" },
   { id: "meat_kobutor",    label: "Pigeon / কবুতর",                   icon: "🕊️", unit: "piece", subgroup: "food_meat_other" },
+  { id: "meat_liver",      label: "Liver / কলিজা",                    icon: "🍖", unit: "gram",  subgroup: "food_meat_other",
+    aliases: ["liver", "kolija", "chicken liver", "beef liver", "mutton liver"] },
+  { id: "meat_sausage",    label: "Sausage / সসেজ",                   icon: "🌭", unit: "piece", subgroup: "food_meat_other",
+    aliases: ["sausage", "sosej", "chicken sausage", "beef sausage", "smoked sausage"] },
   { id: "meat_other",      label: "Other Meat / অন্য মাংস",           icon: "🍖", unit: "kg",    subgroup: "food_meat_other" },
 ];
 const DEFAULT_FISH = [
@@ -1004,6 +1223,12 @@ const DEFAULT_FISH = [
   { id: "fish_mola",       label: "Mola / মলা",                       icon: "🐠", unit: "kg", subgroup: "food_fish_sweet" },
   { id: "fish_talapia",    label: "Tilapia / তেলাপিয়া",              icon: "🐡", unit: "kg", subgroup: "food_fish_sweet" },
   { id: "fish_catfish",    label: "Catfish / শিং-মাগুর",              icon: "🐟", unit: "kg", subgroup: "food_fish_sweet" },
+  { id: "fish_shol",       label: "Shol Fish / শোল মাছ",              icon: "🐟", unit: "kg", subgroup: "food_fish_sweet",
+    aliases: ["shol", "shol mach", "snakehead fish", "shoul fish"] },
+  { id: "fish_tengra",     label: "Tengra Fish / টেংরা মাছ",          icon: "🐟", unit: "kg", subgroup: "food_fish_sweet",
+    aliases: ["tengra", "tengra mach", "tengra fish", "catfish tengra"] },
+  { id: "fish_roe",        label: "Fish Roe / মাছের ডিম",             icon: "🐟", unit: "gram", subgroup: "food_fish_sweet",
+    aliases: ["fish roe", "macher dim", "fish eggs", "roe"] },
   { id: "fish_sweet_other",label: "Other Sweetwater / অন্য মিঠা মাছ", icon: "🐟", unit: "kg", subgroup: "food_fish_sweet" },
 
   /* ── Sea Fish / সামুদ্রিক মাছ ── */
@@ -1135,6 +1360,8 @@ const DEFAULT_CATS = {
             { id: "food_groc_veg",     label: "Vegetables / সবজি",         icon: "🥦", color: "#FF9F0A" },
             { id: "food_groc_dairy",   label: "Dairy & Eggs / দুধ-ডিম",    icon: "🥚", color: "#FF9F0A" },
             { id: "food_groc_snack",   label: "Snacks & Bread / নাস্তা",   icon: "🍞", color: "#FF9F0A" },
+            { id: "food_groc_bev",     label: "Beverages / পানীয়",          icon: "🥤", color: "#FF9F0A" },
+            { id: "food_groc_sweet",   label: "Sweets & Fruits / মিষ্টি-ফল", icon: "🍬", color: "#FF9F0A" },
             { id: "food_groc_care",    label: "Home & Personal Care",       icon: "🧴", color: "#FF9F0A" },
             { id: "food_groc_other",   label: "Other Grocery / অন্যান্য",  icon: "🛒", color: "#FF9F0A" },
           ]
@@ -1245,6 +1472,7 @@ const DEFAULT_CATS = {
             { id: "bill_family_other",label: "Other / অন্যান্য",              icon: "👨‍👩‍👧‍👦", color: "#FF9500" },
           ]
         },
+        { id: "bill_moila",     label: "Garbage Bill / ময়লার বিল", icon: "🗑️", color: "#FF9500" },
         { id: "bill_insurance", label: "Insurance / বীমা",         icon: "🛡️", color: "#FF9500" },
         { id: "bill_other",     label: "Other Bill / অন্যান্য",    icon: "🧾", color: "#FF9500" },
       ]
@@ -1442,6 +1670,8 @@ const FOOD_SUBS_KEY = {
   food_groc_veg:    "grocery",
   food_groc_dairy:  "grocery",
   food_groc_snack:  "grocery",
+  food_groc_bev:    "grocery",
+  food_groc_sweet:  "grocery",
   food_groc_care:   "grocery",
   food_groc_other:  "grocery",
   // Level 2 sub-subs — meat sections
@@ -1484,36 +1714,80 @@ const ITEM_SUBGROUP_MAP = {
   groc_dal_kalai: "food_groc_grains", groc_flour: "food_groc_grains",
   groc_maida: "food_groc_grains", groc_suji: "food_groc_grains",
   groc_dal_other: "food_groc_grains",
+  // ── Grocery — new baking & starch items ──
+  groc_pasta: "food_groc_grains", groc_sago: "food_groc_grains",
+  groc_corn_flour: "food_groc_grains", groc_tempura_flour: "food_groc_grains",
+  groc_yeast: "food_groc_grains", groc_vanilla: "food_groc_grains",
   // ── Grocery — Oil & Spices ──
   groc_oil_soy: "food_groc_oil", groc_oil_mustard: "food_groc_oil",
   groc_ghee: "food_groc_oil", groc_oil_other: "food_groc_oil",
   groc_turmeric: "food_groc_oil", groc_chili: "food_groc_oil",
   groc_coriander: "food_groc_oil", groc_cumin: "food_groc_oil",
-  groc_spice_other: "food_groc_oil", groc_salt: "food_groc_oil",
+  groc_garam_masala: "food_groc_oil", groc_spice_other: "food_groc_oil",
+  groc_turmeric_whole: "food_groc_oil", groc_dried_chili: "food_groc_oil", groc_coriander_whole: "food_groc_oil",
+  groc_cardamom: "food_groc_oil", groc_cinnamon: "food_groc_oil", groc_bay_leaf: "food_groc_oil",
+  groc_cloves: "food_groc_oil", groc_whole_cumin: "food_groc_oil", groc_panch_phoron: "food_groc_oil",
+  groc_salt: "food_groc_oil",
   groc_sugar: "food_groc_oil",
+  groc_rock_salt: "food_groc_oil", groc_pink_salt: "food_groc_oil",
+  groc_testing_salt: "food_groc_oil", groc_black_pepper: "food_groc_oil",
+  groc_chicken_powder: "food_groc_oil", groc_food_color: "food_groc_oil",
+  groc_tomato_sauce: "food_groc_oil", groc_garlic_sauce: "food_groc_oil",
+  groc_soy_sauce: "food_groc_oil", groc_chicken_sauce: "food_groc_oil",
+  groc_vinegar: "food_groc_oil", groc_acv: "food_groc_oil", groc_honey: "food_groc_oil",
   // ── Grocery — Vegetables ──
   groc_onion: "food_groc_veg", groc_garlic: "food_groc_veg",
-  groc_ginger: "food_groc_veg", groc_potato: "food_groc_veg",
-  groc_tomato: "food_groc_veg", groc_eggplant: "food_groc_veg",
-  groc_gourd: "food_groc_veg", groc_spinach: "food_groc_veg",
+  groc_ginger: "food_groc_veg", groc_green_chili: "food_groc_veg",
+  groc_potato: "food_groc_veg", groc_tomato: "food_groc_veg",
+  groc_eggplant: "food_groc_veg", groc_okra: "food_groc_veg",
+  groc_potol: "food_groc_veg", groc_bitter_gourd: "food_groc_veg",
+  groc_gourd: "food_groc_veg", groc_sweet_gourd: "food_groc_veg",
+  groc_green_papaya: "food_groc_veg", groc_lemon: "food_groc_veg",
+  groc_carrot: "food_groc_veg", groc_cauliflower: "food_groc_veg",
+  groc_cabbage: "food_groc_veg", groc_radish: "food_groc_veg",
+  groc_bean: "food_groc_veg",
+  groc_capsicum: "food_groc_veg",
+  groc_spinach: "food_groc_veg", groc_lal_shak: "food_groc_veg",
+  groc_kolmi_shak: "food_groc_veg", groc_dhonia_pata: "food_groc_veg",
   groc_veg_other: "food_groc_veg",
   // ── Grocery — Dairy & Eggs ──
   groc_milk_powder: "food_groc_dairy", groc_milk_liquid: "food_groc_dairy",
+  groc_tok_doi: "food_groc_dairy", groc_baby_milk: "food_groc_dairy",
+  groc_mishti_doi: "food_groc_dairy",
   groc_egg_farm: "food_groc_dairy", groc_egg_deshi: "food_groc_dairy",
   groc_cheese: "food_groc_dairy",
   groc_dairy_other: "food_groc_dairy",
+  // ── Grocery — Beverages ──
+  groc_cola: "food_groc_bev", groc_mojo: "food_groc_bev",
+  groc_pepsi: "food_groc_bev", groc_bev_other: "food_groc_bev",
+  // ── Grocery — Sweets & Fruits ──
+  groc_mishti: "food_groc_sweet", groc_banana: "food_groc_sweet",
+  groc_fruit_other: "food_groc_sweet",
   // ── Grocery — Snacks & Bread ──
   groc_biscuit: "food_groc_snack", groc_bread: "food_groc_snack",
   groc_noodles: "food_groc_snack", groc_puffrice: "food_groc_snack",
   groc_chanachur: "food_groc_snack", groc_tea: "food_groc_snack",
   groc_snack_other: "food_groc_snack",
+  groc_chocolate: "food_groc_snack", groc_raisins: "food_groc_snack",
+  groc_almond: "food_groc_snack", groc_chia_seeds: "food_groc_snack",
+  groc_halim: "food_groc_snack",
   // ── Grocery — Home & Personal Care ──
   groc_detergent: "food_groc_care", groc_dishwash: "food_groc_care",
   groc_clean_other: "food_groc_care", groc_soap: "food_groc_care",
   groc_handwash: "food_groc_care", groc_antiseptic: "food_groc_care",
   groc_lsoap: "food_groc_care", groc_toothpaste: "food_groc_care", groc_care_other: "food_groc_care",
+  groc_shampoo: "food_groc_care", groc_facewash: "food_groc_care",
+  groc_perfume: "food_groc_care", groc_hair_oil: "food_groc_care",
+  groc_toothbrush: "food_groc_care", groc_sunglasses: "food_groc_care",
+  groc_harpic: "food_groc_care", groc_vim: "food_groc_care",
+  groc_pureit: "food_groc_care", groc_toilet_tissue: "food_groc_care",
+  groc_kitchen_tissue: "food_groc_care", groc_wet_tissue: "food_groc_care",
   // ── Grocery — Other ──
   groc_other: "food_groc_other",
+  groc_birth_control: "food_groc_other", groc_condom: "food_groc_other",
+  groc_preg_test: "food_groc_other", groc_medicine: "food_groc_other",
+  groc_toy: "food_groc_other", groc_umbrella: "food_groc_other",
+  groc_plant: "food_groc_other", groc_fertilizer: "food_groc_other",
   // ── Fish — Shrimp ──
   fish_galda: "food_fish_chingri", fish_bagda: "food_fish_chingri",
   fish_horina: "food_fish_chingri", fish_chingri: "food_fish_chingri",
@@ -1521,6 +1795,8 @@ const ITEM_SUBGROUP_MAP = {
   fish_pangash: "food_fish_pangash", fish_rui: "food_fish_sweet",
   fish_katla: "food_fish_sweet", fish_mola: "food_fish_sweet",
   fish_talapia: "food_fish_sweet", fish_catfish: "food_fish_sweet",
+  fish_shol: "food_fish_sweet", fish_tengra: "food_fish_sweet",
+  fish_roe: "food_fish_sweet",
   fish_sweet_other: "food_fish_sweet",
   // ── Fish — Sea ──
   fish_hilsha: "food_fish_sea", fish_sea_other: "food_fish_sea",
@@ -1538,7 +1814,9 @@ const ITEM_SUBGROUP_MAP = {
   meat_duck: "food_meat_duck", meat_peking: "food_meat_duck", meat_goose: "food_meat_duck",
   // ── Meat — Beef / Mutton / Other ──
   meat_beef: "food_meat_beef", meat_mutton: "food_meat_mutton",
-  meat_koil: "food_meat_other", meat_kobutor: "food_meat_other", meat_other: "food_meat_other",
+  meat_koil: "food_meat_other", meat_kobutor: "food_meat_other",
+  meat_liver: "food_meat_other", meat_sausage: "food_meat_other",
+  meat_other: "food_meat_other",
 };
 // ── AI Brand-Recognition Brain ──────────────────────────────────────────────
 // Static, storage-independent lookup of brand/receipt phrasings → item id.
@@ -1557,6 +1835,8 @@ const SUBGROUP_OPTIONS = {
     { id: "food_groc_veg",    label: "Vegetables / সবজি",            icon: "🥦" },
     { id: "food_groc_dairy",  label: "Dairy & Eggs / দুধ-ডিম",       icon: "🥚" },
     { id: "food_groc_snack",  label: "Snacks & Bread / নাস্তা",      icon: "🍞" },
+    { id: "food_groc_bev",    label: "Beverages / পানীয়",            icon: "🥤" },
+    { id: "food_groc_sweet",  label: "Sweets & Fruits / মিষ্টি-ফল",  icon: "🍬" },
     { id: "food_groc_care",   label: "Home & Personal Care",          icon: "🧴" },
     { id: "food_groc_other",  label: "Other Grocery / অন্যান্য",     icon: "🛒" },
   ],
@@ -1594,6 +1874,59 @@ const ITEM_ALIASES = {
   groc_handwash:    ["savlon handwash", "savlon hand wash", "ocean blue handwash", "iris handwash", "lifebuoy handwash"],
   groc_antiseptic:  ["savlon liquid antiseptic", "savlon antiseptic", "savlon liquid", "dettol antiseptic"],
   groc_toothpaste:  ["pepsodent", "pepsodent tp", "tp advanced salt", "colgate", "closeup", "sensodyne"],
+  // New items added in v41
+  groc_pasta:       ["pasta", "spaghetti", "macaroni", "penne"],
+  groc_sago:        ["sago", "shagu", "sago pearls", "tapioca", "sabu dana"],
+  groc_corn_flour:  ["corn flour", "corn starch", "cornflour", "maize flour"],
+  groc_tempura_flour:["tempura flour", "tempura mix", "tempura batter"],
+  groc_yeast:       ["yeast", "instant yeast", "dry yeast", "bread yeast", "ist"],
+  groc_vanilla:     ["vanilla essence", "vanilla extract", "vanilla flavor"],
+  groc_capsicum:    ["capsicum", "bell pepper", "shimla mirch", "sweet pepper", "colored pepper"],
+  groc_rock_salt:   ["rock salt", "korkoch lobon", "rock lobon", "sendha namak"],
+  groc_pink_salt:   ["pink salt", "himalayan pink salt", "himalayan salt"],
+  groc_testing_salt:["testing salt", "msg", "monosodium glutamate", "ajinomoto"],
+  groc_black_pepper:["golmorich powder", "black pepper powder", "kali mirch", "golmorich gura"],
+  groc_chicken_powder:["chicken powder", "chicken stock powder", "chicken bouillon", "maggi chicken"],
+  groc_food_color:  ["food color", "food colour", "food dye", "biryani color"],
+  groc_tomato_sauce:["tomato sauce", "tomato ketchup", "ketchup", "tomsauce"],
+  groc_garlic_sauce:["garlic sauce", "garlic paste sauce", "garlic chili sauce"],
+  groc_soy_sauce:   ["soy sauce", "soya sauce", "dark soy sauce"],
+  groc_chicken_sauce:["chicken sauce", "chicken chili sauce", "nando sauce"],
+  groc_vinegar:     ["vinegar", "white vinegar", "distilled vinegar"],
+  groc_acv:         ["apple cider vinegar", "acv", "apple vinegar", "braggs acv"],
+  groc_honey:       ["honey", "modhu", "pure honey", "raw honey", "natural honey"],
+  groc_mishti_doi:  ["mishti doi", "mistindoi", "sweet yogurt", "sweet curd", "misti doi"],
+  groc_chocolate:   ["chocolate", "dairy milk", "dairy milk chocolate", "cadbury", "kitkat", "mars"],
+  groc_raisins:     ["raisins", "kismis", "kishmish", "dry grapes", "sultana"],
+  groc_almond:      ["almond", "almonds", "badam", "kath badam", "cashew", "pistachio", "walnut", "mixed nuts"],
+  groc_chia_seeds:  ["chia seeds", "chia seed", "chia"],
+  groc_halim:       ["halim mix", "halim", "haleem mix", "haleem"],
+  groc_shampoo:     ["shampoo", "kodomo shampoo", "kids shampoo", "minipack shampoo", "baby shampoo", "head shoulders", "dove shampoo", "pantene", "saffat shampoo"],
+  groc_facewash:    ["face wash", "facewash", "face scrubber", "scrubber", "facial wash", "cleanser"],
+  groc_perfume:     ["perfume", "parfum", "perfume oil", "attar", "itar", "body spray", "deodorant"],
+  groc_hair_oil:    ["hair oil", "chulor tel", "coconut hair oil", "parachute", "dabur", "keo karpin"],
+  groc_toothbrush:  ["toothbrush", "brush", "dental brush", "electric brush"],
+  groc_sunglasses:  ["sunglasses", "sunglass", "shades", "uv glasses"],
+  groc_harpic:      ["harpic", "toilet cleaner", "toilet liquid", "commode cleaner"],
+  groc_vim:         ["vim bar", "vim", "vim dishwash bar", "dish bar"],
+  groc_pureit:      ["pureit", "pureit filter", "pureit kit", "water purifier kit", "water filter"],
+  groc_toilet_tissue:["toilet tissue", "toilet paper", "tissue roll", "bathroom tissue"],
+  groc_kitchen_tissue:["kitchen tissue", "kitchen paper", "kitchen roll", "paper towel"],
+  groc_wet_tissue:  ["wet tissue", "wet wipes", "baby wipes", "wet napkin"],
+  groc_birth_control:["pill", "birth control", "contraceptive", "nordette", "ovral", "microgynon"],
+  groc_condom:      ["condom", "kobodom", "durex", "trojan", "sensation"],
+  groc_preg_test:   ["pregnancy test", "pregnancy test kit", "preg test", "home pregnancy test", "hpt"],
+  groc_medicine:    ["medicine", "osud", "tablet", "syrup", "paracetamol", "napa", "ace", "vitamin"],
+  groc_toy:         ["toy", "khelna", "kids toy", "baby toy", "educational toy"],
+  groc_umbrella:    ["umbrella", "chata", "rain umbrella", "folding umbrella"],
+  groc_plant:       ["plant", "chara", "garden plant", "sapling", "flower plant"],
+  groc_fertilizer:  ["fertilizer", "sar", "compost", "garden fertilizer", "plant food"],
+  fish_shol:        ["shol", "shol mach", "snakehead fish", "shoul fish"],
+  fish_tengra:      ["tengra", "tengra mach", "tengra fish"],
+  fish_roe:         ["fish roe", "macher dim", "fish eggs", "roe"],
+  meat_liver:       ["liver", "kolija", "chicken liver", "beef liver", "mutton liver"],
+  meat_sausage:     ["sausage", "sosej", "chicken sausage", "beef sausage", "smoked sausage"],
+  meat_broiler:     ["farm chicken", "farm murgi", "broiler murgi", "broiler chicken"],
 };
 // THEME/THEME_PRESETS control cosmetic bg/accent colors; COLORS is for fixed meaning
 // (red=expense/danger, green=income/success, gray=muted text) so it's a separate set. ---
@@ -1810,6 +2143,42 @@ function matchesQuery(text, q) {
   const s = searchText(q).trim();
   return !s || searchText(text).includes(s);
 }
+// ── Fuzzy/typo-tolerant query matcher — used by Global Search (and reuses the same
+//    fuzzyScore/bestAliasMatch engine that powers SmartBar + Quick Entry's smart search) ──
+// Returns a 0..1 confidence score (0 = no match). Substring hits always score >= 0.96.
+function fuzzyMatchesQuery(text, q, opts) {
+  const qTrim = String(q || "").trim();
+  if (!qTrim) return 1; // empty query matches everything (caller decides what to do with that)
+  const t = searchText(text);
+  const qLower = searchText(qTrim);
+  if (t.includes(qLower)) return 0.96;
+  // Fuzzy-score against each "word group" in the text (split on common separators) so a
+  // single typo'd word doesn't get diluted by the rest of a long blob.
+  const words = t.split(/[\s/·,›]+/).filter(Boolean);
+  let best = 0;
+  for (const w of words) {
+    const s = fuzzyScore(qLower, w);
+    if (s > best) best = s;
+  }
+  // Also try the fuzzyScore against the full text (handles short multi-word queries)
+  const fullScore = fuzzyScore(qLower, t);
+  best = Math.max(best, fullScore);
+  return best;
+}
+// Best alias score for an item against a query (brand names like "Rupchada", "Pepsodent")
+function itemAliasScore(item, q) {
+  const lists = [item.aliases, ITEM_ALIASES[item.id]].filter(Boolean);
+  if (!lists.length) return 0;
+  const qLower = searchText(q);
+  let best = 0;
+  for (const list of lists) {
+    for (const alias of list) {
+      const s = fuzzyScore(qLower, searchText(alias));
+      if (s > best) best = s;
+    }
+  }
+  return best;
+}
 function safeColor(value, fallback = "#0A84FF") {
   return /^#[0-9a-f]{6}$/i.test(String(value || "")) ? value : fallback;
 }
@@ -2003,6 +2372,214 @@ function entrySearchBlob(entry, cats, items) {
   const item = itemList.find(i => i.id === entry.itemId);
   return [entry.type, entry.amount, entry.note, fmtDate(entry.date), fmtTime(entry.date), ...pathLabels, item?.label, item?.group, entry.qty, entry.unit, entry.payMethod].filter(Boolean).join(" ");
 }
+// ── Global Search "history" insight — a single auto-generated line summarizing a
+//    category/item's spending pattern (avg/month, trend vs previous month, frequency).
+//    Pure read-only calculation over whatever entries are already being shown — no new
+//    storage, no new data source. Returns null when there isn't enough data to say anything
+//    meaningful (fewer than 2 months of activity).
+function generateHistoryInsight(histEntries, kind) {
+  const withAmt = (histEntries || []).filter(e => e.amount);
+  if (withAmt.length === 0) return null;
+  const totalAmt = withAmt.reduce((s, e) => s + e.amount, 0);
+  const count = withAmt.length;
+
+  // Bucket by month to find an average and a month-over-month trend
+  const buckets = {};
+  withAmt.forEach(e => {
+    const D = new Date(e.date);
+    const k = `${D.getFullYear()}-${String(D.getMonth()).padStart(2, "0")}`;
+    buckets[k] = (buckets[k] || 0) + e.amount;
+  });
+  const monthKeys = Object.keys(buckets).sort();
+  const monthsActive = monthKeys.length;
+  const avgPerMonth = totalAmt / Math.max(monthsActive, 1);
+
+  const verb = kind === "item" ? "কেনা" : "খরচ";
+  const parts = [];
+
+  if (monthsActive >= 2) {
+    const curKey = monthKeys[monthKeys.length - 1];
+    const prevKey = monthKeys[monthKeys.length - 2];
+    const cur = buckets[curKey], prev = buckets[prevKey];
+    if (prev > 0) {
+      const pct = Math.round((cur - prev) / prev * 100);
+      if (Math.abs(pct) >= 5) {
+        parts.push(`গত মাসের তুলনায় ${pct > 0 ? "📈" : "📉"} ${Math.abs(pct)}% ${pct > 0 ? "বেড়েছে" : "কমেছে"}`);
+      } else {
+        parts.push("গত মাসের মতই প্রায় স্থির");
+      }
+    }
+    parts.push(`গড়ে ৳${fmt(Math.round(avgPerMonth))}/মাস`);
+  } else {
+    parts.push(`এই মাসে মোট ৳${fmt(totalAmt)}`);
+  }
+
+  parts.push(`${count} বার ${verb}`);
+
+  return parts.join(" · ");
+}
+// ── Natural-language spending query (offline, no API) — e.g. "last month food e koto খরচ",
+//    "এই সপ্তাহে কত খরচ", "rupchada তে কতবার". Two-stage: parseNLQuery() reads pure text and
+//    returns {range, target, type} or null if the text isn't a recognizable question (must
+//    contain BOTH a "how much"-type cue AND a time-period cue, otherwise plain search wins —
+//    this keeps normal fuzzy search from being hijacked by unrelated queries).
+//    answerNLQuery() then runs that against actual entries. Reuses fuzzyMatchesQuery/
+//    itemAliasScore/entryMatchesCat — no new matching engine, just a thin layer on top.
+const NLQ_AMOUNT_CUE = /(কত\s*টাকা|কততুকু|কতো|কত|koto|kotota|khoroch|how\s*much|cost|total|খরচ|ব্যয়|spent|spend|expense)/i;
+const NLQ_STRIP_WORDS = /(কত\s*টাকা|কততুকু|কতো|কত|koto|kotota|khoroch|how\s*much|cost|total|খরচ|ব্যয়|spent|spend|expense|income|আয়|ইনকাম|হয়েছে|হয়েছিল|করেছি|করলাম|আছে|ছিল)/gi;
+function parseNLQuery(qRaw, cats, items) {
+  const q = searchText(qRaw).trim();
+  if (!q) return null;
+  // Allow query if it has an explicit amount cue OR if it's just a time + optional category phrase
+  // (e.g. "last month food" without "koto/cost" — user clearly wants a summary)
+  const hasAmountCue = NLQ_AMOUNT_CUE.test(q);
+
+  const now = new Date();
+  const startOfDay = d => new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  const endOfDay = d => new Date(d.getFullYear(), d.getMonth(), d.getDate(), 23, 59, 59, 999);
+  const monthRange = off => {
+    const d = new Date(now.getFullYear(), now.getMonth() + off, 1);
+    return { from: new Date(d.getFullYear(), d.getMonth(), 1), to: new Date(d.getFullYear(), d.getMonth() + 1, 0, 23, 59, 59, 999) };
+  };
+  const yearRange = off => {
+    const y = now.getFullYear() + off;
+    return { from: new Date(y, 0, 1), to: new Date(y, 11, 31, 23, 59, 59, 999) };
+  };
+  const weekRange = off => {
+    const dow = (now.getDay() + 6) % 7; // 0 = Monday
+    const mon = new Date(now.getFullYear(), now.getMonth(), now.getDate() - dow + off * 7);
+    return { from: startOfDay(mon), to: endOfDay(new Date(mon.getFullYear(), mon.getMonth(), mon.getDate() + 6)) };
+  };
+
+  // Longer/more specific phrases first so "last month" doesn't get eaten by a looser "month" rule.
+  const TIME_RULES = [
+    { re: /(গত\s*মাস|last\s*month|previous\s*month)/i, label: "গত মাস", fn: () => monthRange(-1) },
+    { re: /(এই\s*মাস|this\s*month|current\s*month)/i, label: "এই মাস", fn: () => monthRange(0) },
+    { re: /(গত\s*বছর|last\s*year)/i, label: "গত বছর", fn: () => yearRange(-1) },
+    { re: /(এই\s*বছর|this\s*year)/i, label: "এই বছর", fn: () => yearRange(0) },
+    { re: /(গত\s*সপ্তাহ|last\s*week)/i, label: "গত সপ্তাহ", fn: () => weekRange(-1) },
+    { re: /(এই\s*সপ্তাহ|this\s*week)/i, label: "এই সপ্তাহ", fn: () => weekRange(0) },
+    { re: /(গতকাল|গত\s*কাল|yesterday)/i, label: "গতকাল", fn: () => { const d = new Date(now); d.setDate(d.getDate() - 1); return { from: startOfDay(d), to: endOfDay(d) }; } },
+    { re: /(আজকে|আজ|today)/i, label: "আজ", fn: () => ({ from: startOfDay(now), to: endOfDay(now) }) },
+  ];
+  let range = null, rangeLabel = "", timeRe = null;
+  for (const t of TIME_RULES) {
+    if (t.re.test(q)) { range = t.fn(); rangeLabel = t.label; timeRe = t.re; break; }
+  }
+  if (!range) return null; // no explicit time cue → not confident this is a question, let normal search handle it
+  // If no amount cue AND no explicit question words, only proceed if query is short enough
+  // to be clearly a summary request (not a fuzzy search term that happens to contain a date word)
+  if (!hasAmountCue && q.split(/\s+/).length > 6) return null;
+
+  const wantsIncome = /(আয়|income|ইনকাম)/i.test(q);
+  const leftover = q.replace(timeRe, " ").replace(NLQ_STRIP_WORDS, " ").replace(/[?.!,।]/g, " ").replace(/\s+/g, " ").trim();
+
+  let target = null;
+  if (leftover) {
+    const catHits = allCatsList(cats)
+      .map(c => ({ c, score: fuzzyMatchesQuery([c.label, c.icon].join(" "), leftover) }))
+      .filter(x => x.score >= 0.55).sort((a, b) => b.score - a.score);
+    const itemHits = allItemsList(items)
+      .map(i => ({ i, score: Math.max(fuzzyMatchesQuery([i.label, i.group].join(" "), leftover), itemAliasScore(i, leftover)) }))
+      .filter(x => x.score >= 0.55).sort((a, b) => b.score - a.score);
+    const bestCat = catHits[0], bestItem = itemHits[0];
+    if (bestItem && (!bestCat || bestItem.score >= bestCat.score)) {
+      target = { kind: "item", id: bestItem.i.id, label: shortLabel(bestItem.i.label), icon: bestItem.i.icon, color: bestItem.i.group === "grocery" ? "#FF9F0A" : bestItem.i.group === "meat" ? "#FF6B6B" : "#4ECDC4" };
+    } else if (bestCat) {
+      target = { kind: "cat", id: bestCat.c.id, label: shortLabel(bestCat.c.label), icon: bestCat.c.icon, color: bestCat.c.color };
+    }
+  }
+
+  return { range, rangeLabel, target, type: wantsIncome ? "income" : "expense" };
+}
+function answerNLQuery(parsed, entries, cats) {
+  if (!parsed) return null;
+  const { range, target, type } = parsed;
+  const catIdx = buildCatIndex(cats);
+  const matched = (entries || []).filter(e => {
+    const d = new Date(e.date);
+    if (d < range.from || d > range.to) return false;
+    if (e.type !== type) return false;
+    if (target) {
+      if (target.kind === "item") return e.itemId === target.id;
+      const node = catIdx[target.id];
+      return node ? entryMatchesCat(e, node) : false;
+    }
+    return true;
+  }).sort((a, b) => new Date(b.date) - new Date(a.date));
+  const total = matched.reduce((s, e) => s + (e.amount || 0), 0);
+  return { ...parsed, entries: matched, total, count: matched.length };
+}
+// ── Similar-note clustering — groups entries whose free-text `note` field is similar
+//    (typo/wording variations of the same thing, e.g. "uber to office" / "Uber office" /
+//    "ubar to office"), so recurring informal spends are visible even when they were never
+//    tied to a specific item. Pure offline text analysis — reuses levenshtein (defined below,
+//    function-hoisted) for the edit-distance half and a simple word-overlap (Jaccard) score
+//    for the other half; whichever signal is stronger wins, since short notes favor Jaccard
+//    and longer near-duplicate notes favor Levenshtein.
+function normalizeNoteText(note) {
+  return searchText(note).replace(/[^\p{L}\p{N}\s]/gu, " ").replace(/\s+/g, " ").trim();
+}
+function noteSimilarity(a, b) {
+  if (!a || !b) return 0;
+  if (a === b) return 1;
+  const wordsA = a.split(" ").filter(Boolean);
+  const wordsB = b.split(" ").filter(Boolean);
+  const setA = new Set(wordsA), setB = new Set(wordsB);
+  let inter = 0;
+  setA.forEach(w => { if (setB.has(w)) inter++; });
+  const union = new Set([...wordsA, ...wordsB]).size || 1;
+  const jaccard = inter / union;
+  const maxLen = Math.max(a.length, b.length) || 1;
+  const levSim = 1 - levenshtein(a, b) / maxLen;
+  return Math.max(jaccard, levSim);
+}
+// requireSameCat (default true): only cluster notes that also share the same top-level
+// category, so "lunch" under Food and an unrelated "lunch" typo under a different category
+// never merge into one group — keeps groups meaningful, not just textually similar.
+function clusterEntryNotes(entries, cats, opts = {}) {
+  const threshold = opts.threshold ?? 0.6;
+  const requireSameCat = opts.requireSameCat !== false;
+  const minCount = opts.minCount ?? 2; // a "pattern" needs at least 2 occurrences
+  const withNote = (entries || []).filter(e => e.note && e.note.trim() && e.amount);
+  const clusters = [];
+  withNote.forEach(e => {
+    const norm = normalizeNoteText(e.note);
+    if (!norm) return;
+    const catTop = (legacyCatPath(e) || [])[0] || "uncategorized";
+    let best = null, bestScore = 0;
+    for (const c of clusters) {
+      if (requireSameCat && c.catTop !== catTop) continue;
+      const s = noteSimilarity(norm, c.repNorm);
+      if (s > bestScore) { bestScore = s; best = c; }
+    }
+    if (best && bestScore >= threshold) {
+      best.entries.push(e);
+      best.noteCounts[e.note.trim()] = (best.noteCounts[e.note.trim()] || 0) + 1;
+    } else {
+      clusters.push({ catTop, repNorm: norm, entries: [e], noteCounts: { [e.note.trim()]: 1 } });
+    }
+  });
+  const catIdx = buildCatIndex(cats);
+  return clusters
+    .filter(c => c.entries.length >= minCount)
+    .map(c => {
+      const total = c.entries.reduce((s, e) => s + (e.amount || 0), 0);
+      const repNote = Object.entries(c.noteCounts).sort((a, b) => b[1] - a[1])[0][0]; // most common original wording
+      const catNode = catIdx[c.catTop];
+      return {
+        label: repNote,
+        catTop: c.catTop,
+        catLabel: catNode ? shortLabel(catNode.label) : "অন্য",
+        catIcon: catNode ? catNode.icon : "📝",
+        catColor: catNode ? catNode.color : "#8E8E93",
+        count: c.entries.length,
+        total,
+        entries: c.entries.sort((a, b) => new Date(b.date) - new Date(a.date))
+      };
+    })
+    .sort((a, b) => b.total - a.total);
+}
 function colorButtonStyle(active, color, size = 28) {
   return {
     width: size,
@@ -2062,6 +2639,7 @@ function Modal({
   }, /*#__PURE__*/React.createElement("div", {
     onClick: e => e.stopPropagation(),
     style: {
+      position: "relative",
       background: "#1C1C1E",
       borderRadius: "22px 22px 0 0",
       padding: `0 0 calc(20px + env(safe-area-inset-bottom))`,
@@ -2071,7 +2649,30 @@ function Modal({
       overflowY: "auto",
       animation: "slideUp .28s cubic-bezier(.4,0,.2,1)"
     }
-  }, children));
+  },
+  /*#__PURE__*/React.createElement("button", {
+    onClick: onClose,
+    style: {
+      position: "absolute",
+      top: 14,
+      right: 14,
+      zIndex: 10,
+      width: 30,
+      height: 30,
+      borderRadius: 10,
+      border: "none",
+      background: "#3A3A3C",
+      color: "#fff",
+      fontSize: 16,
+      fontWeight: 900,
+      cursor: "pointer",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      lineHeight: 1
+    }
+  }, "✕"),
+  children));
 }
 function MiniBar({
   value,
@@ -3785,7 +4386,7 @@ function ManageCatsModal({
     );
   }
     function renderItemList(group, title, list, color) {
-    const shown = list.filter(item => matchesQuery([item.label, item.icon, item.unit, group].join(" "), itemSearch));
+    const shown = list.filter(item => matchesQuery([item.label, item.icon, item.unit, group, ...(item.aliases || []), ...(ITEM_ALIASES[item.id] || [])].join(" "), itemSearch));
     const inlineBtnBase = {
       border: "none", cursor: "pointer", borderRadius: 7,
       padding: "3px 7px", fontSize: 13, fontWeight: 900, outline: "none"
@@ -6283,7 +6884,8 @@ function AddEntryModal({
   items,
   entries,
   editEntry,
-  smartPrefill
+  smartPrefill,
+  autoFocusSearch
 }) {
   const [type, setType] = useState(defaultType || "expense");
   const [amount, setAmt] = useState("");
@@ -6302,7 +6904,16 @@ function AddEntryModal({
   const [itemSearch, setItemSearch] = useState("");
   const [showNumpad, setShowNumpad] = useState(false); // kept for resetFields compat
   const [globalSearch, setGlobalSearch] = React.useState("");
+  const globalSearchRef = React.useRef(null);
   const isEditing = !!editEntry;
+
+  // Auto-focus the item/category search box when opened via "🔍 Search" mode from Quick Entry
+  React.useEffect(() => {
+    if (open && autoFocusSearch) {
+      const t = setTimeout(() => globalSearchRef.current && globalSearchRef.current.focus(), 150);
+      return () => clearTimeout(t);
+    }
+  }, [open, autoFocusSearch]);
 
   // ── Compute recent & frequent categories ──
   const recentCats = React.useMemo(() => {
@@ -6442,63 +7053,106 @@ function AddEntryModal({
       const sg = (typeof ITEM_SUBGROUP_MAP !== "undefined" && ITEM_SUBGROUP_MAP[item.id]) || item.subgroup;
       const sgd = item.subgroupDetail;
       const targetPath = catPathMap[sgd] || catPathMap[sg];
-      if (!targetPath) continue;
-      const catId0 = targetPath[0]?.id || "";
-      const subId0 = targetPath[1]?.id || "";
-      const drillNodes = targetPath.slice(2);
-      const breadcrumb = targetPath.map(n => n.label?.split("/")[0]?.trim() || "").join(" › ");
+      // Fallback: if targetPath not found (e.g. type=income hides expense cats), try parent subgroup
+      const fallbackPath = targetPath || catPathMap["food_grocery"] || catPathMap["food"] || catPathMap["grocery"];
+      if (!fallbackPath) continue;
+      const catId0 = fallbackPath[0]?.id || "";
+      const subId0 = fallbackPath[1]?.id || "";
+      const drillNodes = fallbackPath.slice(2);
+      const breadcrumb = fallbackPath.map(n => n.label?.split("/")[0]?.trim() || "").join(" › ");
       const shortLabel = item.label?.split("/")[0]?.trim() || item.label || "";
+      const globalAliases = ITEM_ALIASES[item.id] || [];
       results.push({
         key: "item_" + item.id, type: "item",
         icon: item.icon || "", label: item.label || "", shortLabel, breadcrumb,
-        searchText: [item.label || "", item.icon || "", breadcrumb, sg || "", sgd || "", item.unit || ""].join(" ").toLowerCase(),
+        searchText: [item.label || "", item.icon || "", breadcrumb, sg || "", sgd || "", item.unit || "", ...(item.aliases || []), ...globalAliases].join(" ").toLowerCase(),
+        rawAliases: [...(item.aliases || []), ...globalAliases],
         catId: catId0, subId: subId0, drillNodes, itemId: item.id, unit: item.unit || "kg",
-        color: targetPath[0]?.color || "#8E8E93"
+        color: fallbackPath[0]?.color || "#8E8E93"
       });
     }
     return results;
   }, [cats, items, type]);
 
+  // ── Stronger AI matching: fuzzy/typo-tolerant + brand-alias aware (same engine
+  //    that powers SmartBar's natural-language parser) instead of plain substring includes() ──
   const smartSearchResults = React.useMemo(() => {
-    const q = globalSearch.trim().toLowerCase();
+    const q = globalSearch.trim();
     if (q.length < 1) return [];
-    // Score: label match scores higher than breadcrumb match
-    return smartSearchIndex
-      .filter(r => r.searchText.includes(q))
-      .sort((a, b) => {
-        const aL = (a.label || "").toLowerCase().includes(q) ? 0 : 1;
-        const bL = (b.label || "").toLowerCase().includes(q) ? 0 : 1;
-        if (aL !== bL) return aL - bL;
-        if (a.type === "item" && b.type !== "item") return -1;
-        if (b.type === "item" && a.type !== "item") return 1;
-        return 0;
-      })
-      .slice(0, 9);
+    const qLower = q.toLowerCase();
+    const scored = [];
+    for (const r of smartSearchIndex) {
+      // Fast path: exact substring hit anywhere in the indexed text (covers most typing)
+      const substrHit = r.searchText.includes(qLower);
+      // Fuzzy/typo-tolerant score against the short label and the full breadcrumb
+      const labelScore = fuzzyScore(qLower, (r.shortLabel || r.label || "").toLowerCase());
+      const breadcrumbScore = fuzzyScore(qLower, (r.breadcrumb || "").toLowerCase());
+      // Brand/alias score (e.g. "rupchada" → Soybean Oil) — only items carry aliases
+      let aliasScore = 0;
+      if (r.type === "item" && r.rawAliases && r.rawAliases.length) {
+        for (const alias of r.rawAliases) {
+          const s = fuzzyScore(qLower, alias.toLowerCase());
+          if (s > aliasScore) aliasScore = s;
+        }
+      }
+      const bestScore = Math.max(labelScore, breadcrumbScore * 0.85, aliasScore);
+      if (!substrHit && bestScore < 0.55) continue; // no real match, typo-tolerance has a floor
+      scored.push({
+        r,
+        score: substrHit ? Math.max(bestScore, 0.96) : bestScore,
+        labelHit: labelScore >= 0.9 || (substrHit && (r.label || "").toLowerCase().includes(qLower))
+      });
+    }
+    scored.sort((a, b) => {
+      if (a.labelHit !== b.labelHit) return a.labelHit ? -1 : 1;
+      if (b.score !== a.score) return b.score - a.score;
+      if (a.r.type === "item" && b.r.type !== "item") return -1;
+      if (b.r.type === "item" && a.r.type !== "item") return 1;
+      return 0;
+    });
+    return scored.slice(0, 9).map(s => s.r);
   }, [smartSearchIndex, globalSearch]);
+
+    // Ref holds pending drill/item data set by applySmartResult.
+  // Avoids React 18 race: setTimeout(0) is no longer guaranteed to fire
+  // after useEffect callbacks, so we use a ref + combined effect instead.
+  const pendingDrillRef = React.useRef(null);
 
   function applySmartResult(r) {
     setGlobalSearch("");
     setCatSearch(""); setSubSearch(""); setItemSearch("");
     setQty(""); setOdometer("");
+    // Store drill data BEFORE triggering state changes
+    pendingDrillRef.current = {
+      drillNodes: r.drillNodes || [],
+      itemId: r.itemId || null,
+      unit: r.unit || ""
+    };
     setCatId(r.catId);
     setSubId(r.subId);
-    const drillNodes = r.drillNodes || [];
-    const itemId = r.itemId;
-    const unit = r.unit;
-    // defer drill+item setting until after catId/subId reset-effects fire
-    setTimeout(() => {
-      setDrillStack(drillNodes.map(n => ({ node: n, search: "" })));
-      if (itemId) { setItem(itemId); setUnit(unit || ""); }
-      else { setItem(""); setUnit(""); }
-    }, 0);
   }
 
   // ── Unlimited depth drill-down stack ──
   // drillStack = [{node, search}, ...] where node = the selected sub at each level
   const [drillStack, setDrillStack] = React.useState([]); // [{node, search}]
-  // Reset drill stack when catId or subId changes
-  React.useEffect(() => { setDrillStack([]); }, [catId]);
-  React.useEffect(() => { setDrillStack([]); }, [subId]);
+  // Reset drillStack on catId/subId change — but skip if applySmartResult has pending data
+  React.useEffect(() => {
+    if (pendingDrillRef.current) return;
+    setDrillStack([]);
+  }, [catId]);
+  React.useEffect(() => {
+    if (pendingDrillRef.current) return;
+    setDrillStack([]);
+  }, [subId]);
+  // After both catId + subId settle, apply pending drill/item data
+  React.useEffect(() => {
+    if (!pendingDrillRef.current) return;
+    const { drillNodes, itemId, unit } = pendingDrillRef.current;
+    pendingDrillRef.current = null;
+    setDrillStack(drillNodes.map(n => ({ node: n, search: "" })));
+    if (itemId) { setItem(itemId); setUnit(unit || ""); }
+    else        { setItem("");    setUnit(""); }
+  }, [catId, subId]);
 
   // Current drill tip = deepest selected node
   const drillTip = drillStack.length > 0 ? drillStack[drillStack.length - 1].node : null;
@@ -6515,7 +7169,9 @@ function AddEntryModal({
   const isBikeFuel = effectiveSubId === "bike_fuel" || subId === "bike_fuel";
   const allItems = [...items.grocery, ...items.meat, ...items.fish];
   const selItem = itemId ? allItems.find(i => i.id === itemId) : null;
-  const shownCats = myCats.filter(c => matchesQuery([c.label, c.icon, type, ...(c.sub || []).map(s => s.label)].join(" "), catSearch));
+  // v42: deep search all nesting levels
+  function deepCatText(n){return[n.label||"",n.icon||"",...(n.sub||[]).flatMap(s=>deepCatText(s))];}
+  const shownCats = myCats.filter(c => matchesQuery(deepCatText(c).join(" "), catSearch));
   const shownSubs = (selCat?.sub || []).filter(s => matchesQuery([s.label, s.icon, selCat?.label].join(" "), subSearch));
   // shownSubSubs removed — drill-down now handled dynamically in renderSubSubCategoryPicker
   // Top-level food subs only — these don't filter items by subgroup
@@ -6529,13 +7185,13 @@ function AddEntryModal({
       const itemDetail = item.subgroupDetail;
       const itemSubgroup = ITEM_SUBGROUP_MAP[item.id] || item.subgroup;
       // If item has a subgroupDetail and activeSubId matches it — show it
-      if (itemDetail && itemDetail === activeSubId) return matchesQuery([item.label, item.icon, item.unit].join(" "), itemSearch);
+      if (itemDetail && itemDetail === activeSubId) return matchesQuery([item.label, item.icon, item.unit, ...(item.aliases || []), ...(ITEM_ALIASES[item.id] || [])].join(" "), itemSearch);
       // If activeSubId is a detail-level ID (food_meat_broiler etc) but item has no matching detail — hide it
       if (itemDetail && activeSubId !== itemSubgroup) return false;
       // Normal subgroup filter
       if (itemSubgroup && itemSubgroup !== activeSubId) return false;
     }
-    return matchesQuery([item.label, item.icon, item.unit].join(" "), itemSearch);
+    return matchesQuery([item.label, item.icon, item.unit, ...(item.aliases || []), ...(ITEM_ALIASES[item.id] || [])].join(" "), itemSearch);
   }) : [];
   useEffect(() => {
     if (selItem && !unit) setUnit(selItem.unit || "kg");
@@ -7116,6 +7772,7 @@ return /*#__PURE__*/React.createElement(Modal, {
         style: { position: "absolute", left: 13, top: "50%", transform: "translateY(-50%)", fontSize: 16, pointerEvents: "none", zIndex: 1 }
       }, "🔍"),
       React.createElement("input", {
+        ref: globalSearchRef,
         value: globalSearch,
         onChange: e => setGlobalSearch(e.target.value),
         placeholder: "Quick search — Horina, Broiler, Rent…",
@@ -7260,7 +7917,24 @@ return /*#__PURE__*/React.createElement(Modal, {
       textAlign: "center",
       padding: "10px 0 2px"
     }
-  }, "No category found")), hasSub && renderSubCategoryPicker(), hasSub && subId && renderSubSubCategoryPicker(), foodItems && renderItemPicker(), foodItems && itemId && renderQtyUnitPicker(), isBikeFuel && renderBikeFuelFields()), /*#__PURE__*/React.createElement("div", {
+  }, shownCats.length===0 && catSearch.trim() ? (function(){
+    var q=catSearch.trim().toLowerCase();
+    var res=smartSearchIndex.filter(function(r){return r.searchText.includes(q);}).slice(0,6);
+    if(!res.length) return "No category found";
+    return res.map(function(r){
+      return React.createElement("button",{
+        key:r.key,
+        onClick:function(){applySmartResult(r);setCatSearch("");},
+        style:{display:"flex",alignItems:"center",gap:8,width:"100%",padding:"8px 10px",marginBottom:3,background:"#2C2C2E",borderRadius:10,border:"none",cursor:"pointer",textAlign:"left"}
+      },
+        React.createElement("span",{style:{fontSize:16}},r.icon||""),
+        React.createElement("div",{style:{flex:1,minWidth:0}},
+          React.createElement("div",{style:{color:"#fff",fontSize:13,fontWeight:700}},r.shortLabel||r.label),
+          React.createElement("div",{style:{color:"#8E8E93",fontSize:10}},r.breadcrumb)
+        )
+      );
+    });
+  })() : "No category found")), hasSub && renderSubCategoryPicker(), hasSub && subId && renderSubSubCategoryPicker(), foodItems && renderItemPicker(), foodItems && itemId && renderQtyUnitPicker(), isBikeFuel && renderBikeFuelFields()), /*#__PURE__*/React.createElement("div", {
     style: { background: "#2C2C2E", borderRadius: 14, padding: "12px 14px", marginBottom: 10 }
   },
     /*#__PURE__*/React.createElement("div", { style: { color: "#8E8E93", fontSize: 10, fontWeight: 700, letterSpacing: 1, marginBottom: 8 } }, "PAYMENT METHOD"),
@@ -8101,30 +8775,54 @@ function DataModal({
     }
   }
     function renderMainMenu() {
-    return React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("button", {
-    onClick: doExportJSON,
-    style: {
-      width: "100%",
-      padding: "13px",
-      borderRadius: 14,
-      border: "none",
-      cursor: "pointer",
-      background: "#0A84FF22",
-      color: "#0A84FF",
-      fontSize: 14,
-      fontWeight: 700,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      gap: 10,
-      marginBottom: 9,
-      outline: "none"
+    // Refresh items helper — force-merges new DEFAULT items into user's saved list
+    function doRefreshItems() {
+      if (!setItems) return;
+      function mergeGroup(defaults, savedList) {
+        const merged = [...(savedList || [])];
+        const ids = new Set(merged.map(i => i.id));
+        defaults.forEach(d => { if (!ids.has(d.id)) merged.push(d); });
+        return merged;
+      }
+      setItems(prev => ({
+        grocery: mergeGroup(DEFAULT_GROCERY, prev.grocery),
+        meat:    mergeGroup(DEFAULT_MEAT,    prev.meat),
+        fish:    mergeGroup(DEFAULT_FISH,    prev.fish)
+      }));
+      setStatus("✅ Item list updated! New items (Face Wash, Shampoo etc.) এখন search এ পাবে।");
+      setTimeout(() => setStatus(""), 3000);
     }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 20
-    }
-  }, "📦"), "Export JSON (Backup)"), /*#__PURE__*/React.createElement("button", {
+    return React.createElement(React.Fragment, null,
+    /*#__PURE__*/React.createElement("button", {
+      onClick: doRefreshItems,
+      style: {
+        width: "100%", padding: "13px", borderRadius: 14, border: "none", cursor: "pointer",
+        background: "#30D15822", color: "#30D158", fontSize: 14, fontWeight: 700,
+        display: "flex", alignItems: "center", justifyContent: "center", gap: 10, marginBottom: 9, outline: "none"
+      }
+    }, /*#__PURE__*/React.createElement("span", { style: { fontSize: 20 } }, "🔄"), "নতুন Items Sync করো (Refresh Item List)"),
+    /*#__PURE__*/React.createElement("button", {
+      onClick: doExportJSON,
+      style: {
+        width: "100%",
+        padding: "13px",
+        borderRadius: 14,
+        border: "none",
+        cursor: "pointer",
+        background: "#0A84FF22",
+        color: "#0A84FF",
+        fontSize: 14,
+        fontWeight: 700,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 10,
+        marginBottom: 9,
+        outline: "none"
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: { fontSize: 20 }
+    }, "📦"), "Export JSON (Backup)"), /*#__PURE__*/React.createElement("button", {
     onClick: doExportCSV,
     style: {
       width: "100%",
@@ -10382,10 +11080,13 @@ function SearchResults({
   onEdit,
   cats,
   items,
-  theme
+  theme,
+  hideMenusAndItems,
+  onDrillHistory
 }) {
   const t = mergeTheme(theme);
   const total = results.entries.length + results.categories.length + results.items.length;
+  const sumAmount = hideMenusAndItems ? results.entries.reduce((s, e) => s + (e.amount || 0), 0) : 0;
   return /*#__PURE__*/React.createElement("div", {
     style: {
       margin: "0 16px 12px"
@@ -10400,21 +11101,30 @@ function SearchResults({
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       padding: "12px 16px",
-      borderBottom: "1px solid #2C2C2E"
+      borderBottom: "1px solid #2C2C2E",
+      display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10
     }
-  }, /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", null,
+    /*#__PURE__*/React.createElement("div", {
     style: {
       color: "#fff",
       fontSize: 15,
       fontWeight: 900
     }
-  }, "Search Results"), /*#__PURE__*/React.createElement("div", {
+  }, hideMenusAndItems ? "Transaction History" : "Search Results"), /*#__PURE__*/React.createElement("div", {
     style: {
       color: "#8E8E93",
       fontSize: 12,
       marginTop: 2
     }
-  }, total, " match", total === 1 ? "" : "es", " for \"", query, "\"")), total === 0 && /*#__PURE__*/React.createElement("div", {
+  }, total, " match", total === 1 ? "" : "es", hideMenusAndItems ? "" : ` for "${query}"`)),
+    hideMenusAndItems && results.entries.length > 0 && /*#__PURE__*/React.createElement("div", {
+      style: { textAlign: "right", flexShrink: 0 }
+    },
+      /*#__PURE__*/React.createElement("div", { style: { color: "#8E8E93", fontSize: 10, fontWeight: 700, letterSpacing: 0.5 } }, "TOTAL"),
+      /*#__PURE__*/React.createElement("div", { style: { color: t.primary || "#0A84FF", fontSize: 15, fontWeight: 900 } }, fmt(sumAmount))
+    )
+  ), total === 0 && /*#__PURE__*/React.createElement("div", {
     style: {
       padding: 24,
       color: "#636366",
@@ -10446,7 +11156,7 @@ function SearchResults({
     icon: c.icon,
     active: false,
     color: c.color || t.primary,
-    onClick: () => {},
+    onClick: () => { if (onDrillHistory) onDrillHistory({ kind: "cat", id: c.id, label: c.parentLabel ? `${c.parentLabel} › ${c.label}` : c.label, icon: c.icon, color: c.color || t.primary }); },
     small: true
   })))), results.items.length > 0 && /*#__PURE__*/React.createElement("div", {
     style: {
@@ -10473,7 +11183,7 @@ function SearchResults({
     icon: item.icon,
     active: false,
     color: item.group === "grocery" ? "#FF9F0A" : item.group === "meat" ? "#FF6B6B" : "#4ECDC4",
-    onClick: () => {},
+    onClick: () => { if (onDrillHistory) onDrillHistory({ kind: "item", id: item.id, label: shortLabel(item.label), icon: item.icon, color: item.group === "grocery" ? "#FF9F0A" : item.group === "meat" ? "#FF6B6B" : "#4ECDC4" }); },
     small: true
   })))), results.entries.length > 0 && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -10504,6 +11214,68 @@ function SearchResults({
 // Parse a natural-language expense/income line into a structured entry.
 // Returns { type, catId, subId, itemId, qty, unit, amount, note, confidence }
 // confidence: "high" (save directly) | "low" (prefill modal)
+// ── Shared fuzzy-matching helpers (used by parseSmartEntry AND Quick Entry's
+//    smart search box, so both entry points share the same "AI brain") ──────
+// Fuzzy match: levenshtein distance for typo tolerance
+function levenshtein(a, b) {
+  const m = a.length, n = b.length;
+  const dp = Array.from({ length: m + 1 }, (_, i) => [i, ...Array(n).fill(0)]);
+  for (let j = 0; j <= n; j++) dp[0][j] = j;
+  for (let i = 1; i <= m; i++)
+    for (let j = 1; j <= n; j++)
+      dp[i][j] = a[i-1] === b[j-1] ? dp[i-1][j-1] : 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
+  return dp[m][n];
+}
+
+function fuzzyScore(query, target) {
+  if (!query || !target) return 0;
+  const q = query.toLowerCase().normalize("NFKD").trim();
+  const t = target.toLowerCase().normalize("NFKD").trim();
+  if (!q) return 0;
+  if (t === q) return 1;
+  if (t.includes(q)) return 0.95;
+  if (t.startsWith(q)) return 0.92;
+  // Try each word of target
+  const words = t.split(/[\s/·,]+/).filter(Boolean);
+  for (const w of words) {
+    if (w === q) return 0.95;
+    if (w.startsWith(q)) return 0.88;
+    if (w.includes(q)) return 0.75;
+  }
+  // Levenshtein fuzzy on query vs each target word
+  const dist = Math.min(...words.map(w => levenshtein(q, w.slice(0, Math.max(q.length + 2, w.length)))));
+  if (dist === 0) return 0.9;
+  if (dist <= 1 && q.length >= 3) return 0.72;
+  if (dist <= 2 && q.length >= 4) return 0.62;
+  if (dist <= 3 && q.length >= 6) return 0.55;
+  return 0;
+}
+
+// Brand/alias recognition — checks the FULL raw text (not just the trimmed query) against
+// an item's known brand names / receipt phrasings (e.g. "Rupchada" → Soybean Oil,
+// "Pepsodent" → Toothpaste). This is the "AI brain" that learns real-world product names
+// beyond the generic category labels, so receipt text or quick-typed brand names auto-route
+// to the right item without the user picking manually. Add more aliases over time as new
+// brands/products show up — see item.aliases arrays in DEFAULT_GROCERY etc.
+function bestAliasMatch(fullText, item) {
+  const aliasLists = [item.aliases, ITEM_ALIASES[item.id]].filter(Boolean);
+  if (!aliasLists.length) return 0;
+  const t = fullText.toLowerCase().normalize("NFKD");
+  let best = 0;
+  for (const list of aliasLists) {
+    for (const alias of list) {
+      const a = alias.toLowerCase();
+      if (t.includes(a)) {
+        // Longer/more specific alias match = higher confidence (caps at 0.97 so an exact
+        // item-label match can still edge it out if one exists).
+        const score = Math.min(0.97, 0.86 + a.length / 120);
+        if (score > best) best = score;
+      }
+    }
+  }
+  return best;
+}
+
 function parseSmartEntry(raw, cats, items) {
   const text = raw.trim();
   if (!text) return null;
@@ -10512,66 +11284,6 @@ function parseSmartEntry(raw, cats, items) {
   const allItems = [...items.grocery.map(i => ({ ...i, group: "grocery" })),
                     ...items.meat.map(i => ({ ...i, group: "meat" })),
                     ...items.fish.map(i => ({ ...i, group: "fish" }))];
-
-  // Fuzzy match: levenshtein distance for typo tolerance
-  function levenshtein(a, b) {
-    const m = a.length, n = b.length;
-    const dp = Array.from({ length: m + 1 }, (_, i) => [i, ...Array(n).fill(0)]);
-    for (let j = 0; j <= n; j++) dp[0][j] = j;
-    for (let i = 1; i <= m; i++)
-      for (let j = 1; j <= n; j++)
-        dp[i][j] = a[i-1] === b[j-1] ? dp[i-1][j-1] : 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
-    return dp[m][n];
-  }
-
-  function fuzzyScore(query, target) {
-    if (!query || !target) return 0;
-    const q = query.toLowerCase().normalize("NFKD").trim();
-    const t = target.toLowerCase().normalize("NFKD").trim();
-    if (!q) return 0;
-    if (t === q) return 1;
-    if (t.includes(q)) return 0.95;
-    if (t.startsWith(q)) return 0.92;
-    // Try each word of target
-    const words = t.split(/[\s/·,]+/).filter(Boolean);
-    for (const w of words) {
-      if (w === q) return 0.95;
-      if (w.startsWith(q)) return 0.88;
-      if (w.includes(q)) return 0.75;
-    }
-    // Levenshtein fuzzy on query vs each target word
-    const dist = Math.min(...words.map(w => levenshtein(q, w.slice(0, Math.max(q.length + 2, w.length)))));
-    if (dist === 0) return 0.9;
-    if (dist <= 1 && q.length >= 3) return 0.72;
-    if (dist <= 2 && q.length >= 4) return 0.62;
-    if (dist <= 3 && q.length >= 6) return 0.55;
-    return 0;
-  }
-
-  // Brand/alias recognition — checks the FULL raw text (not just the trimmed query) against
-  // an item's known brand names / receipt phrasings (e.g. "Rupchada" → Soybean Oil,
-  // "Pepsodent" → Toothpaste). This is the "AI brain" that learns real-world product names
-  // beyond the generic category labels, so receipt text or quick-typed brand names auto-route
-  // to the right item without the user picking manually. Add more aliases over time as new
-  // brands/products show up — see item.aliases arrays in DEFAULT_GROCERY etc.
-  function bestAliasMatch(fullText, item) {
-    const aliasLists = [item.aliases, ITEM_ALIASES[item.id]].filter(Boolean);
-    if (!aliasLists.length) return 0;
-    const t = fullText.toLowerCase().normalize("NFKD");
-    let best = 0;
-    for (const list of aliasLists) {
-      for (const alias of list) {
-        const a = alias.toLowerCase();
-        if (t.includes(a)) {
-          // Longer/more specific alias match = higher confidence (caps at 0.97 so an exact
-          // item-label match can still edge it out if one exists).
-          const score = Math.min(0.97, 0.86 + a.length / 120);
-          if (score > best) best = score;
-        }
-      }
-    }
-    return best;
-  }
 
   // Unit map: normalise written units → app UNITS values
   // Also handles typos like "paces"→"piece", "peice"→"piece"
@@ -11151,7 +11863,7 @@ function SmartBar({ theme, cats, items, onAdd, onOpenModal, externalOpen, onExte
 }
 
 // ─── SmartFAB — AI Bot with 3-button radial menu ────────────────────────────
-function SmartFAB({ theme, onIncome, onExpense, onQuickEntry }) {
+function SmartFAB({ theme, onIncome, onExpense, onQuickEntryType }) {
   const t      = mergeTheme(theme);
   const sz     = t.fabSize === "lg" ? 72 : t.fabSize === "sm" ? 52 : 62;
   const iconSz = Math.round(sz * 0.50);
@@ -11191,11 +11903,11 @@ function SmartFAB({ theme, onIncome, onExpense, onQuickEntry }) {
 
   function handleTap(e) { addRipple(e); setOpen(o => !o); }
 
-  function pillBtn({ label, icon, color, action, delay }) {
+  function pillBtn({ label, icon, color, action, delay, width }) {
     return /*#__PURE__*/React.createElement("button", {
       onClick: (e) => { e.stopPropagation(); setOpen(false); action(); },
       style: {
-        width: pillW, height: pillH,
+        width: width || pillW, height: pillH,
         display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
         background: `linear-gradient(135deg, ${color}ee, ${color}99)`,
         border: `1.5px solid ${color}55`,
@@ -11281,7 +11993,7 @@ function SmartFAB({ theme, onIncome, onExpense, onQuickEntry }) {
       /*#__PURE__*/React.createElement("div", {
         style: { display: "flex", justifyContent: "center", position: "absolute", bottom: rowBottom + pillH + 12, left: "50%", transform: "translateX(-50%)", width: pillW }
       },
-        pillBtn({ label: "Quick Entry", icon: "⚡", color: qColor, action: () => { if (onQuickEntry) onQuickEntry(); }, delay: 0.00 })
+        pillBtn({ label: "Quick Entry", icon: "⚡", color: qColor, action: () => { if (onQuickEntryType) onQuickEntryType(); }, delay: 0.00 })
       ),
       /*#__PURE__*/React.createElement("div", {
         style: { display: "flex", gap: 10, justifyContent: "center", position: "absolute", bottom: rowBottom, left: "50%", transform: "translateX(-50%)", width: pillW * 2 + 10 }
@@ -11366,6 +12078,67 @@ function BudgetModal({ open, onClose, cats, budgets, setBudgets, theme }) {
 function WhatsNewModal({ open, onClose }) {
   if (!open) return null;
   const notes = [
+    {
+      version: "v42.0",
+      date: "29 Jun 2026",
+      items: [
+        { icon: "🔍", label: "Fix", text: "Category search এখন সব nested level এ কাজ করে — sub-category ও deep items খুঁজে পাবে।" },
+        { icon: "✨", label: "Fix", text: "Match না পেলে Smart Suggested Matches দেখাবে — tap করলে সরাসরি সেই category তে যাবে।" },
+      ]
+    },
+    {
+      version: "v41.0",
+      date: "29 Jun 2026",
+      items: [
+        { icon: "🔍", label: "Fix", text: "Global Search NL Query উন্নত — এখন \"last month food cost\", \"last month e cost\", \"this month খরচ কত\", \"গত মাস food total\" এই ধরনের প্রশ্নেও Answer Card দেখাবে। আগে শুধু 'koto' বা 'কত' থাকলেই কাজ করত।" },
+        { icon: "💬", label: "Fix", text: "NL Query-তে নতুন recognized keywords: cost, total, khoroch, spend, spent, expense — এগুলো এখন amount cue হিসেবে গণ্য হয়, তাই Banglish/English মিশিয়ে লিখলেও answer card দেখাবে।" },
+        { icon: "🛒", label: "New", text: "৪০+ নতুন item যোগ: Pasta, Sago, Corn Flour, Tempura Flour, Yeast, Vanilla Essence, Capsicum, Rock/Pink/Testing Salt, Chicken Powder, Food Color, Tomato/Garlic/Soy/Chicken Sauce, Vinegar, Apple Cider Vinegar, Honey, Sweet Yogurt (আলাদা), Chocolate, Raisins, Almonds, Chia Seeds, Halim Mix, Shol Fish, Tengra Fish, Fish Roe, Liver, Sausage — সব AI Search-এ alias সহ searchable।" },
+        { icon: "💊", label: "New", text: "Pharmacy items যোগ: Birth Control Pill, Condom, Pregnancy Test Kit, Medicine — Grocery-এর নতুন Pharmacy section-এ।" },
+        { icon: "🏠", label: "New", text: "Home & Lifestyle items যোগ: Toy, Umbrella, Gardening Plant, Fertilizer, Harpic, Vim Bar, Pureit Filter, Toilet/Kitchen/Wet Tissue — Grocery-এ searchable।" },
+        { icon: "💄", label: "New", text: "Personal Care items যোগ: Shampoo (Kodomo সহ), Face Wash, Perfume/Attar, Hair Oil, Toothbrush, Sunglasses — সব alias-সহ।" },
+      ]
+    },
+    {
+      version: "v40.0",
+      date: "29 Jun 2026",
+      items: [
+        { icon: "🗒️", label: "New", text: "Similar-Note Clustering — entry এর note field (যেমন \"uber to office\", \"lunch with team\") এখন analyze হয়ে similar wording-এর entry গুলো auto-group হয়, spelling/wording ভিন্ন হলেও (fuzzy text similarity + same category-এর entry একসাথে গ্রুপ হয়)।" },
+        { icon: "🔍", label: "New", text: "Global Search-এ এখন \"NOTE PATTERNS\" section দেখাবে — কোনো note-এর সাথে মিলে গেলে সেই group-এর সব entry + total + কতবার হয়েছে দেখায়, tap করলে পুরো history।" },
+        { icon: "📋", label: "New", text: "Global Search-এর browse screen (কিছু না লিখলে)-এ এখন একটা horizontally-scrollable \"Note Patterns\" strip থাকে — top recurring note-group গুলো (টাকার পরিমাণ অনুযায়ী sorted) এক ঝলকে দেখা যায়।" },
+        { icon: "⚙️", label: "Note", text: "Grouping default: একই top-level category + similar text (Jaccard/Levenshtein, threshold 0.6) — অন্তত ২ বার না হলে pattern হিসেবে ধরা হয় না, যাতে এক-বারের note গুলো list ভরিয়ে না দেয়।" },
+      ]
+    },
+    {
+      version: "v39.0",
+      date: "28 Jun 2026",
+      items: [
+        { icon: "💬", label: "New", text: "Natural-language spending question — Global Search বক্সে সরাসরি প্রশ্ন লিখলে এখন উত্তর দেখায়, যেমন \"last month food e koto খরচ\" বা \"এই সপ্তাহে কত খরচ\"। সময়কাল + খাত/আইটেম auto-detect করে total টাকা ও কতবার entry হয়েছে এক কার্ডে দেখায়।" },
+        { icon: "🗓️", label: "New", text: "সাপোর্টেড সময়কাল: আজ/গতকাল, এই সপ্তাহ/গত সপ্তাহ, এই মাস/গত মাস, এই বছর/গত বছর — Bangla ও English/Banglish দুই ভাষাতেই লেখা যায়।" },
+        { icon: "🧠", label: "Improvement", text: "প্রশ্নের ভেতরের খাত/আইটেম নাম একই fuzzy + brand-alias engine দিয়ে match হয় (rupchada, horina ইত্যাদি), তাই এখানেও typo বা ব্র্যান্ড নাম চলবে। সময়কাল উল্লেখ না থাকলে এটা সাধারণ search হিসেবেই কাজ করবে — কোনো conflict নেই।" },
+      ]
+    },
+    {
+      version: "v38.0",
+      date: "28 Jun 2026",
+      items: [
+        { icon: "🔍", label: "Improvement", text: "Global Search এখন আর entry খোলে না — category/item tap করলে এখন সরাসরি সেই খাতের পুরনো history (matching transactions + total amount) দেখায়। Analytics-এর মতো filter হিসেবে ব্যবহার করা যায়।" },
+        { icon: "📜", label: "New", text: "History drill-down — Global Search-এর result list-এ MENUS/ITEMS pill tap করলে সেই category/item-এর সব transaction এক জায়গায় চলে আসে, সাথে total amount। '✕ Clear' চাপলে আগের অবস্থায় ফিরে যাওয়া যায়।" },
+        { icon: "⚡", label: "Improvement", text: "AI বট FAB আগের মতই '⚡ Quick Entry' (SmartBar এক-লাইন parser) + '－ Expense' + '＋ Income' — মোট ৩টা বাটন রাখা হয়েছে। আলাদা 'Search' বাটনের দরকার নেই, কারণ Expense/Income এর মডালেই উপরে item/category search box আগে থেকেই আছে।" },
+        { icon: "🧠", label: "Improvement", text: "Quick Entry-এর item/category search বক্স এখন আরও স্মার্ট — typo-tolerant fuzzy matching আর brand-alias recognition (Rupchada, Pepsodent এর মত) যুক্ত হয়েছে, যা আগে শুধু SmartBar-এ ছিল।" },
+        { icon: "🎯", label: "Fix", text: "Entry তৈরি করার flow এখন সব জায়গা থেকে Quick Entry-তেই centralize — Global Search থেকে ভুলবশত আলাদা/inconsistent entry prefill হওয়ার সমস্যা দূর হয়েছে।" },
+        { icon: "🧠", label: "New", text: "Global Search এখন fuzzy + typo-tolerant + brand-alias aware — 'horna' লিখলেও 'Horina' খুঁজে পাবে, 'rupchada' লিখলে Soybean Oil item ধরবে। আগে শুধু exact substring match হতো।" },
+        { icon: "💡", label: "New", text: "Spending Insight — কোনো category/item-এর history দেখার সময় এখন এক লাইনে auto-summary দেখায়: গড় মাসিক খরচ, গত মাসের তুলনায় কত % বেড়েছে/কমেছে, আর কতবার entry হয়েছে।" },
+      ]
+    },
+    {
+      version: "v37.0",
+      date: "28 Jun 2026",
+      items: [
+        { icon: "✕", label: "New", text: "Tab × button — tab-bar এর শেষে একটি ✕ button যোগ হয়েছে (Overview ছাড়া সব tab এ)। Tap করলে সরাসরি Overview এ ফিরে যাবে। Modal এর × এর সাথে conflict নেই।" },
+        { icon: "🔍", label: "Fix", text: "Search overlap fix — search এ কিছু লিখলে এখন '✕ Clear Search' button দেখাবে। Tap করলে search clear হয়ে আবার tab content (analysis/data) দেখা যাবে।" },
+        { icon: "🗑️", label: "New", text: "Garbage Bill / ময়লার বিল — Bills & Finance সেকশনে নতুন category যোগ হয়েছে। DNCC/DSCC/municipality এর ময়লা সংগ্রহের bill track করা যাবে।" },
+      ]
+    },
     {
       version: "v36.0",
       date: "28 Jun 2026",
@@ -11606,6 +12379,9 @@ function App() {
   const [smartPrefill, setSmartPrefill] = useState(null); // prefill from SmartBar low-confidence parse
   const [smartBarOpen, setSmartBarOpen] = useState(false); // triggered from AI bot Quick Entry
   const [searchFocused, setSearchFocused] = useState(false);
+  // Global Search "history" drill — tapping a category/item pill filters transactions to it
+  // (Global Search NEVER opens AddEntryModal; that flow lives only in Quick Entry now)
+  const [historyFilter, setHistoryFilter] = useState(null); // { kind: "cat"|"item", id, label, icon, color }
   useEffect(() => save(KEYS.entries, entries), [entries]);
   useEffect(() => save(KEYS.cats, cats), [cats]);
   useEffect(() => save(KEYS.items, items), [items]);
@@ -11629,19 +12405,84 @@ function App() {
   const income = filtered.filter(e => e.type === "income").reduce((s, e) => s + e.amount, 0);
   const expenses = filtered.filter(e => e.type === "expense").reduce((s, e) => s + e.amount, 0);
   const sorted = [...filtered].sort((a, b) => new Date(b.date) - new Date(a.date));
+  const FUZZY_FLOOR = 0.55; // below this score, a fuzzy "match" is too weak to show
+  // Similar-note clustering — recomputed only when entries/cats actually change, shared by
+  // both the Global Search "browse" view (no query typed) and the autocomplete dropdown.
+  const noteClusters = useMemo(() => clusterEntryNotes(entries, cats), [entries, cats]);
+  // Natural-language spending question (e.g. "last month food e koto খরচ") — only evaluated
+  // when there's no active history drill. Returns null for anything that isn't recognizably
+  // a "how much ... when" question, so normal fuzzy search is completely unaffected otherwise.
+  const nlqAnswer = useMemo(() => {
+    if (historyFilter) return null;
+    const parsed = parseNLQuery(search, cats, items);
+    if (!parsed) return null;
+    return answerNLQuery(parsed, entries, cats);
+  }, [search, entries, cats, items, historyFilter]);
   const searchResults = useMemo(() => {
     const q = search.trim();
+    // History drill mode: a category or item pill was tapped — show its full transaction
+    // history regardless of search text (Analytics-style filter, never opens entry modal)
+    if (historyFilter) {
+      const catIdx = buildCatIndex(cats);
+      let histEntries;
+      if (historyFilter.kind === "item") {
+        histEntries = entries.filter(e => e.itemId === historyFilter.id);
+      } else if (historyFilter.kind === "note") {
+        // Note clusters carry their own entries directly (they're not tied to one cat/item id)
+        histEntries = historyFilter.entries || [];
+      } else {
+        const catNode = catIdx[historyFilter.id];
+        histEntries = catNode ? entries.filter(e => entryMatchesCat(e, catNode)) : [];
+      }
+      if (q) histEntries = histEntries.filter(e => fuzzyMatchesQuery(entrySearchBlob(e, cats, items), q) >= FUZZY_FLOOR);
+      return {
+        entries: histEntries.sort((a, b) => new Date(b.date) - new Date(a.date)),
+        categories: [],
+        items: []
+      };
+    }
     if (!q) return {
       entries: [],
       categories: [],
       items: []
     };
+    // Recognized natural-language question ("last month food e koto খরচ") — show exactly the
+    // matching transactions for that range/target instead of generic fuzzy text matching.
+    if (nlqAnswer) {
+      return {
+        entries: nlqAnswer.entries,
+        categories: [],
+        items: []
+      };
+    }
+    // Entries: fuzzy-score each entry's search blob, keep anything over the floor, best first
+    const scoredEntries = entries
+      .map(e => ({ e, score: fuzzyMatchesQuery(entrySearchBlob(e, cats, items), q) }))
+      .filter(x => x.score >= FUZZY_FLOOR);
+    scoredEntries.sort((a, b) => b.score - a.score || (new Date(b.e.date) - new Date(a.e.date)));
+
+    // Categories: fuzzy against label/breadcrumb text
+    const scoredCats = allCatsList(cats)
+      .map(c => ({ c, score: fuzzyMatchesQuery([c.label, c.icon, c.side, c.parentLabel, c.mainLabel].join(" "), q) }))
+      .filter(x => x.score >= FUZZY_FLOOR);
+    scoredCats.sort((a, b) => b.score - a.score);
+
+    // Items: fuzzy against label/unit/group PLUS brand-alias score (Rupchada → Soybean Oil etc.)
+    const scoredItems = allItemsList(items)
+      .map(i => {
+        const labelScore = fuzzyMatchesQuery([i.label, i.icon, i.unit, i.group].join(" "), q);
+        const aliasScore = itemAliasScore(i, q);
+        return { i, score: Math.max(labelScore, aliasScore) };
+      })
+      .filter(x => x.score >= FUZZY_FLOOR);
+    scoredItems.sort((a, b) => b.score - a.score);
+
     return {
-      entries: entries.filter(e => matchesQuery(entrySearchBlob(e, cats, items), q)).sort((a, b) => new Date(b.date) - new Date(a.date)),
-      categories: allCatsList(cats).filter(c => matchesQuery([c.label, c.icon, c.side, c.parentLabel, c.mainLabel].join(" "), q)),
-      items: allItemsList(items).filter(i => matchesQuery([i.label, i.icon, i.unit, i.group].join(" "), q))
+      entries: scoredEntries.map(x => x.e),
+      categories: scoredCats.map(x => x.c),
+      items: scoredItems.map(x => x.i)
     };
-  }, [search, entries, cats, items]);
+  }, [search, entries, cats, items, historyFilter, nlqAnswer]);
   const viewLabel = {
     daily: `Today · ${new Date().toLocaleDateString("en-GB", {
       weekday: "long",
@@ -12302,10 +13143,10 @@ return /*#__PURE__*/React.createElement("div", {
     }
   }, "🔎"), /*#__PURE__*/React.createElement("input", {
     value: search,
-    onChange: e => setSearch(e.target.value),
+    onChange: e => { setSearch(e.target.value); setHistoryFilter(null); },
     onFocus: () => setSearchFocused(true),
     onBlur: () => setTimeout(() => setSearchFocused(false), 200),
-    placeholder: "Search categories, items, transactions...",
+    placeholder: "Search old entries, categories, items...",
     style: {
       background: "transparent",
       border: "none",
@@ -12315,7 +13156,7 @@ return /*#__PURE__*/React.createElement("div", {
       width: "100%"
     }
   }), search && /*#__PURE__*/React.createElement("button", {
-    onClick: () => setSearch(""),
+    onClick: () => { setSearch(""); setHistoryFilter(null); },
     style: {
       width: 28,
       height: 28,
@@ -12327,12 +13168,28 @@ return /*#__PURE__*/React.createElement("div", {
       cursor: "pointer"
     }
   }, "×")),
-  /* ── Smart autocomplete dropdown ── */
+  /* ── Search autocomplete dropdown — tap drills into history, never opens entry modal ── */
   searchFocused && search.trim() ? (() => {
     const q = search.trim();
-    const catHits = allCatsList(cats).filter(c => matchesQuery([c.label, c.icon, c.side, c.parentLabel, c.mainLabel].join(" "), q)).slice(0, 6);
-    const itemHits = allItemsList(items).filter(i => matchesQuery([i.label, i.icon, i.unit, i.group].join(" "), q)).slice(0, 4);
-    if (!catHits.length && !itemHits.length) return null;
+    const catHits = allCatsList(cats)
+      .map(c => ({ c, score: fuzzyMatchesQuery([c.label, c.icon, c.side, c.parentLabel, c.mainLabel].join(" "), q) }))
+      .filter(x => x.score >= 0.55)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 6)
+      .map(x => x.c);
+    const itemHits = allItemsList(items)
+      .map(i => ({ i, score: Math.max(fuzzyMatchesQuery([i.label, i.icon, i.unit, i.group].join(" "), q), itemAliasScore(i, q)) }))
+      .filter(x => x.score >= 0.55)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 4)
+      .map(x => x.i);
+    const noteHits = noteClusters
+      .map(c => ({ c, score: fuzzyMatchesQuery(c.label, q) }))
+      .filter(x => x.score >= 0.55)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 4)
+      .map(x => x.c);
+    if (!catHits.length && !itemHits.length && !noteHits.length) return null;
     const catIdx = buildCatIndex(cats);
     return /*#__PURE__*/React.createElement("div", {
       style: {
@@ -12348,24 +13205,17 @@ return /*#__PURE__*/React.createElement("div", {
           return /*#__PURE__*/React.createElement("div", {
             key: c.side + "_" + c.id,
             onMouseDown: () => {
+              // Drill into this category's transaction history — does NOT open AddEntryModal.
+              // Quick Entry (the bot FAB) is the only place entries get created from now on.
               setSearch("");
               setSearchFocused(false);
-              const entryType = c.side === "income" ? "income" : "expense";
-              const path = c.path || [];
-              setEditEntry(null);
-              setAddType(entryType);
-              setSmartPrefill({
-                type: entryType,
-                catId: path[0] || c.id,
-                subId: path[1] || "",
-                itemId: "",
-                amount: "",
-                note: "",
-                qty: "",
-                unit: "",
-                preview: pathLabels.join(" › ")
+              setHistoryFilter({
+                kind: "cat",
+                id: c.id,
+                label: pathLabels.join(" › "),
+                icon: c.icon,
+                color: c.color || theme.primary
               });
-              setShowAdd(true);
             },
             style: {
               display: "flex", alignItems: "center", gap: 10,
@@ -12380,7 +13230,7 @@ return /*#__PURE__*/React.createElement("div", {
               ),
               /*#__PURE__*/React.createElement("div", { style: { color: "#636366", fontSize: 11 } }, c.side === "income" ? "Income" : "Expense")
             ),
-            /*#__PURE__*/React.createElement("span", { style: { color: c.color || theme.primary, fontSize: 11, fontWeight: 700, flexShrink: 0 } }, "→")
+            /*#__PURE__*/React.createElement("span", { style: { color: c.color || theme.primary, fontSize: 11, fontWeight: 700, flexShrink: 0 } }, "📜")
           );
         })
       ),
@@ -12389,11 +13239,16 @@ return /*#__PURE__*/React.createElement("div", {
         itemHits.map(item => /*#__PURE__*/React.createElement("div", {
           key: item.group + "_" + item.id,
           onMouseDown: () => {
-            setSearch(""); setSearchFocused(false);
-            const catId2 = item.group === "grocery" ? "grocery" : "fish_meat";
-            const subId2 = item.group === "grocery" ? "food_grocery" : item.group === "meat" ? "food_meat" : "food_fish";
-            setSmartPrefill({ type: "expense", catId: catId2, subId: subId2, itemId: item.id, amount: "", note: "", qty: "", unit: item.unit || "kg", preview: item.label.split("/")[0].trim() });
-            setEditEntry(null); setAddType("expense"); setShowAdd(true);
+            // Drill into this item's purchase history — does NOT open AddEntryModal.
+            setSearch("");
+            setSearchFocused(false);
+            setHistoryFilter({
+              kind: "item",
+              id: item.id,
+              label: item.label.split("/")[0].trim(),
+              icon: item.icon,
+              color: item.group === "grocery" ? "#FF9F0A" : item.group === "meat" ? "#FF6B6B" : "#4ECDC4"
+            });
           },
           style: { display: "flex", alignItems: "center", gap: 10, padding: "9px 14px", cursor: "pointer", borderTop: "1px solid #2C2C2E" }
         },
@@ -12402,20 +13257,101 @@ return /*#__PURE__*/React.createElement("div", {
             /*#__PURE__*/React.createElement("div", { style: { color: "#fff", fontSize: 13, fontWeight: 700 } }, item.label.split("/")[0].trim()),
             /*#__PURE__*/React.createElement("div", { style: { color: "#636366", fontSize: 11 } }, item.group)
           ),
-          /*#__PURE__*/React.createElement("span", { style: { color: "#FF9F0A", fontSize: 11, fontWeight: 700 } }, "→")
+          /*#__PURE__*/React.createElement("span", { style: { color: "#FF9F0A", fontSize: 11, fontWeight: 700 } }, "📜")
+        ))
+      ),
+      noteHits.length > 0 && /*#__PURE__*/React.createElement(React.Fragment, null,
+        /*#__PURE__*/React.createElement("div", { style: { padding: "8px 14px 4px", color: "#636366", fontSize: 10, fontWeight: 800, letterSpacing: 1 } }, "NOTE PATTERNS"),
+        noteHits.map((c, idx) => /*#__PURE__*/React.createElement("div", {
+          key: "note_" + idx,
+          onMouseDown: () => {
+            // Drill into this similar-note group's entries — same drill pattern as cat/item.
+            setSearch("");
+            setSearchFocused(false);
+            setHistoryFilter({ kind: "note", label: c.label, icon: c.catIcon, color: c.catColor, entries: c.entries });
+          },
+          style: { display: "flex", alignItems: "center", gap: 10, padding: "9px 14px", cursor: "pointer", borderTop: "1px solid #2C2C2E" }
+        },
+          /*#__PURE__*/React.createElement("span", { style: { fontSize: 18, width: 24, textAlign: "center", flexShrink: 0 } }, "🗒️"),
+          /*#__PURE__*/React.createElement("div", { style: { flex: 1, minWidth: 0 } },
+            /*#__PURE__*/React.createElement("div", { style: { color: "#fff", fontSize: 13, fontWeight: 700, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" } }, c.label),
+            /*#__PURE__*/React.createElement("div", { style: { color: "#636366", fontSize: 11 } }, `${c.catIcon} ${c.catLabel} · ${c.count}বার · ৳${fmt(c.total)}`)
+          ),
+          /*#__PURE__*/React.createElement("span", { style: { color: "#FF9F0A", fontSize: 11, fontWeight: 700 } }, "📜")
         ))
       )
     );
   })() : null
-  ), search.trim() && /*#__PURE__*/React.createElement(SearchResults, {
-    query: search.trim(),
-    results: searchResults,
-    onDelete: deleteEntry,
-    onEdit: openEdit,
-    cats: cats,
-    items: items,
-    theme: theme
-  }), !search.trim() && /*#__PURE__*/React.createElement("div", {
+  ), (search.trim() || historyFilter) && /*#__PURE__*/React.createElement("div", null,
+    /*#__PURE__*/React.createElement("div", {
+      style: { display: "flex", alignItems: "center", padding: "0 16px", marginBottom: 8, gap: 8 }
+    },
+      historyFilter
+        ? /*#__PURE__*/React.createElement("div", { style: { display: "flex", alignItems: "center", gap: 6, flex: 1, minWidth: 0 } },
+            /*#__PURE__*/React.createElement("span", { style: { fontSize: 14, flexShrink: 0 } }, "📜"),
+            /*#__PURE__*/React.createElement("span", { style: { color: "#8E8E93", fontSize: 12, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" } },
+              historyFilter.icon, " ", historyFilter.label, " এর হিস্ট্রি"
+            )
+          )
+        : /*#__PURE__*/React.createElement("div", { style: { color: "#8E8E93", fontSize: 12, flex: 1 } },
+            `"${search.trim()}" এর ফলাফল`
+          ),
+      /*#__PURE__*/React.createElement("button", {
+        onClick: () => { setSearch(""); setSearchFocused(false); setHistoryFilter(null); },
+        style: {
+          padding: "5px 12px", borderRadius: 14, border: "none",
+          background: "#FF453A22", color: "#FF453A", fontSize: 12,
+          fontWeight: 800, cursor: "pointer", flexShrink: 0
+        }
+      }, "✕ Clear")
+    ),
+    nlqAnswer && (() => {
+      const a = nlqAnswer;
+      const color = a.target ? (a.target.color || theme.primary) : (a.type === "income" ? "#30D158" : theme.primary);
+      const verb = a.type === "income" ? "আয় হয়েছে" : "খরচ হয়েছে";
+      const whatLabel = a.target ? `${a.target.icon || ""} ${a.target.label}` : (a.type === "income" ? "মোট আয়" : "মোট খরচ");
+      return /*#__PURE__*/React.createElement("div", {
+        style: {
+          margin: "0 16px 10px", padding: "12px 14px", borderRadius: 14,
+          background: color + "16", border: `1px solid ${color}33`
+        }
+      },
+        /*#__PURE__*/React.createElement("div", { style: { color: "#8E8E93", fontSize: 11, fontWeight: 700, marginBottom: 4 } },
+          `${a.rangeLabel} · ${whatLabel}`
+        ),
+        /*#__PURE__*/React.createElement("div", { style: { display: "flex", alignItems: "baseline", gap: 8 } },
+          /*#__PURE__*/React.createElement("span", { style: { color: "#fff", fontSize: 22, fontWeight: 800 } }, `৳${fmt(a.total)}`),
+          /*#__PURE__*/React.createElement("span", { style: { color: "#EBEBF5", fontSize: 12, fontWeight: 600 } }, `${verb} · ${a.count} বার`)
+        )
+      );
+    })(),
+    historyFilter && (() => {
+      const insight = generateHistoryInsight(searchResults.entries, historyFilter.kind);
+      if (!insight) return null;
+      return /*#__PURE__*/React.createElement("div", {
+        style: {
+          margin: "0 16px 10px", padding: "8px 14px", borderRadius: 12,
+          background: (historyFilter.color || theme.primary) + "16",
+          border: `1px solid ${(historyFilter.color || theme.primary)}33`,
+          display: "flex", alignItems: "center", gap: 8
+        }
+      },
+        /*#__PURE__*/React.createElement("span", { style: { fontSize: 14, flexShrink: 0 } }, "💡"),
+        /*#__PURE__*/React.createElement("span", { style: { color: "#EBEBF5", fontSize: 12, fontWeight: 600, lineHeight: 1.4 } }, insight)
+      );
+    })(),
+    /*#__PURE__*/React.createElement(SearchResults, {
+      query: historyFilter ? historyFilter.label : search.trim(),
+      results: searchResults,
+      onDelete: deleteEntry,
+      onEdit: openEdit,
+      cats: cats,
+      items: items,
+      theme: theme,
+      hideMenusAndItems: !!historyFilter,
+      onDrillHistory: (hf) => { setHistoryFilter(hf); setSearch(""); }
+    })
+  ), !search.trim() && !historyFilter && /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       padding: "0 16px",
@@ -12439,10 +13375,55 @@ return /*#__PURE__*/React.createElement("div", {
       fontSize: 13,
       outline: "none"
     }
-  }, i, " ", t.charAt(0).toUpperCase() + t.slice(1)))), !search.trim() && /*#__PURE__*/React.createElement("div", {
+  }, i, " ", t.charAt(0).toUpperCase() + t.slice(1))),
+  // ── Back-to-overview × — only shown on non-overview tabs ──
+  mainTab !== "overview" && /*#__PURE__*/React.createElement("button", {
+    key: "__back",
+    onClick: () => setMainTab("overview"),
+    title: "Overview এ ফিরে যান",
+    className: "pill-btn",
+    style: {
+      flexShrink: 0,
+      width: 34,
+      height: 34,
+      borderRadius: 17,
+      border: "1px solid #FF453A55",
+      background: "#FF453A22",
+      color: "#FF453A",
+      fontSize: 16,
+      fontWeight: 900,
+      cursor: "pointer",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      outline: "none",
+      lineHeight: 1
+    }
+  }, "✕")),
+  !search.trim() && !historyFilter && noteClusters.length > 0 && /*#__PURE__*/React.createElement("div", {
+    style: { padding: "0 16px", marginBottom: 14 }
+  },
+    /*#__PURE__*/React.createElement("div", { style: { color: "#636366", fontSize: 11, fontWeight: 800, letterSpacing: 0.5, marginBottom: 6 } }, "🗒️ NOTE PATTERNS"),
+    /*#__PURE__*/React.createElement("div", { style: { display: "flex", gap: 8, overflowX: "auto" } },
+      noteClusters.slice(0, 8).map((c, idx) => /*#__PURE__*/React.createElement("div", {
+        key: "browse_note_" + idx,
+        onClick: () => setHistoryFilter({ kind: "note", label: c.label, icon: c.catIcon, color: c.catColor, entries: c.entries }),
+        className: "pill-btn",
+        style: {
+          flexShrink: 0, minWidth: 130, padding: "10px 12px", borderRadius: 14, cursor: "pointer",
+          background: theme.surface, border: `1px solid ${c.catColor}33`
+        }
+      },
+        /*#__PURE__*/React.createElement("div", { style: { color: "#fff", fontSize: 12, fontWeight: 700, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" } }, c.catIcon, " ", c.label),
+        /*#__PURE__*/React.createElement("div", { style: { color: c.catColor, fontSize: 11, fontWeight: 800, marginTop: 2 } }, `৳${fmt(c.total)} · ${c.count}বার`)
+      ))
+    )
+  ),
+  !search.trim() && /*#__PURE__*/React.createElement("div", {
     key: mainTab,
     style: { animation: "chartFadeIn .35s cubic-bezier(.22,1,.36,1) both" }
-  }, mainTab === "overview" && renderOverviewTab(), mainTab === "units" && renderUnitsTab(), mainTab === "daily" && /*#__PURE__*/React.createElement(DailyHistoryScreen, {
+  },
+  mainTab === "overview" && renderOverviewTab(), mainTab === "units" && renderUnitsTab(), mainTab === "daily" && /*#__PURE__*/React.createElement(DailyHistoryScreen, {
     entries: entries,
     cats: cats,
     items: items,
@@ -12469,7 +13450,7 @@ return /*#__PURE__*/React.createElement("div", {
     theme: theme,
     onIncome: () => openAdd("income"),
     onExpense: () => openAdd("expense"),
-    onQuickEntry: () => setSmartBarOpen(true)
+    onQuickEntryType: () => setSmartBarOpen(true)
   }), /*#__PURE__*/React.createElement(AddEntryModal, {
     open: showAdd,
     onClose: closeEntryModal,
