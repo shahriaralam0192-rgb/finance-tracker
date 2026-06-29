@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">  
     <meta name="apple-mobile-web-app-capable" content="yes">  
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">  
-    <title>Finance Tracker v42.0</title>
+    <title>Finance Tracker v49.0</title>
     <!-- React & ReactDOM embedded inline for fully offline use -->
     <script>/**
  * @license React
@@ -899,7 +899,7 @@ const DEFAULT_GROCERY = [
     aliases: ["tempura flour", "tempura mix", "tempura batter"] },
   { id: "groc_yeast",         label: "Yeast / ইস্ট",                    icon: "🫙", unit: "gram",
     aliases: ["yeast", "instant yeast", "dry yeast", "bread yeast", "ist"] },
-  { id: "groc_vanilla",       label: "Vanilla Essence / ভ্যানিলা এসেন্স", icon: "🫙", unit: "piece",
+  { id: "groc_vanilla",       label: "Vanilla Essence / ভ্যানিলা এসেন্স", icon: "🫙", unit: "gram",
     aliases: ["vanilla essence", "vanilla extract", "vanilla flavor"] },
   { id: "groc_dal_chola",     label: "Chickpea Dal / চোলার ডাল",         icon: "🫘", unit: "kg",
     aliases: ["cholar dal", "chola dal", "chana dal", "cholar daal"] },
@@ -913,20 +913,20 @@ const DEFAULT_GROCERY = [
   { id: "groc_oil_soy",       label: "Soybean Oil / সয়াবিন তেল",       icon: "🫙", unit: "liter",
     aliases: ["rupchada", "soyabean oil", "soybean oil", "fresh soyabean", "pran soyabean", "teer soyabean", "bashundhara soyabean"] },
   { id: "groc_oil_mustard",   label: "Mustard Oil / সরিষার তেল",        icon: "🫙", unit: "liter" },
-  { id: "groc_ghee",          label: "Ghee / ঘি",                       icon: "🫙", unit: "kg" },
-  { id: "groc_tomato_sauce",  label: "Tomato Sauce / টমেটো সস",         icon: "🥫", unit: "piece",
+  { id: "groc_ghee",          label: "Ghee / ঘি",                       icon: "🫙", unit: "gram" },
+  { id: "groc_tomato_sauce",  label: "Tomato Sauce / টমেটো সস",         icon: "🥫", unit: "bottle",
     aliases: ["tomato sauce", "tomato ketchup", "ketchup", "tomsauce"] },
-  { id: "groc_garlic_sauce",  label: "Garlic Sauce / গার্লিক সস",       icon: "🥫", unit: "piece",
+  { id: "groc_garlic_sauce",  label: "Garlic Sauce / গার্লিক সস",       icon: "🥫", unit: "bottle",
     aliases: ["garlic sauce", "garlic paste sauce", "garlic chili sauce"] },
-  { id: "groc_soy_sauce",     label: "Soy Sauce / সোয়া সস",             icon: "🥫", unit: "piece",
+  { id: "groc_soy_sauce",     label: "Soy Sauce / সোয়া সস",             icon: "🥫", unit: "bottle",
     aliases: ["soy sauce", "soya sauce", "dark soy sauce"] },
-  { id: "groc_chicken_sauce", label: "Chicken Sauce / চিকেন সস",        icon: "🥫", unit: "piece",
+  { id: "groc_chicken_sauce", label: "Chicken Sauce / চিকেন সস",        icon: "🥫", unit: "bottle",
     aliases: ["chicken sauce", "chicken chili sauce", "nando sauce"] },
-  { id: "groc_vinegar",       label: "Vinegar / ভিনেগার",               icon: "🫙", unit: "piece",
+  { id: "groc_vinegar",       label: "Vinegar / ভিনেগার",               icon: "🫙", unit: "gram",
     aliases: ["vinegar", "white vinegar", "distilled vinegar"] },
-  { id: "groc_acv",           label: "Apple Cider Vinegar / অ্যাপেল সিডার ভিনেগার", icon: "🫙", unit: "piece",
+  { id: "groc_acv",           label: "Apple Cider Vinegar / অ্যাপেল সিডার ভিনেগার", icon: "🫙", unit: "gram",
     aliases: ["apple cider vinegar", "acv", "apple vinegar", "braggs acv"] },
-  { id: "groc_honey",         label: "Honey / মধু",                     icon: "🍯", unit: "piece",
+  { id: "groc_honey",         label: "Honey / মধু",                     icon: "🍯", unit: "gram",
     aliases: ["honey", "modhu", "pure honey", "raw honey", "natural honey"] },
   { id: "groc_oil_other",     label: "Other Oil / অন্য তেল",            icon: "🫙", unit: "liter" },
 
@@ -983,8 +983,8 @@ const DEFAULT_GROCERY = [
 
   /* ── Aromatics / মসলা সবজি ── */
   { id: "groc_onion",         label: "Onion / পেঁয়াজ",                 icon: "🧅", unit: "kg" },
-  { id: "groc_garlic",        label: "Garlic / রসুন",                   icon: "🧄", unit: "gram" },
-  { id: "groc_ginger",        label: "Ginger / আদা",                    icon: "🫚", unit: "gram" },
+  { id: "groc_garlic",        label: "Garlic / রসুন",                   icon: "🧄", unit: "kg" },
+  { id: "groc_ginger",        label: "Ginger / আদা",                    icon: "🫚", unit: "kg" },
 
   /* ── Vegetables / সবজি ── */
   { id: "groc_potato",        label: "Potato / আলু",                    icon: "🥔", unit: "kg" },
@@ -1037,24 +1037,24 @@ const DEFAULT_GROCERY = [
   { id: "groc_milk_liquid",   label: "Liquid Milk / তরল দুধ",           icon: "🥛", unit: "liter" },
   { id: "groc_egg_farm",      label: "Farm Egg / ফার্মের ডিম",          icon: "🥚", unit: "piece" },
   { id: "groc_egg_deshi",     label: "Deshi Egg / দেশি ডিম",            icon: "🥚", unit: "piece" },
-  { id: "groc_cheese",        label: "Cheese / চিজ",                    icon: "🧀", unit: "piece",
+  { id: "groc_cheese",        label: "Cheese / চিজ",                    icon: "🧀", unit: "gram",
     aliases: ["mozzarella", "mozzarella cheese", "cheese slice", "cheddar cheese"] },
-  { id: "groc_tok_doi",       label: "Sour Yogurt / টক দই",             icon: "🥛", unit: "piece",
+  { id: "groc_tok_doi",       label: "Sour Yogurt / টক দই",             icon: "🥛", unit: "gram",
     aliases: ["tok doi", "tok dahi", "sour curd", "dahi"] },
-  { id: "groc_mishti_doi",    label: "Sweet Yogurt / মিষ্টি দই",        icon: "🍮", unit: "piece",
+  { id: "groc_mishti_doi",    label: "Sweet Yogurt / মিষ্টি দই",        icon: "🍮", unit: "gram",
     aliases: ["mishti doi", "mistindoi", "sweet yogurt", "sweet curd", "misti doi"] },
   { id: "groc_baby_milk",     label: "Baby Milk Powder / বেবি মিল্ক পাউডার", icon: "🍼", unit: "gram",
     aliases: ["baby milk", "baby formula", "nan", "lactogen", "aptamil", "similac", "enfamil", "bebelo", "meji"] },
-  { id: "groc_dairy_other",   label: "Other Dairy / অন্য দুগ্ধজাত",    icon: "🥛", unit: "piece" },
+  { id: "groc_dairy_other",   label: "Other Dairy / অন্য দুগ্ধজাত",    icon: "🥛", unit: "gram" },
 
   /* ── Breakfast & Snacks / নাস্তা ── */
-  { id: "groc_biscuit",       label: "Biscuits / বিস্কুট",              icon: "🍪", unit: "piece",
+  { id: "groc_biscuit",       label: "Biscuits / বিস্কুট",              icon: "🍪", unit: "packet",
     aliases: ["pran potata", "potata biscuit", "bisk club", "olympic biscuit", "danish biscuit"] },
   { id: "groc_bread",         label: "Bread / পাউরুটি",                 icon: "🍞", unit: "piece" },
-  { id: "groc_noodles",       label: "Noodles / নুডলস",                icon: "🍜", unit: "piece",
+  { id: "groc_noodles",       label: "Noodles / নুডলস",                icon: "🍜", unit: "packet",
     aliases: ["maggi", "maggi noodles", "maggi masala"] },
   { id: "groc_puffrice",      label: "Puffed Rice / মুড়ি",             icon: "🌾", unit: "kg" },
-  { id: "groc_chanachur",     label: "Chanachur / চানাচুর",             icon: "🥡", unit: "kg" },
+  { id: "groc_chanachur",     label: "Chanachur / চানাচুর",             icon: "🥡", unit: "packet" },
   { id: "groc_chocolate",     label: "Chocolate / চকলেট",               icon: "🍫", unit: "piece",
     aliases: ["chocolate", "dairy milk", "dairy milk chocolate", "cadbury", "kitkat", "mars"] },
   { id: "groc_raisins",       label: "Raisins / কিশমিশ",                icon: "🍇", unit: "gram",
@@ -1063,10 +1063,11 @@ const DEFAULT_GROCERY = [
     aliases: ["almond", "almonds", "badam", "kath badam", "cashew", "pistachio", "walnut", "mixed nuts"] },
   { id: "groc_chia_seeds",    label: "Chia Seeds / চিয়া সিড",          icon: "🌱", unit: "gram",
     aliases: ["chia seeds", "chia seed", "chia"] },
-  { id: "groc_halim",         label: "Halim Mix / হালিম",               icon: "🫕", unit: "piece",
+  { id: "groc_halim",         label: "Halim Mix / হালিম",               icon: "🫕", unit: "packet",
     aliases: ["halim mix", "halim", "haleem mix", "haleem"] },
   { id: "groc_tea",           label: "Tea / চা",                        icon: "🍵", unit: "gram" },
-  { id: "groc_snack_other",   label: "Other Snack / অন্য নাস্তা",       icon: "🍿", unit: "piece" },
+  { id: "groc_snack_other",   label: "Chips & Snacks / চিপস ও নাস্তা",  icon: "🍟", unit: "packet",
+    aliases: ["chips", "lays", "pran chips", "mr noodles chips", "potato chips", "cheetos", "snack", "চিপস"] },
 
   /* ── Beverages / পানীয় ── */
   { id: "groc_cola",          label: "Coca Cola / কোকা কোলা",           icon: "🥤", unit: "piece",
@@ -1178,6 +1179,11 @@ const DEFAULT_GROCERY = [
     aliases: ["plant", "chara", "garden plant", "sapling", "flower plant", "vegetable seedling"] },
   { id: "groc_fertilizer",     label: "Fertilizer / সার",                icon: "🌿", unit: "kg",
     aliases: ["fertilizer", "sar", "compost", "garden fertilizer", "plant food"] },
+  { id: "groc_jute_bag",       label: "Jute / Fabric Bag / পাটের ব্যাগ", icon: "🛍️", unit: "piece",
+    aliases: ["jute bag", "fabric bag", "jute fabric bag", "fabric jute bag", "pater bag", "eco bag",
+              "shopping bag", "carry bag", "tote bag", "reusable bag", "cloth bag",
+              "fabric jute", "jute extra large", "fabric extra large", "jute bag extra larg",
+              "fabric-jute bag", "fabric-jute bag extra larg", "jute beg", "kaporer bag"] },
 
   /* ── Others ── */
   { id: "groc_other",         label: "Other Grocery / অন্যান্য",        icon: "🛒", unit: "piece" },
@@ -1186,9 +1192,9 @@ const DEFAULT_MEAT = [
   /* ── Chicken / মুরগি ── */
   { id: "meat_broiler",    label: "Broiler Chicken / ব্রয়লার মুরগি",  icon: "🍗", unit: "kg",    subgroup: "food_meat_chicken", subgroupDetail: "food_meat_broiler",
     aliases: ["farm chicken", "farm murgi", "broiler murgi", "broiler chicken"] },
-  { id: "meat_roast",      label: "Roast Chicken / রোস্টের মুরগি",    icon: "🍗", unit: "kg",    subgroup: "food_meat_chicken", subgroupDetail: "food_meat_roast" },
+  { id: "meat_roast",      label: "Roast Chicken / রোস্টের মুরগি",    icon: "🍗", unit: "piece", subgroup: "food_meat_chicken", subgroupDetail: "food_meat_roast" },
   { id: "meat_layer",      label: "Layer Chicken / লেয়ার মুরগি",      icon: "🍗", unit: "kg",    subgroup: "food_meat_chicken", subgroupDetail: "food_meat_layer" },
-  { id: "meat_soup",       label: "Soup Chicken / স্যুপের মুরগি",      icon: "🍗", unit: "kg",    subgroup: "food_meat_chicken", subgroupDetail: "food_meat_soup" },
+  { id: "meat_soup",       label: "Soup Chicken / স্যুপের মুরগি",      icon: "🍗", unit: "piece", subgroup: "food_meat_chicken", subgroupDetail: "food_meat_soup" },
   { id: "meat_chicken",    label: "Chicken / মুরগি (General)",         icon: "🍗", unit: "kg",    subgroup: "food_meat_chicken" },
 
   /* ── Duck & Goose / হাঁস ── */
@@ -1203,7 +1209,7 @@ const DEFAULT_MEAT = [
   /* ── Others ── */
   { id: "meat_koil",       label: "Quail / কোয়েল",                    icon: "🐦", unit: "piece", subgroup: "food_meat_other" },
   { id: "meat_kobutor",    label: "Pigeon / কবুতর",                   icon: "🕊️", unit: "piece", subgroup: "food_meat_other" },
-  { id: "meat_liver",      label: "Liver / কলিজা",                    icon: "🍖", unit: "gram",  subgroup: "food_meat_other",
+  { id: "meat_liver",      label: "Liver / কলিজা",                    icon: "🍖", unit: "kg",  subgroup: "food_meat_other",
     aliases: ["liver", "kolija", "chicken liver", "beef liver", "mutton liver"] },
   { id: "meat_sausage",    label: "Sausage / সসেজ",                   icon: "🌭", unit: "piece", subgroup: "food_meat_other",
     aliases: ["sausage", "sosej", "chicken sausage", "beef sausage", "smoked sausage"] },
@@ -1211,14 +1217,20 @@ const DEFAULT_MEAT = [
 ];
 const DEFAULT_FISH = [
   /* ── Prawn & Shrimp / চিংড়ি ── */
-  { id: "fish_galda",      label: "Galda Prawn / গলদা চিংড়ি",        icon: "🦐", unit: "kg", subgroup: "food_fish_chingri" },
-  { id: "fish_bagda",      label: "Bagda Shrimp / বাগদা চিংড়ি",      icon: "🦐", unit: "kg", subgroup: "food_fish_chingri" },
-  { id: "fish_horina",     label: "Horina Shrimp / হরিণা চিংড়ি",     icon: "🦐", unit: "kg", subgroup: "food_fish_chingri" },
-  { id: "fish_chingri",    label: "Shrimp / চিংড়ি (General)",         icon: "🦐", unit: "kg", subgroup: "food_fish_chingri" },
+  { id: "fish_galda",      label: "Galda Prawn / গলদা চিংড়ি",        icon: "🦐", unit: "kg", subgroup: "food_fish_chingri",
+    aliases: ["galda", "galda chingri", "golda chingri", "golda prawn", "golda"] },
+  { id: "fish_bagda",      label: "Bagda Shrimp / বাগদা চিংড়ি",      icon: "🦐", unit: "kg", subgroup: "food_fish_chingri",
+    aliases: ["bagda", "bagda chingri", "bagda shrimp", "bagda frs", "bagda loc", "bagda cul", "bagda rc", "bagda sat", "bagda mym", "bagda raj"] },
+  { id: "fish_horina",     label: "Horina Shrimp / হরিণা চিংড়ি",     icon: "🦐", unit: "kg", subgroup: "food_fish_chingri",
+    aliases: ["horina", "harina", "horina chingri", "horina shrimp", "horina frs", "horina loc", "horina cul", "horina rc", "horina sat"] },
+  { id: "fish_chingri",    label: "Shrimp / চিংড়ি (General)",         icon: "🦐", unit: "kg", subgroup: "food_fish_chingri",
+    aliases: ["chingri", "shrimp", "prawn", "chingri mach"] },
 
   /* ── Sweetwater Fish / মিঠা পানির মাছ ── */
-  { id: "fish_pangash",    label: "Pangash / পাঙ্গাশ মাছ",            icon: "🐟", unit: "kg", subgroup: "food_fish_sweet" },
-  { id: "fish_rui",        label: "Rui / রুই",                        icon: "🐟", unit: "kg", subgroup: "food_fish_sweet" },
+  { id: "fish_pangash",    label: "Pangash / পাঙ্গাশ মাছ",            icon: "🐟", unit: "kg", subgroup: "food_fish_sweet",
+    aliases: ["pangas", "pangash", "pangasius", "pangas frs", "pangas loc", "pangas mym", "pangas cul", "pangas rc", "pangash frs"] },
+  { id: "fish_rui",        label: "Rui / রুই",                        icon: "🐟", unit: "kg", subgroup: "food_fish_sweet",
+    aliases: ["rui", "rui mach", "rohu", "rui fish", "rui l2f", "rui loc", "rui raj", "rui cul", "rui rc", "rui l1f", "rui l3f"] },
   { id: "fish_katla",      label: "Katla / কাতলা",                    icon: "🐟", unit: "kg", subgroup: "food_fish_sweet" },
   { id: "fish_mola",       label: "Mola / মলা",                       icon: "🐠", unit: "kg", subgroup: "food_fish_sweet" },
   { id: "fish_talapia",    label: "Tilapia / তেলাপিয়া",              icon: "🐡", unit: "kg", subgroup: "food_fish_sweet" },
@@ -1788,6 +1800,7 @@ const ITEM_SUBGROUP_MAP = {
   groc_preg_test: "food_groc_other", groc_medicine: "food_groc_other",
   groc_toy: "food_groc_other", groc_umbrella: "food_groc_other",
   groc_plant: "food_groc_other", groc_fertilizer: "food_groc_other",
+  groc_jute_bag: "food_groc_other",
   // ── Fish — Shrimp ──
   fish_galda: "food_fish_chingri", fish_bagda: "food_fish_chingri",
   fish_horina: "food_fish_chingri", fish_chingri: "food_fish_chingri",
@@ -1921,12 +1934,25 @@ const ITEM_ALIASES = {
   groc_umbrella:    ["umbrella", "chata", "rain umbrella", "folding umbrella"],
   groc_plant:       ["plant", "chara", "garden plant", "sapling", "flower plant"],
   groc_fertilizer:  ["fertilizer", "sar", "compost", "garden fertilizer", "plant food"],
+  groc_jute_bag:    ["jute bag", "fabric bag", "jute fabric bag", "pater bag", "eco bag", "shopping bag",
+                     "carry bag", "tote bag", "cloth bag", "fabric-jute bag", "fabric jute bag extra larg",
+                     "jute bag extra larg", "fabric-jute bag extra larg"],
   fish_shol:        ["shol", "shol mach", "snakehead fish", "shoul fish"],
   fish_tengra:      ["tengra", "tengra mach", "tengra fish"],
   fish_roe:         ["fish roe", "macher dim", "fish eggs", "roe"],
-  meat_liver:       ["liver", "kolija", "chicken liver", "beef liver", "mutton liver"],
+  // ── Shajgoj / supermarket receipt aliases ──────────────────────────────────
+  fish_bagda:       ["bagda", "bagda chingri", "bagda frs", "bagda loc sat cul", "bagda rc", "bagda mym cul"],
+  fish_horina:      ["horina", "horina chingri", "horina frs", "horina loc sat cul", "horina rc"],
+  fish_pangash:     ["pangas", "pangash", "pangas frs", "pangas loc mym cul", "pangas rc", "pangash frs loc"],
+  fish_rui:         ["rui", "rui mach", "rui l2f", "rui loc raj cul", "rui rc", "rui l1f", "rui l3f"],
+  fish_hilsha:      ["hilsha", "ilish", "hilsa", "hilsa mach", "ilish mach"],
+  fish_katla:       ["katla", "katla mach", "catla", "katla fish"],
+  meat_liver:       ["liver", "kolija", "chicken liver", "beef liver", "mutton liver", "ox liver", "ox liver kg", "ox kolija", "beef kolija"],
   meat_sausage:     ["sausage", "sosej", "chicken sausage", "beef sausage", "smoked sausage"],
-  meat_broiler:     ["farm chicken", "farm murgi", "broiler murgi", "broiler chicken"],
+  meat_broiler:     ["farm chicken", "farm murgi", "broiler murgi", "broiler chicken", "broiler without sk", "broiler without skin", "chicken without sk", "chicken without skin", "broiler chicken without"],
+  meat_roast:       ["roast chicken", "roast murgi", "roasted chicken", "chicken roast"],
+  meat_beef:        ["beef", "gorur mangsho", "goru mangsho", "beef curry cut", "beef bone"],
+  meat_mutton:      ["mutton", "khasir mangsho", "lamb", "khasir"],
 };
 // THEME/THEME_PRESETS control cosmetic bg/accent colors; COLORS is for fixed meaning
 // (red=expense/danger, green=income/success, gray=muted text) so it's a separate set. ---
@@ -2038,6 +2064,7 @@ const FONT_STACK = "-apple-system,BlinkMacSystemFont,sans-serif";
 //           component. No feature/schema/logic changes.
 //   v16.x — Chart/graph UI modernization: gradient fills, glow effects, smooth curves, CSS animations
 //           across BarChart, LineChart, PriceLineChart, MiniBar.
+const APP_VERSION = "v48.0";   // ← bump this on every release
 const KEYS = {
   entries: "ft_entries_v5",
   cats: "ft_cats_v7",
@@ -3324,7 +3351,8 @@ function PriceLineChart({
   data,
   unit,
   color = "#5E5CE6",
-  labelFn
+  labelFn,
+  minMaxIdx
 }) {
   const cid = useChartId("pl");
   const [active, setActive] = useState(null);
@@ -3476,6 +3504,9 @@ function PriceLineChart({
       data.map((d, i) => {
         const isLast = i === n - 1;
         const isActive = active === i;
+        const isMin = minMaxIdx && minMaxIdx.minIdx === i;
+        const isMax = minMaxIdx && minMaxIdx.maxIdx === i;
+        const mmColor = isMin ? "#34C759" : isMax ? "#FFD60A" : null;
         return /*#__PURE__*/React.createElement("g", { key: i },
           // Invisible hit zone
           /*#__PURE__*/React.createElement("circle", {
@@ -3490,11 +3521,23 @@ function PriceLineChart({
             fill: "none", stroke: color, strokeOpacity: 0.55, strokeWidth: 1.5,
             style: { animation: "chartPulse 2.2s ease-out infinite", transformOrigin: `${lastPt[0]}px ${lastPt[1]}px` }
           }),
+          // Lowest/highest price ring
+          mmColor && drawn && /*#__PURE__*/React.createElement("circle", {
+            cx: pts[i][0], cy: pts[i][1], r: 7,
+            fill: "none", stroke: mmColor, strokeWidth: 1.6,
+            style: { pointerEvents: "none" }
+          }),
+          mmColor && /*#__PURE__*/React.createElement("text", {
+            x: pts[i][0], y: pts[i][1] - 12,
+            textAnchor: "middle", fill: mmColor,
+            fontSize: 9, fontWeight: 900, fontFamily: FONT_STACK,
+            style: { pointerEvents: "none" }
+          }, isMin ? "সর্বনিম্ন" : "সর্বোচ্চ"),
           // Dot
-          (isLast || isActive) && /*#__PURE__*/React.createElement("circle", {
+          (isLast || isActive || mmColor) && /*#__PURE__*/React.createElement("circle", {
             cx: pts[i][0], cy: pts[i][1],
             r: isActive ? 5.5 : 4,
-            fill: color,
+            fill: mmColor || color,
             stroke: "#0D0B1E", strokeWidth: 2,
             filter: isActive ? `url(#${cid}glow)` : undefined,
             style: { pointerEvents: "none", transition: "r .18s cubic-bezier(.34,1.56,.64,1)" }
@@ -5577,6 +5620,8 @@ function ChartsScreen({
   const [compareSide, setCompareSide] = useState("all"); // all | income | expense
   const [selCompareCat, setSelCompareCat] = useState("");
   const [compareGranularity, setCompareGranularity] = useState("month"); // day | month | year
+  const [alerts, setAlert] = usePriceAlerts();
+  const [alertInput, setAlertInput] = useState("");
   const allItems = useMemo(() => allItemsList(items), [items]);
   const groupMeta = {
     all: {
@@ -5645,23 +5690,31 @@ function ChartsScreen({
     if (!itemId) return [];
     const relevant = entries.filter(e => e.itemId === itemId && e.qty && e.amount);
     const buckets = {};
+    // Determine item's canonical unit for normalization
+    const itemObj = allItems.find(i => i.id === itemId);
+    const canonUnit = itemObj?.unit || "";
     relevant.forEach(e => {
       const D = new Date(e.date);
       const k = granularity === "day"
         ? e.date.slice(0, 10)
         : `${D.getFullYear()}-${String(D.getMonth()).padStart(2, "0")}`;
       if (!buckets[k]) buckets[k] = { totalAmt: 0, totalQty: 0, date: e.date, records: 0, key: k };
+      // Normalize qty to base unit (gram/ml) so mixed units compare correctly
+      const entryUnit = e.unit || canonUnit;
       buckets[k].totalAmt += e.amount;
-      buckets[k].totalQty += parseFloat(e.qty);
+      buckets[k].totalQty += _normQty(e.qty, entryUnit);
       buckets[k].records += 1;
     });
+    // price is now ৳/gram or ৳/ml or ৳/unit depending on item unit type
+    const baseUnitLabel = _baseUnit(canonUnit) || canonUnit || "unit";
     return Object.entries(buckets).sort(([a], [b]) => a.localeCompare(b)).map(([key, v]) => ({
       date: v.date,
       dateKey: key,
       price: v.totalQty > 0 ? v.totalAmt / v.totalQty : 0,
       records: v.records,
       totalQty: v.totalQty,
-      totalAmt: v.totalAmt
+      totalAmt: v.totalAmt,
+      baseUnit: baseUnitLabel
     })).filter(d => d.price > 0);
   }
   const priceItems = useMemo(() => itemsWithHistory.filter(item => {
@@ -5674,7 +5727,11 @@ function ChartsScreen({
     if (selItem && priceItems.length && !priceItems.some(i => i.id === selItem)) setSelItem(priceItems[0].id);
     if (selItem && !priceItems.length) setSelItem("");
   }, [chartTab, priceItems, selItem]);
+  useEffect(() => {
+    setAlertInput(selItem && alerts[selItem] != null ? String(alerts[selItem]) : "");
+  }, [selItem, alerts]);
   const priceHistory = useMemo(() => calcPriceHistory(selItem, priceGranularity), [entries, selItem, priceGranularity]);
+  const priceMinMax = useMemo(() => getPriceMinMax(priceHistory), [priceHistory]);
   const selItemObj = allItems.find(i => i.id === selItem);
 
   // --- Compare tab: every main/sub category vs its own previous transactions ---
@@ -6024,7 +6081,32 @@ function ChartsScreen({
         )
       )
     ),
-    React.createElement(PriceLineChart, { data: priceHistory, unit: selItemObj?.unit, color: groupMeta[selItemObj?.group]?.color || t.accent }),
+    React.createElement(PriceLineChart, { data: priceHistory, unit: selItemObj?.unit, color: groupMeta[selItemObj?.group]?.color || t.accent, minMaxIdx: priceMinMax }),
+    // ── Price Alert ──
+    React.createElement("div", { style: { display: "flex", alignItems: "center", gap: 8, marginTop: 12, padding: "10px 12px", background: t.surface, borderRadius: 12 } },
+      React.createElement("div", { style: { fontSize: 16 } }, "🔔"),
+      React.createElement("input", {
+        type: "number",
+        inputMode: "decimal",
+        value: alertInput,
+        onChange: e => setAlertInput(e.target.value),
+        onBlur: () => setAlert(selItem, alertInput),
+        placeholder: `এই দামের উপরে গেলে warning দেখাও`,
+        style: { ...inputBoxStyle("#2C2C2E"), flex: 1, padding: "8px 10px", fontSize: 12 }
+      }),
+      alerts[selItem] != null && React.createElement("button", {
+        onClick: () => { setAlert(selItem, null); setAlertInput(""); },
+        style: { background: "transparent", border: "none", color: "#FF453A", fontSize: 11, fontWeight: 700, cursor: "pointer", flexShrink: 0 }
+      }, "✕ Clear")
+    ),
+    alerts[selItem] != null && priceHistory.length > 0 && priceHistory[priceHistory.length - 1].price > alerts[selItem] &&
+      React.createElement("div", {
+        style: { marginTop: 10, padding: "10px 14px", borderRadius: 12, background: "#FF453A18", border: "1px solid #FF453A44" }
+      },
+        React.createElement("div", { style: { color: "#FF453A", fontWeight: 800, fontSize: 13 } },
+          `⚠️ দাম ৳${fmtF(alerts[selItem])} ছাড়িয়ে গেছে — এখন ৳${fmtF(priceHistory[priceHistory.length - 1].price)}/${selItemObj?.unit || "unit"}`
+        )
+      ),
     priceHistory.length >= 2 && React.createElement("div", { style: { marginTop: 14, background: t.surface, borderRadius: 12, overflow: "hidden" } },
       React.createElement("div", { style: { padding: "10px 14px", display: "flex", justifyContent: "space-between", alignItems: "center" } },
         React.createElement("div", { style: { color: "#8E8E93", fontSize: 10, fontWeight: 700, letterSpacing: 1 } },
@@ -6032,30 +6114,38 @@ function ChartsScreen({
         ),
         React.createElement("div", { style: { color: "#636366", fontSize: 10 } }, priceHistory.length, " records")
       ),
-      React.createElement("div", { style: { display: "grid", gridTemplateColumns: "1fr 90px 80px 60px", padding: "6px 14px", background: "#1C1C1E", borderTop: "1px solid #3A3A3C" } },
-        ["Date","Price/unit","Change","%"].map((h, i) =>
+      React.createElement("div", { style: { display: "grid", gridTemplateColumns: "1fr 60px 90px 80px 60px", padding: "6px 14px", background: "#1C1C1E", borderTop: "1px solid #3A3A3C" } },
+        ["Date","Qty", `Price/${priceHistory[0]?.baseUnit||selItemObj?.unit||"unit"}`,"Change","%"].map((h, i) =>
           React.createElement("div", { key: i, style: { color: "#636366", fontSize: 9, fontWeight: 700, textAlign: i > 0 ? "right" : "left" } }, h)
         )
       ),
       [...priceHistory].reverse().map((rec, i, arr) => {
+        const origIdx = priceHistory.length - 1 - i;
         const prevRec = arr[i + 1];
         const diff = prevRec != null ? rec.price - prevRec.price : null;
         const pct  = prevRec != null && prevRec.price > 0 ? (diff / prevRec.price * 100) : null;
         const clr  = diff === null ? "#8E8E93" : diff > 0 ? "#FF453A" : diff < 0 ? "#34C759" : "#8E8E93";
         const isLatest = i === 0;
+        const isMinRow = priceMinMax.minIdx === origIdx;
+        const isMaxRow = priceMinMax.maxIdx === origIdx;
         const dateLabel = priceGranularity === "day" ? (rec.dateKey || rec.date.slice(0,10)) : fmtDate(rec.date).slice(0,6);
         return React.createElement("div", {
           key: rec.dateKey || rec.date,
           style: {
-            display: "grid", gridTemplateColumns: "1fr 90px 80px 60px",
+            display: "grid", gridTemplateColumns: "1fr 60px 90px 80px 60px",
             padding: "8px 14px", borderTop: "1px solid #3A3A3C",
-            background: isLatest ? (groupMeta[selItemObj?.group]?.color || t.accent) + "14" : "transparent",
+            background: isLatest ? (groupMeta[selItemObj?.group]?.color || t.accent) + "14" : isMinRow ? "#34C75914" : isMaxRow ? "#FFD60A14" : "transparent",
             alignItems: "center"
           }
         },
           React.createElement("div", null,
             React.createElement("div", { style: { color: isLatest ? "#fff" : "#EBEBF5", fontSize: 12, fontWeight: isLatest ? 900 : 500 } }, dateLabel),
-            isLatest && React.createElement("div", { style: { color: groupMeta[selItemObj?.group]?.color || t.accent, fontSize: 9, fontWeight: 800 } }, "LATEST")
+            isLatest && React.createElement("div", { style: { color: groupMeta[selItemObj?.group]?.color || t.accent, fontSize: 9, fontWeight: 800 } }, "LATEST"),
+            isMinRow && React.createElement("div", { style: { color: "#34C759", fontSize: 9, fontWeight: 800 } }, "✓ সবচেয়ে কম"),
+            isMaxRow && React.createElement("div", { style: { color: "#FFD60A", fontSize: 9, fontWeight: 800 } }, "⚠ সবচেয়ে বেশি")
+          ),
+          React.createElement("div", { style: { textAlign: "right", color: "#8E8E93", fontSize: 11, fontWeight: 600 } },
+            rec.totalQty != null ? _fmtQtyDisplay(rec.totalQty, selItemObj?.unit || "") : "—"
           ),
           React.createElement("div", { style: { textAlign: "right", color: "#fff", fontSize: 12, fontWeight: 700 } }, fmtF(rec.price)),
           React.createElement("div", { style: { textAlign: "right", color: clr, fontSize: 12, fontWeight: 700 } },
@@ -6101,6 +6191,60 @@ function ChartsScreen({
       )
     )
   ),
+  selItem && (() => {
+    // ── CONSUMPTION SUMMARY BLOCK ──
+    const now = new Date();
+    const curMon = `${now.getFullYear()}-${String(now.getMonth()).padStart(2,"0")}`;
+    const curWeek = _wKey(now.toISOString());
+    const itemEntries = entries.filter(e => e.itemId === selItem && e.qty && e.amount && e.type === "expense");
+    if (!itemEntries.length) return null;
+    // Months active (unique months with data)
+    const monthSet = new Set(itemEntries.map(e => _mKey(e.date)));
+    const monthsActive = monthSet.size || 1;
+    const canonUnit = selItemObj?.unit || "";
+    const totalQty = itemEntries.reduce((s,e) => s + _normQty(e.qty||0, e.unit||canonUnit), 0);
+    const totalSpend = itemEntries.reduce((s,e) => s + e.amount, 0);
+    const avgQtyPerMonth = totalQty / monthsActive;
+    const avgSpendPerMonth = totalSpend / monthsActive;
+    const thisMonthEntries = itemEntries.filter(e => _mKey(e.date) === curMon);
+    const thisMonthQty = thisMonthEntries.reduce((s,e) => s + _normQty(e.qty||0, e.unit||canonUnit), 0);
+    const thisMonthSpend = thisMonthEntries.reduce((s,e) => s + e.amount, 0);
+    const unit = canonUnit;
+    const iColor = groupMeta[selItemObj?.group]?.color || t.accent;
+    const rows2 = [
+      { label: "Avg / Month", qty: avgQtyPerMonth, spend: avgSpendPerMonth, sub: `${monthsActive} month${monthsActive>1?"s":""} tracked` },
+      { label: "This Month",  qty: thisMonthQty,   spend: thisMonthSpend,   sub: `${thisMonthEntries.length} purchase${thisMonthEntries.length!==1?"s":""}` },
+      { label: "All Time",    qty: totalQty,       spend: totalSpend,       sub: `${itemEntries.length} total entries` },
+    ];
+    return React.createElement("div", { style: { ...chartCard, marginTop: 0 } },
+      React.createElement("div", { style: { color: "#8E8E93", fontSize: 10, fontWeight: 700, letterSpacing: 1, marginBottom: 10 } }, "🛒 CONSUMPTION SUMMARY"),
+      React.createElement("div", { style: { background: t.surface, borderRadius: 12, overflow: "hidden" } },
+        React.createElement("div", { style: { display: "grid", gridTemplateColumns: "1fr 80px 90px", padding: "6px 14px", background: "#1C1C1E", borderBottom: "1px solid #3A3A3C" } },
+          ["Period", "Qty", "Spend"].map((h, i) =>
+            React.createElement("div", { key: i, style: { color: "#636366", fontSize: 9, fontWeight: 700, textAlign: i > 0 ? "right" : "left" } }, h)
+          )
+        ),
+        rows2.map((row, ri) =>
+          React.createElement("div", { key: ri,
+            style: { display: "grid", gridTemplateColumns: "1fr 80px 90px", padding: "9px 14px",
+              borderTop: ri > 0 ? "1px solid #3A3A3C" : "none",
+              background: ri === 0 ? iColor + "18" : "transparent", alignItems: "center" }
+          },
+            React.createElement("div", null,
+              React.createElement("div", { style: { color: ri === 0 ? iColor : "#fff", fontSize: 12, fontWeight: ri === 0 ? 900 : 700 } }, row.label),
+              React.createElement("div", { style: { color: "#636366", fontSize: 10 } }, row.sub)
+            ),
+            React.createElement("div", { style: { textAlign: "right", color: "#fff", fontSize: 12, fontWeight: 700 } },
+              row.qty > 0 ? _fmtQtyDisplay(row.qty, unit) : "—"
+            ),
+            React.createElement("div", { style: { textAlign: "right", color: iColor, fontSize: 12, fontWeight: 900 } },
+              fmtF(row.spend)
+            )
+          )
+        )
+      )
+    );
+  })(),
   priceItems.length > 0 && /*#__PURE__*/React.createElement("div", {
     style: chartCard
   }, /*#__PURE__*/React.createElement("div", {
@@ -6116,6 +6260,11 @@ function ChartsScreen({
       latest = h[h.length - 1],
       first = h[0],
       diff = latest && first ? latest.price - first.price : 0;
+    const itemEntriesForAvg = entries.filter(e => e.itemId === item.id && e.qty && e.amount && e.type === "expense");
+    const monthSetForAvg = new Set(itemEntriesForAvg.map(e => _mKey(e.date)));
+    const monthsForAvg = monthSetForAvg.size || 1;
+    const canonUnitForAvg = item.unit || "";
+    const avgQtyMonth = itemEntriesForAvg.reduce((s, e) => s + _normQty(e.qty || 0, e.unit || canonUnitForAvg), 0) / monthsForAvg;
     return /*#__PURE__*/React.createElement("button", {
       key: item.id,
       onClick: () => setSelItem(item.id),
@@ -6161,7 +6310,7 @@ function ChartsScreen({
         color: "#8E8E93",
         fontSize: 11
       }
-    }, h.length, " price point", h.length === 1 ? "" : "s", " · ", item.group)), /*#__PURE__*/React.createElement("div", {
+    }, h.length, " price point", h.length === 1 ? "" : "s", " · ", item.group, avgQtyMonth > 0 ? ` · ~${_fmtQtyDisplay(avgQtyMonth, item.unit)}/mo` : "")), /*#__PURE__*/React.createElement("div", {
       style: {
         textAlign: "right",
         flexShrink: 0
@@ -6441,10 +6590,16 @@ function BazarCompareScreen({ entries, items, theme }) {
   }, [items]);
 
   const priceHistory = React.useMemo(() => {
+    const allItemsFlat = [...(items.fish||[]), ...(items.meat||[]), ...(items.grocery||[])];
+    const itemUnitMap = {};
+    allItemsFlat.forEach(i => { itemUnitMap[i.id] = i.unit || ""; });
     const h = {};
     entries.forEach(e => {
       if (!e.itemId || !e.qty || !e.amount) return;
-      const price = Math.round((e.amount / e.qty) * 100) / 100;
+      const entryUnit = e.unit || itemUnitMap[e.itemId] || "";
+      const normQty = _normQty(e.qty, entryUnit);
+      if (normQty <= 0) return;
+      const price = Math.round((e.amount / normQty) * 100) / 100;
       if (!h[e.itemId]) h[e.itemId] = [];
       h[e.itemId].push({ price, date: e.date || "" });
     });
@@ -7465,20 +7620,39 @@ function AddEntryModal({
       flexWrap: "wrap",
       gap: 6
     }
-  }, UNITS.map(u => /*#__PURE__*/React.createElement(Pill, {
-    key: u,
-    label: u,
-    active: unit === u,
-    color: "#0A84FF",
-    onClick: () => setUnit(u),
-    small: true
-  })))), qty && unit && /*#__PURE__*/React.createElement("div", {
-    style: {
-      color: "#0A84FF",
-      fontSize: 13,
-      fontWeight: 600
-    }
-  }, "📦 ", fmtUnit(qty, unit), " of ", selItem?.label?.split("/")[0].trim()));
+  }, (() => {
+    // Smart unit ordering: related units first based on item's default unit
+    const itemUnit = selItem?.unit || "";
+    const wtUnits  = ["kg","gram"];
+    const volUnits = ["liter","ml"];
+    const cntUnits = ["piece","dozen","packet","bottle","bag","box"];
+    let priority = [];
+    if (wtUnits.includes(itemUnit))  priority = [...wtUnits, ...volUnits, ...cntUnits];
+    else if (volUnits.includes(itemUnit)) priority = [...volUnits, ...wtUnits, ...cntUnits];
+    else if (cntUnits.includes(itemUnit)) priority = [itemUnit, ...cntUnits.filter(u=>u!==itemUnit), ...wtUnits, ...volUnits];
+    else priority = UNITS;
+    const ordered = [...new Set([...priority, ...UNITS])];
+    return ordered.map(u => /*#__PURE__*/React.createElement(Pill, {
+      key: u,
+      label: u,
+      active: unit === u,
+      color: u === itemUnit ? "#FF9F0A" : "#0A84FF",
+      onClick: () => setUnit(u),
+      small: true
+    }));
+  })())), qty && unit && /*#__PURE__*/React.createElement("div", {
+    style: { color: "#0A84FF", fontSize: 13, fontWeight: 600 }
+  }, (() => {
+    const itemUnit = selItem?.unit || "";
+    const normVal = _normQty(parseFloat(qty)||0, unit);
+    const wtUnits  = ["kg","gram"];
+    const volUnits = ["liter","ml"];
+    const sameFamily = (wtUnits.includes(unit) && wtUnits.includes(itemUnit)) ||
+                       (volUnits.includes(unit) && volUnits.includes(itemUnit));
+    const showConvert = itemUnit && unit !== itemUnit && sameFamily;
+    const convertedDisplay = showConvert ? (" = " + _fmtQtyDisplay(normVal, itemUnit)) : "";
+    return "📦 " + fmtUnit(qty, unit) + convertedDisplay + " · " + (selItem?.label?.split("/")[0].trim() || "");
+  })()));
   }
   function renderBikeFuelFields() {
     return React.createElement("div", {
@@ -8729,14 +8903,40 @@ function DataModal({
       expenses: mergeTopLevel(backupCats.expenses, DEFAULT_CATS.expenses),
     };
   }
+  // ── Unit migration: fix old entries where item unit has changed ──────────
+  // e.g. meat_roast/meat_soup were "kg" before v49, now "piece".
+  // If an entry has a weight unit but its item is now piece/packet, reset the unit.
+  function migrateEntryUnits(entries) {
+    const allItems = [
+      ...DEFAULT_GROCERY.map(i => ({ ...i })),
+      ...DEFAULT_MEAT.map(i => ({ ...i })),
+      ...DEFAULT_FISH.map(i => ({ ...i })),
+    ];
+    const itemUnitMap = {};
+    allItems.forEach(i => { itemUnitMap[i.id] = i.unit; });
+    const weightUnits = ["gram","g","gm","kg","kilo","kilogram"];
+    const volUnits    = ["ml","milliliter","millilitre","liter","litre","l"];
+    return entries.map(e => {
+      if (!e.itemId || !e.unit) return e;
+      const currentItemUnit = itemUnitMap[e.itemId];
+      if (!currentItemUnit) return e;
+      const entryIsWeight = weightUnits.includes((e.unit||"").toLowerCase()) || volUnits.includes((e.unit||"").toLowerCase());
+      const itemIsWeight  = weightUnits.includes(currentItemUnit) || volUnits.includes(currentItemUnit);
+      // Entry has weight unit but item is now piece/packet → fix it
+      if (entryIsWeight && !itemIsWeight) {
+        return { ...e, unit: currentItemUnit, qty: null };
+      }
+      return e;
+    });
+  }
   function applyImport(d) {
     if (d && typeof d === "object" && !Array.isArray(d) && d.backupVersion === 2) {
-      if (Array.isArray(d.entries)) onImport(d.entries);
+      if (Array.isArray(d.entries)) onImport(migrateEntryUnits(d.entries));
       if (d.cats && typeof d.cats === "object") setCats(mergeCatsDeep(d.cats));
       if (d.items && typeof d.items === "object") setItems(d.items);
       return true;
     }
-    if (Array.isArray(d)) { onImport(d); return true; }
+    if (Array.isArray(d)) { onImport(migrateEntryUnits(d)); return true; }
     return false;
   }
   function handleImportFile(e) {
@@ -9209,6 +9409,67 @@ function _stddev(arr) {
   const m = _mean(arr);
   return Math.sqrt(arr.reduce((s,v)=>s+(v-m)**2,0)/(arr.length-1));
 }
+// ── UNIT NORMALIZATION ─────────────────────────────────────────────────────
+// Converts qty+unit to base unit so price/unit is comparable across entries.
+// Weight base: gram | Volume base: ml | Others: unchanged
+const UNIT_TO_BASE_FACTOR = {
+  "gram": 1, "g": 1, "gm": 1,
+  "kg": 1000, "kilo": 1000, "kilogram": 1000,
+  "ml": 1, "milliliter": 1, "millilitre": 1,
+  "liter": 1000, "litre": 1000, "l": 1000,
+};
+function _baseUnit(unit) {
+  if (!unit) return null;
+  const u = unit.trim().toLowerCase();
+  const wt  = ["gram","g","gm","kg","kilo","kilogram"];
+  const vol = ["ml","milliliter","millilitre","liter","litre","l"];
+  if (wt.includes(u))  return "gram";
+  if (vol.includes(u)) return "ml";
+  return null;
+}
+function _normQty(qty, unit) {
+  const u = (unit || "").trim().toLowerCase();
+  const factor = UNIT_TO_BASE_FACTOR[u];
+  if (factor === undefined) return parseFloat(qty) || 0;
+  return (parseFloat(qty) || 0) * factor;
+}
+// Smart display: normalized base qty → human readable string
+function _fmtQtyDisplay(normQty, origUnit) {
+  const u = (origUnit || "").trim().toLowerCase();
+  const wt  = ["gram","g","gm","kg","kilo","kilogram"];
+  const vol = ["ml","milliliter","millilitre","liter","litre","l"];
+  if (wt.includes(u)) {
+    if (normQty >= 1000) return (normQty / 1000).toFixed(1).replace(/\.0$/,"") + "kg";
+    return normQty.toFixed(0) + "g";
+  }
+  if (vol.includes(u)) {
+    if (normQty >= 1000) return (normQty / 1000).toFixed(1).replace(/\.0$/,"") + "L";
+    return normQty.toFixed(0) + "ml";
+  }
+  // piece/packet/etc — not normalized, just show raw count
+  return (+normQty).toFixed(0) + (origUnit ? origUnit : "");
+}
+function _normPU(amount, qty, unit) {
+  // ৳ per gram, or ৳ per ml, or ৳ per unit — all normalized
+  const normQty = _normQty(qty, unit);
+  if (normQty <= 0) return 0;
+  return amount / normQty;
+}
+function _fmtPU(puPerBase, unit) {
+  // Pretty-print: if gram/ml, show per 100g or 100ml when val < 10
+  const b = _baseUnit(unit);
+  if (b === "gram") {
+    if (puPerBase < 10) return { val: +(puPerBase * 100).toFixed(2), label: "100g" };
+    return { val: +puPerBase.toFixed(2), label: "gram" };
+  }
+  if (b === "ml") {
+    if (puPerBase < 10) return { val: +(puPerBase * 100).toFixed(2), label: "100ml" };
+    return { val: +puPerBase.toFixed(2), label: "ml" };
+  }
+  return { val: +puPerBase.toFixed(2), label: unit || "unit" };
+}
+// ──────────────────────────────────────────────────────────────────────────
+
 function _median(arr) {
   if (!arr.length) return 0;
   const s = [...arr].sort((a,b)=>a-b);
@@ -9617,7 +9878,7 @@ function aiCashFlowCalendar(entries) {
 }
 
 // ── 9. SMART COACH (personalised text advice) ────────────────────────────────
-function aiCoach(entries, cats, budgets, fitness, items) {
+function aiCoachV4(entries, cats, budgets, fitness, items) {
   const now      = new Date();
   const patterns = aiPatternMemory(entries);
   const forecast = aiMultiForecast(entries);
@@ -9725,13 +9986,15 @@ function aiItemIntelligence(entries, items) {
       monthSpend: 0, monthCount: 0,
       priceHistory: [], // {month, pricePerUnit}
     });
-    const pu = e.qty > 0 ? e.amount / e.qty : 0;
+    const entryUnit = e.unit || itemMap[e.itemId]?.unit || "";
+    const pu = _normPU(e.amount, e.qty, entryUnit);
+    const normQtyVal = _normQty(e.qty, entryUnit);
     s.totalSpend  += e.amount;
-    s.totalQty    += e.qty;
+    s.totalQty    += normQtyVal;
     s.count++;
     if (_mKey(e.date) === curMon)  { s.monthSpend += e.amount; s.monthCount++; }
     if (_wKey(e.date) === curWeek) { s.weekSpend  += e.amount; s.weekCount++;  }
-    if (pu > 0) s.priceHistory.push({ month: _mKey(e.date), pricePerUnit: pu, date: e.date });
+    if (pu > 0) s.priceHistory.push({ month: _mKey(e.date), pricePerUnit: pu, date: e.date, unit: entryUnit });
   });
 
   const list = Object.values(stats);
@@ -9760,7 +10023,7 @@ function aiPriceInflationTracker(entries, items) {
   entries.filter(e => e.type==="expense" && e.itemId && e.qty>0 && e.amount>0).forEach(e => {
     const key = e.itemId;
     const mon = _mKey(e.date);
-    const pu  = e.amount / e.qty;
+    const pu  = _normPU(e.amount, e.qty, e.unit || "");
     if (!byItemMonth[key]) byItemMonth[key] = {};
     if (!byItemMonth[key][mon]) byItemMonth[key][mon] = [];
     byItemMonth[key][mon].push(pu);
@@ -9830,7 +10093,7 @@ function aiItemSpikeAlerts(entries, items) {
   // Group historical per-unit price by item
   const byItem = {};
   entries.filter(e => e.type==="expense" && e.itemId && e.qty>0 && e.amount>0).forEach(e => {
-    const pu = e.amount / e.qty;
+    const pu = _normPU(e.amount, e.qty, e.unit || "");
     if (!byItem[e.itemId]) byItem[e.itemId] = { hist:[], cur:[] };
     if (_mKey(e.date) === curMon) {
       byItem[e.itemId].cur.push(pu);
@@ -9852,9 +10115,9 @@ function aiItemSpikeAlerts(entries, items) {
         itemId,
         label:   itemMap[itemId]?.label || itemId,
         icon:    itemMap[itemId]?.icon  || "📦",
-        unit:    itemMap[itemId]?.unit  || "",
-        curPU:   Math.round(curPU),
-        histPU:  Math.round(histMean),
+        unit:    _baseUnit(itemMap[itemId]?.unit) || itemMap[itemId]?.unit || "",
+        curPU:   +curPU.toFixed(2),
+        histPU:  +histMean.toFixed(2),
         z:       +z.toFixed(1),
         spike,
       });
@@ -9884,15 +10147,21 @@ function aiWhatDidIBuy(entries, items) {
     const byItem = {};
     es.forEach(e => {
       if (!e.itemId) return;
+      const itemUnit = itemMap[e.itemId]?.unit || "";
+      const entryUnit = (e.unit || itemUnit || "").trim().toLowerCase();
       const s = byItem[e.itemId] || (byItem[e.itemId] = {
         id: e.itemId,
         label: itemMap[e.itemId]?.label || e.itemId,
         icon:  itemMap[e.itemId]?.icon  || "📦",
-        unit:  itemMap[e.itemId]?.unit  || "",
+        unit:  entryUnit || itemUnit,
         count: 0, totalQty: 0, totalSpend: 0,
       });
       s.count++;
-      s.totalQty   += (e.qty || 0);
+      // For weight/volume units: normalize to base (grams/ml). For piece/etc: keep raw count.
+      const isWeightOrVol = UNIT_TO_BASE_FACTOR[entryUnit] !== undefined;
+      s.totalQty += isWeightOrVol ? _normQty(e.qty || 0, entryUnit) : (parseFloat(e.qty) || 0);
+      // Always use the current item unit for display (reflects latest unit definition)
+      s.unit = itemUnit || entryUnit;
       s.totalSpend += e.amount;
     });
     const list = Object.values(byItem);
@@ -9909,6 +10178,294 @@ function aiWhatDidIBuy(entries, items) {
   const monthly = summarise(itemEs.filter(e => _mKey(e.date)  === curMon));
 
   return { weekly, monthly };
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// 🧠  AI ENGINE v4.0 — NEW MODULES
+// ══════════════════════════════════════════════════════════════════════════════
+
+// ── A. CASH FLOW GAP DETECTOR ─────────────────────────────────────────────────
+// "১৫ তারিখের পর টাকা টাইট হবে" — detects when income vs expense timing creates gaps
+function aiCashFlowGap(entries) {
+  const now = new Date();
+  const curMon = _mKey(now.toISOString());
+  const curExp = entries.filter(e => e.type === "expense" && _mKey(e.date) === curMon);
+  const curInc = entries.filter(e => e.type === "income"  && _mKey(e.date) === curMon);
+
+  // Build daily cumulative for this month
+  const daysInMonth = new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
+  const daily = Array.from({length: daysInMonth}, (_,i) => ({ day: i+1, inc: 0, exp: 0 }));
+
+  curInc.forEach(e => { const d = new Date(e.date).getDate(); if(d>=1&&d<=daysInMonth) daily[d-1].inc += e.amount; });
+  curExp.forEach(e => { const d = new Date(e.date).getDate(); if(d>=1&&d<=daysInMonth) daily[d-1].exp += e.amount; });
+
+  // Cumulative balance day by day
+  let cumBal = 0;
+  const cumulative = daily.map(d => { cumBal += d.inc - d.exp; return { day: d.day, bal: cumBal }; });
+
+  // Find lowest balance point after today
+  const future = cumulative.filter(d => d.day > now.getDate());
+  if (!future.length) return null;
+  const minPoint = future.reduce((a, b) => b.bal < a.bal ? b : a);
+
+  // Historical: which day of month do income usually arrive?
+  const allInc = entries.filter(e => e.type === "income");
+  const incDays = allInc.map(e => new Date(e.date).getDate());
+  const avgIncDay = incDays.length ? Math.round(_mean(incDays)) : null;
+
+  // Historical: average daily expense by day-of-month (last 3 months)
+  const hist3mon = entries.filter(e => {
+    const d = new Date(e.date);
+    const monthsAgo = (now.getFullYear()-d.getFullYear())*12 + now.getMonth()-d.getMonth();
+    return monthsAgo >= 1 && monthsAgo <= 3 && e.type === "expense";
+  });
+  const domBuckets = Array.from({length:31},()=>[]);
+  hist3mon.forEach(e => domBuckets[new Date(e.date).getDate()-1].push(e.amount));
+  const domAvg = domBuckets.map(b => _mean(b));
+  const globalDomAvg = _mean(domAvg.filter(v=>v>0));
+
+  // Tight days: days where historical avg > 1.4x global AND cumbal drops
+  const tightDays = future.filter(d => {
+    const histAvg = domAvg[d.day-1];
+    return histAvg > globalDomAvg * 1.4 && d.bal < 0;
+  });
+
+  return {
+    minBalanceDay: minPoint.day,
+    minBalance: Math.round(minPoint.bal),
+    isCritical: minPoint.bal < 0,
+    avgIncDay,
+    tightDays: tightDays.map(d => d.day),
+  };
+}
+
+// ── B. ITEM SUBSTITUTION ENGINE ───────────────────────────────────────────────
+// "চিকেন দাম বেড়েছে, মাছ এখন সস্তা" — suggests cheaper alternatives
+function aiSubstitutionSuggest(entries, items) {
+  if (!items || !entries.length) return [];
+
+  const allItems = [...(items.grocery||[]), ...(items.meat||[]), ...(items.fish||[])];
+  // Group substitutes: protein sources
+  const proteinGroups = [
+    { label: "প্রোটিন", members: ["broiler_chicken","beef","mutton","hilsha","rohu","catla","tilapia","pangash","egg_hen"] },
+    { label: "তেল", members: ["soybean_oil","sunflower_oil","mustard_oil","palm_oil"] },
+    { label: "ডাল", members: ["musur_dal","mung_dal","motor_dal","chola_dal","khesari_dal"] },
+  ];
+
+  const now = new Date();
+  const curMon = _mKey(now.toISOString());
+  const prev2Mon = [1,2].map(i => { const d = new Date(now.getFullYear(), now.getMonth()-i, 1); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`; });
+
+  // Get recent avg price/base-unit per item
+  function recentPU(itemId) {
+    const relevant = entries.filter(e => e.itemId === itemId && e.qty > 0 && e.amount > 0 && ([curMon,...prev2Mon].includes(_mKey(e.date))));
+    if (!relevant.length) return null;
+    const pus = relevant.map(e => _normPU(e.amount, e.qty, e.unit || allItems.find(i=>i.id===itemId)?.unit || ""));
+    return _mean(pus);
+  }
+
+  const suggestions = [];
+  for (const group of proteinGroups) {
+    const priced = group.members
+      .map(id => ({ id, item: allItems.find(i=>i.id===id), pu: recentPU(id) }))
+      .filter(x => x.item && x.pu !== null && x.pu > 0);
+    if (priced.length < 2) continue;
+
+    priced.sort((a,b) => a.pu - b.pu);
+    const cheapest = priced[0];
+    const mostExp  = priced[priced.length-1];
+
+    // Only suggest if price gap > 30%
+    if (mostExp.pu / cheapest.pu < 1.3) continue;
+
+    // Check if user actually buys the expensive one recently
+    const buyingExpensive = entries.some(e => e.itemId === mostExp.id && [curMon,...prev2Mon].includes(_mKey(e.date)));
+    if (!buyingExpensive) continue;
+
+    const unit = _baseUnit(cheapest.item.unit) || cheapest.item.unit || "unit";
+    const fmtPU = (pu) => {
+      if (pu < 1) return `৳${(pu*100).toFixed(0)}/100${unit}`;
+      return `৳${pu.toFixed(0)}/${unit}`;
+    };
+
+    suggestions.push({
+      group: group.label,
+      expensive: { icon: mostExp.item.icon, label: mostExp.item.label, pu: mostExp.pu },
+      cheaper:   { icon: cheapest.item.icon, label: cheapest.item.label, pu: cheapest.pu },
+      savePct: Math.round((1 - cheapest.pu/mostExp.pu)*100),
+      expLabel: fmtPU(mostExp.pu),
+      cheapLabel: fmtPU(cheapest.pu),
+    });
+  }
+  return suggestions.slice(0,3);
+}
+
+// ── C. SPENDING VELOCITY ──────────────────────────────────────────────────────
+// Real-time: এই মাসে কত দ্রুত খরচ হচ্ছে vs আগের মাস
+function aiSpendingVelocity(entries) {
+  const now = new Date();
+  const dom = now.getDate();
+  const curMon = _mKey(now.toISOString());
+
+  const prevDate = new Date(now.getFullYear(), now.getMonth()-1, dom);
+  const prevMon  = _mKey(prevDate.toISOString());
+
+  // Current month: only up to today's date
+  const curSpend = entries.filter(e => e.type==="expense" && _mKey(e.date)===curMon && new Date(e.date).getDate()<=dom).reduce((s,e)=>s+e.amount,0);
+  // Last month: same period (day 1 to same DOM)
+  const prevSpend = entries.filter(e => e.type==="expense" && _mKey(e.date)===prevMon && new Date(e.date).getDate()<=dom).reduce((s,e)=>s+e.amount,0);
+
+  const dailyRate = dom > 0 ? curSpend/dom : 0;
+  const prevDailyRate = dom > 0 ? prevSpend/dom : 0;
+  const velocityChange = prevDailyRate > 0 ? Math.round((dailyRate-prevDailyRate)/prevDailyRate*100) : null;
+
+  // Category velocity: which category accelerating most this month vs last?
+  const catVel = {};
+  entries.filter(e => e.type==="expense" && (_mKey(e.date)===curMon||_mKey(e.date)===prevMon) && new Date(e.date).getDate()<=dom).forEach(e => {
+    const cat = e.catId || "other";
+    if (!catVel[cat]) catVel[cat] = { cur: 0, prev: 0, catId: cat };
+    if (_mKey(e.date)===curMon) catVel[cat].cur += e.amount;
+    else catVel[cat].prev += e.amount;
+  });
+  const fastestCat = Object.values(catVel)
+    .filter(c => c.prev > 0 && c.cur > c.prev * 1.2)
+    .sort((a,b) => (b.cur-b.prev)/b.prev - (a.cur-a.prev)/a.prev)[0];
+
+  return { curSpend, prevSpend, dailyRate: Math.round(dailyRate), prevDailyRate: Math.round(prevDailyRate), velocityChange, dom, fastestCat };
+}
+
+// ── D. SEASONAL PATTERN DETECTOR ─────────────────────────────────────────────
+// ঈদ/রমজান/শীত — detects if current period matches high-spend historical season
+function aiSeasonalAlert(entries) {
+  const now = new Date();
+  const mon = now.getMonth()+1; // 1-12
+
+  // Bangladesh seasonal high-spend months (approximate)
+  const seasons = [
+    { months:[3,4],   label:"ঈদুল ফিতর মৌসুম",   icon:"🌙", tip:"রমজান ও ঈদে কেনাকাটা বেশি হয়" },
+    { months:[6,7],   label:"ঈদুল আযহা মৌসুম",   icon:"🐄", tip:"কোরবানির খরচ এই সময়ে বেশি" },
+    { months:[11,12,1], label:"শীতকাল",           icon:"🥶", tip:"শীতকালে গ্যাস, কাপড়, ডাক্তার খরচ বাড়ে" },
+    { months:[4,5,6], label:"গরমকাল",             icon:"☀️", tip:"গরমে বিদ্যুৎ ও ঠান্ডা পানীয় খরচ বাড়ে" },
+  ];
+
+  const curSeason = seasons.find(s => s.months.includes(mon));
+  if (!curSeason) return null;
+
+  // Compare this month so far vs avg of non-seasonal months
+  const curMon = _mKey(now.toISOString());
+  const dom = now.getDate();
+  const curSpend = entries.filter(e=>e.type==="expense"&&_mKey(e.date)===curMon&&new Date(e.date).getDate()<=dom).reduce((s,e)=>s+e.amount,0);
+
+  // Avg daily spend in non-seasonal months
+  const nonSeasonMons = [];
+  for(let i=2;i<=8;i++){
+    const d = new Date(now.getFullYear(),now.getMonth()-i,1);
+    const k = _mKey(d.toISOString());
+    const monMon = d.getMonth()+1;
+    if(curSeason.months.includes(monMon)) continue;
+    const tot = entries.filter(e=>e.type==="expense"&&_mKey(e.date)===k).reduce((s,e)=>s+e.amount,0);
+    const dIM = new Date(d.getFullYear(),d.getMonth()+1,0).getDate();
+    if(tot>0) nonSeasonMons.push(tot/dIM);
+  }
+  const normalDailyAvg = _mean(nonSeasonMons);
+  const curDailyAvg = dom>0 ? curSpend/dom : 0;
+  const uplift = normalDailyAvg>0 ? Math.round((curDailyAvg-normalDailyAvg)/normalDailyAvg*100) : null;
+
+  return { ...curSeason, uplift, isHighSpend: uplift!==null && uplift>15 };
+}
+
+// ── E. ENHANCED COACH (বাংলা, specific, actionable) ──────────────────────────
+function aiCoachV4(entries, cats, budgets, fitness, items) {
+  const now      = new Date();
+  const patterns = aiPatternMemory(entries);
+  const forecast = aiMultiForecast(entries);
+  const tips     = [];
+  const curMon   = _mKey(now.toISOString());
+
+  if (!patterns || !forecast) return ["এন্ট্রি যোগ করতে থাকো — personalized coaching unlock হবে! 🌱"];
+
+  const fmtA = v => "৳" + Math.round(v).toLocaleString("en-IN");
+
+  // 1. Spending trend — বাংলায়
+  if (patterns.trendDir === "rising") {
+    const extra = Math.round((_mean(patterns.catDNA.slice(0,1).map(()=>forecast.blendedBurn*30)) - forecast.blendedBurn*30*0.9));
+    tips.push(`📈 গত কয়েক মাসে খরচ বাড়ছে। সপ্তাহে একটা fixed cash limit রাখো — ATM থেকে নির্দিষ্ট টাকা তুলে সেটাই খরচ করো।`);
+  } else if (patterns.trendDir === "falling") {
+    tips.push(`📉 খরচ কমছে — দারুণ! আরো ২ মাস এই ধারা রাখতে পারলে savings streak তৈরি হবে।`);
+  }
+
+  // 2. Peak day — specific
+  const dayNames = ["রোববার","সোমবার","মঙ্গলবার","বুধবার","বৃহস্পতিবার","শুক্রবার","শনিবার"];
+  if (patterns.peakDowLabel) {
+    const peakIdx = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].indexOf(patterns.peakDowLabel);
+    const bnDay = peakIdx>=0 ? dayNames[peakIdx] : patterns.peakDowLabel;
+    const peakAmt = Math.round(patterns.dowAvg[peakIdx]||0);
+    if (peakAmt > 0) tips.push(`📅 ${bnDay}ে সবচেয়ে বেশি খরচ হয় (গড়ে ${fmtA(peakAmt)})। ওই দিনের কেনাকাটা আগের দিন plan করে রাখো।`);
+  }
+
+  // 3. Top category — specific saving amount
+  if (patterns.catDNA.length > 0) {
+    const topCat = (cats.expenses||[]).find(c=>c.id===patterns.catDNA[0].id);
+    const pct = patterns.catDNA[0].pct;
+    if (topCat && pct > 30) {
+      const saveable = Math.round(forecast.blendedBurn*30*pct/100*0.15);
+      tips.push(`${topCat.icon} ${topCat.label}-এ মোট খরচের ${pct}% যাচ্ছে। মাত্র ১৫% কমালে প্রতি মাসে ${fmtA(saveable)} বাঁচবে।`);
+    }
+  }
+
+  // 4. Savings target — precise
+  if (forecast.savingsRate !== null && forecast.curInc > 0) {
+    const target20 = forecast.curInc * 0.20;
+    const curSave  = forecast.curInc - forecast.curExp;
+    if (curSave < target20) {
+      const gap = Math.round(target20 - curSave);
+      const daysLeft = forecast.daysLeft;
+      tips.push(`💰 ২০% সেভিংস টার্গেটে পৌঁছাতে আরো ${fmtA(gap)} কমাতে হবে — বাকি ${daysLeft} দিনে দিনে ${fmtA(gap/Math.max(daysLeft,1))} কম খরচ করো।`);
+    } else {
+      tips.push(`✅ এই মাসে savings rate ${forecast.savingsRate}% — টার্গেটের উপরে। বাড়তি ${fmtA(curSave-target20)} invest বা জরুরি ফান্ডে রাখো।`);
+    }
+  }
+
+  // 5. Velocity warning
+  const vel = aiSpendingVelocity(entries);
+  if (vel.velocityChange !== null && vel.velocityChange > 20) {
+    tips.push(`⚡ এই মাসে খরচের গতি গত মাসের একই সময়ের চেয়ে ${vel.velocityChange}% বেশি (${fmtA(vel.dailyRate)}/দিন vs ${fmtA(vel.prevDailyRate)}/দিন)। এখনই না সামলালে মাস শেষে ঘাটতি হবে।`);
+  }
+
+  // 6. Cash flow gap
+  const gap = aiCashFlowGap(entries);
+  if (gap && gap.isCritical) {
+    tips.push(`🚨 ${gap.minBalanceDay} তারিখের দিকে balance ঘাটতিতে যেতে পারে (${fmtA(gap.minBalance)})। আগেই income নিশ্চিত করো বা খরচ পেছাও।`);
+  }
+
+  // 7. Substitution
+  if (items) {
+    const subs = aiSubstitutionSuggest(entries, items);
+    if (subs.length > 0) {
+      const s = subs[0];
+      tips.push(`🔄 ${s.expensive.icon} ${s.expensive.item?.label||""} (${s.expLabel}) এর বদলে ${s.cheaper.icon} ${s.cheaper.item?.label||""} (${s.cheapLabel}) কিনলে ${s.savePct}% বাঁচবে।`);
+    }
+  }
+
+  // 8. Item inflation
+  if (items) {
+    const infl = aiPriceInflationTracker(entries, items);
+    const worst = (infl||[]).find(x => x.direction==="up" && x.changePct>=15);
+    if (worst) tips.push(`📊 ${worst.icon} ${worst.label.split("/")[0].trim()} দাম ${worst.months} মাসে +${worst.changePct}% বেড়েছে। দাম কম থাকলে বেশি কিনে রাখার কথা ভাবো।`);
+  }
+
+  // 9. Impulse
+  if (patterns.avgTx > patterns.medTx * 2 && patterns.medTx > 0) {
+    tips.push(`⚡ গড় লেনদেন ${fmtA(patterns.avgTx)} কিন্তু median ${fmtA(patterns.medTx)} — কয়েকটা বড় impulse purchase average বাড়িয়ে দিচ্ছে। বড় কেনার আগে ২৪ ঘণ্টা অপেক্ষা করো।`);
+  }
+
+  // 10. Seasonal
+  const season = aiSeasonalAlert(entries);
+  if (season && season.isHighSpend) {
+    tips.push(`${season.icon} ${season.label} — এই সময়ে খরচ স্বাভাবিকের চেয়ে ${season.uplift}% বেশি। ${season.tip}। এখন budget একটু ঢিলা রাখো, পরে কমিয়ে নাও।`);
+  }
+
+  return tips.slice(0, 6);
 }
 
 // ── 10. MASTER BRAIN — assembles all signals ─────────────────────────────────
@@ -9990,6 +10547,40 @@ function aiMasterBrain(entries, cats, budgets, items) {
       title:`${x.icon} ${x.label} inflation +${x.changePct}%`,
       body:`Price rose from ৳${x.firstPU}/${x.unit} → ৳${x.lastPU}/${x.unit} over ${x.months} months. Plan your budget accordingly.`});
   });
+
+  // ── Cash flow gap alert
+  const cashGap = aiCashFlowGap(entries);
+  if (cashGap && cashGap.isCritical) {
+    alerts.push({p:1, type:"danger", icon:"🚨", color:"#FF453A",
+      title:`${cashGap.minBalanceDay} তারিখে balance ঘাটতি`,
+      body:`এই মাসে ${cashGap.minBalanceDay} তারিখের দিকে ৳${Math.abs(cashGap.minBalance).toLocaleString()} ঘাটতিতে যেতে পারে। আগেই income নিশ্চিত করো।`});
+  }
+
+  // ── Spending velocity alert
+  const vel = aiSpendingVelocity(entries);
+  if (vel.velocityChange !== null && vel.velocityChange > 25) {
+    alerts.push({p:2, type:"warn", icon:"⚡", color:"#FF6B35",
+      title:`খরচের গতি +${vel.velocityChange}% বেশি`,
+      body:`এই মাসে ${vel.dom} দিনে ৳${vel.curSpend.toLocaleString()} vs গত মাস একই সময়ে ৳${vel.prevSpend.toLocaleString()}। দৈনিক গড়: ৳${vel.dailyRate}/দিন।`});
+  }
+
+  // ── Seasonal alert
+  const season = aiSeasonalAlert(entries);
+  if (season && season.isHighSpend) {
+    alerts.push({p:5, type:"info", icon:season.icon, color:"#0A84FF",
+      title:`${season.label} — খরচ +${season.uplift}% বেশি`,
+      body:season.tip});
+  }
+
+  // ── Substitution suggestion
+  if (items) {
+    const subs = aiSubstitutionSuggest(entries, items);
+    subs.slice(0,1).forEach(s => {
+      alerts.push({p:6, type:"info", icon:"🔄", color:"#30D158",
+        title:`${s.expensive.icon}→${s.cheaper.icon} বদলালে ${s.savePct}% সাশ্রয়`,
+        body:`${s.group}: ${s.expLabel} এর বদলে ${s.cheapLabel} — একই পুষ্টি, কম দাম।`});
+    });
+  }
 
   // ── Fitness score insight
   const fit = fitness;
@@ -10275,7 +10866,7 @@ function AutoInsightsCard({ entries, cats, theme, budgets, items }) {
   const streaks   = React.useMemo(()=>aiStreaks(entries),[entries]);
   const recurring = React.useMemo(()=>aiDetectRecurring(entries,cats),[entries,cats]);
   const goals     = React.useMemo(()=>aiGoalSimulate(entries,cats),[entries,cats]);
-  const coach     = React.useMemo(()=>aiCoach(entries,cats,bgt,fitness,items),[entries,cats,bgt,fitness,items]);
+  const coach     = React.useMemo(()=>aiCoachV4(entries,cats,bgt,fitness,items),[entries,cats,bgt,fitness,items]);
   const calendar  = React.useMemo(()=>aiCashFlowCalendar(entries),[entries]);
   const legacy    = React.useMemo(()=>calcAutoInsights(entries,cats),[entries,cats]);
   const itemIntel  = React.useMemo(()=>aiItemIntelligence(entries,items),[entries,items]);
@@ -10583,7 +11174,7 @@ function AutoInsightsCard({ entries, cats, theme, budgets, items }) {
                           R("span",{style:{fontSize:18}},it.icon),
                           R("div",null,
                             R("div",{style:{color:"#EBEBF5",fontSize:12,fontWeight:600}},it.label.split("/")[0].trim()),
-                            R("div",{style:{color:"#636366",fontSize:10}},`${it.count} purchases · ${it.totalQty > 0 ? it.totalQty.toFixed(1)+it.unit : ""}`)
+                            R("div",{style:{color:"#636366",fontSize:10}},`${it.count} purchases · ${it.totalQty > 0 ? _fmtQtyDisplay(it.totalQty, it.unit) : ""}`)
                           )
                         ),
                         R("span",{style:{color:"#FF9F0A",fontWeight:700,fontSize:12}},`৳${Math.round(it.totalSpend).toLocaleString()}`)
@@ -11280,6 +11871,36 @@ function parseSmartEntry(raw, cats, items) {
   const text = raw.trim();
   if (!text) return null;
 
+  // ── Shajgoj / supermarket receipt normalizer ──────────────────────────────
+  // Strips receipt-specific abbreviations so "Bagda frs loc sat cul RC 5"
+  // becomes "Bagda" and matches fish_bagda correctly.
+  // Abbreviations: frs=fresh, loc=local, sat=Satkhira, mym=Mymensingh,
+  //   raj=Rajshahi, cul=cultured, RC=retail cut, L1F/L2F/L3F=size grade,
+  //   Without Sk=without skin, kg at end (unit already handled separately)
+  function normalizeReceiptLine(s) {
+    return s
+      .replace(/\bfrs\b/gi, "")          // fresh
+      .replace(/\bloc\b/gi, "")          // local
+      .replace(/\bsat\b/gi, "")          // satkhira origin
+      .replace(/\bmym\b/gi, "")          // mymensingh origin
+      .replace(/\braj\b/gi, "")          // rajshahi origin
+      .replace(/\bcul\b/gi, "")          // cultured
+      .replace(/\bRC\b/g, "")            // retail cut code
+      .replace(/\bL[123]F\b/gi, "")      // size grade (L2F etc)
+      .replace(/\bWithout\s+Sk\b/gi, "") // without skin
+      .replace(/\bWithout\s+Skin\b/gi,"")
+      .replace(/\bW\/O\s+Sk\b/gi, "")
+      .replace(/\s*\d+\s*$/, "")         // trailing number (RC 5 → remove "5")
+      .replace(/\s{2,}/g, " ")
+      .trim();
+  }
+  // Only normalize if it looks like a receipt line (has "frs", "loc", "cul", "RC", "L2F" etc)
+  const receiptAbbrevRx = /\b(frs|loc|cul|RC|L[123]F|Without\s+Sk|Without\s+Skin)\b/i;
+  const normalizedRaw = receiptAbbrevRx.test(raw) ? normalizeReceiptLine(raw) : raw;
+  // Use normalized text for item matching but keep original for amount parsing
+  const rawForAmount = raw;
+  // ─────────────────────────────────────────────────────────────────────────
+
   // All available items flat (includes custom items added by user)
   const allItems = [...items.grocery.map(i => ({ ...i, group: "grocery" })),
                     ...items.meat.map(i => ({ ...i, group: "meat" })),
@@ -11312,9 +11933,9 @@ function parseSmartEntry(raw, cats, items) {
   // Match: number (optional space) unit — e.g. "36 pieces", "2kg", "500 gram"
   const qtyUnitRx = new RegExp(`(\\d+(?:\\.\\d+)?)\\s*(${unitPattern})(?=\\s|$|,)`, "gi");
 
-  let tokens = text;
+  let tokens = normalizedRaw;  // use normalized text for matching
   let qty = "", unit = "";
-  const qtyMatches = [...text.matchAll(qtyUnitRx)];
+  const qtyMatches = [...normalizedRaw.matchAll(qtyUnitRx)];
   if (qtyMatches.length > 0) {
     qty = qtyMatches[0][1];
     unit = UNIT_MAP[qtyMatches[0][2].toLowerCase()] || "piece";
@@ -11322,22 +11943,80 @@ function parseSmartEntry(raw, cats, items) {
     tokens = tokens.slice(0, qtyMatches[0].index) + " " + tokens.slice(qtyMatches[0].index + qtyMatches[0][0].length);
   }
 
+  // ── Pre-process: normalise comma-thousands in rawForAmount ──────────────
+  // "1,315.72" → "1315.72",  "1,000" → "1000"
+  // Only collapses digit,digit patterns (not random commas in names)
+  function normalizeCommaNumbers(s) {
+    return s.replace(/(\d),(\d{3})(?=[.,\s]|$)/g, "$1$2")
+            .replace(/(\d),(\d{3})(?=[.,\s]|$)/g, "$1$2"); // run twice for 1,234,567
+  }
+  const rawForAmountN = normalizeCommaNumbers(rawForAmount);
+  const tokensN       = normalizeCommaNumbers(tokens);
+
   // Extract all remaining standalone numbers — the LAST one is the amount (price)
-  // But if only one number remains and qty was already found, that number = amount
+  // Use rawForAmount (original) for amount detection to preserve the actual price
   const numberRx = /\b(\d+(?:\.\d+)?)\b/g;
-  const nums = [...tokens.matchAll(numberRx)].map(m => ({ val: m[1], idx: m.index }));
+  const numsRaw = [...rawForAmountN.matchAll(numberRx)].map(m => ({ val: m[1], idx: m.index }));
+  const nums = [...tokensN.matchAll(numberRx)].map(m => ({ val: m[1], idx: m.index }));
 
   let amount = "";
-  if (nums.length > 0) {
-    // Last number = price/amount
-    amount = nums[nums.length - 1].val;
-    // Remove it from tokens
-    const lastNumIdx = nums[nums.length - 1].idx;
-    tokens = tokens.slice(0, lastNumIdx) + " " + tokens.slice(lastNumIdx + amount.length);
+  if (numsRaw.length > 0) {
+    // Last number in original = price/amount
+    // Round to nearest integer: fractional paisa (e.g. 1315.72 → 1316, 404.29 → 404)
+    const rawAmt = parseFloat(numsRaw[numsRaw.length - 1].val);
+    amount = String(Math.round(rawAmt));
+    // Remove it from tokens (normalized)
+    if (nums.length > 0) {
+      const lastNumIdx = nums[nums.length - 1].idx;
+      tokens = tokensN.slice(0, lastNumIdx) + " " + tokensN.slice(lastNumIdx + nums[nums.length-1].val.length);
+    }
   }
+
+  // ── Shajgoj receipt 3-number pattern: [unit_price] [qty] [total] ──────────
+  // Detects lines like "Bagda frs loc sat cul RC 5  799.00  0.51  404.29"
+  // where 3 numbers trail the item name with no unit label.
+  // Heuristic: if rawForAmount has 3+ trailing numbers and last ≈ first×second (±15%),
+  // treat as receipt row → amount=total, qty=middle number (weight).
+  if (!qty && numsRaw.length >= 3) {
+    const last3 = numsRaw.slice(-3).map(n => parseFloat(n.val));
+    const [unitP, qtyVal, total] = last3;
+    const expected = unitP * qtyVal;
+    const diff = Math.abs(expected - total) / (total || 1);
+    if (diff < 0.15 && qtyVal > 0 && qtyVal < 50) {
+      // Confirmed receipt row
+      qty    = String(qtyVal);
+      unit   = unit || "kg";  // fish/meat receipt = kg by default
+      amount = String(Math.round(total));  // round fractional paisa
+      // Remove all 3 trailing numbers from tokens
+      const firstOfThree = numsRaw[numsRaw.length - 3].idx;
+      tokens = rawForAmountN.slice(0, firstOfThree).replace(/\s+/g, " ").trim();
+    }
+  }
+  // ─────────────────────────────────────────────────────────────────────────
 
   // Remaining words after extracting qty+unit and amount = item/category name
   const query = tokens.replace(/\s+/g, " ").trim();
+
+  // ── buildAutoNote: generates a clean receipt-trace note from raw line ─────
+  // Formats as: "Rupchanda Soyabean Oil 5ltr · 0.51 kg · ৳404.29"
+  // Silently saved to note field on every SmartBar entry for receipt traceability.
+  function buildAutoNote(rawLine, parsedQty, parsedUnit, parsedAmount) {
+    let name = rawLine
+      .replace(/\s+\d+(?:\.\d+)?\s*$/, "")
+      .replace(/\s+\d+(?:\.\d+)?\s*$/, "")
+      .replace(/\s{2,}/g, " ")
+      .trim();
+    if (parsedAmount) {
+      name = name.replace(new RegExp("\\s*" + parsedAmount.replace(".", "\\.") + "\\s*$"), "").trim();
+    }
+    const parts = [name];
+    if (parsedQty && parsedUnit) parts.push(parsedQty + " " + parsedUnit);
+    else if (parsedQty) parts.push(parsedQty);
+    if (parsedAmount) parts.push("৳" + parsedAmount);
+    return parts.join(" · ");
+  }
+  const autoNote = buildAutoNote(raw, qty, unit, amount);
+  // ─────────────────────────────────────────────────────────────────────────
 
   // --- INCOME detection ---
   const incomeCats = cats.income;
@@ -11364,7 +12043,10 @@ function parseSmartEntry(raw, cats, items) {
       // Also try matching the full raw text against item label (in case query is empty after extraction)
       fuzzyScore(text.replace(/\d+/g, "").trim(), labelEn),
       // Brand/alias brain — e.g. "Rupchada Soyabean Oil 5ltr 975" → groc_oil_soy
-      bestAliasMatch(text, item)
+      bestAliasMatch(text, item),
+      // Normalized receipt line match (strips "frs loc sat cul RC" noise)
+      bestAliasMatch(normalizedRaw, item),
+      fuzzyScore(normalizedRaw.replace(/\d+/g, "").trim(), labelEn)
     );
     if (s > bestItemScore) { bestItemScore = s; bestItem = item; }
   }
@@ -11425,7 +12107,7 @@ function parseSmartEntry(raw, cats, items) {
       subId: "",
       itemId: "",
       qty: "", unit: "", amount,
-      note: query || text.replace(/\d+/g, "").trim(),
+      note: autoNote || query || text.replace(/\d+/g, "").trim(),
       confidence: amount ? "high" : "low",
       preview: `🚌 Transport · ৳${amount}`
     };
@@ -11449,18 +12131,29 @@ function parseSmartEntry(raw, cats, items) {
     const subId = groupToSub[bestItem.group] || "food_grocery";
     const icon = bestItem.icon;
     const name = bestItem.label.split("/")[0].trim();
-    // Use item's default unit if none was parsed
-    const resolvedUnit = unit || itemDefaultUnit(bestItem);
-    const qtyLabel = qty ? ` · ${qty} ${resolvedUnit}` : "";
+    const itemUnit = itemDefaultUnit(bestItem);
+    // Weight/volume units from text (e.g. "40g" printed on packet) must NOT override
+    // the item's own unit. "40g" on a biscuit pack = product weight, not purchase qty.
+    // Only use parsed unit if it matches the item's unit family, or item is a weight/vol item.
+    const weightUnits  = ["gram","g","gm","kg","kilo","kilogram"];
+    const volUnits     = ["ml","milliliter","millilitre","liter","litre","l"];
+    const countUnits   = ["piece","packet","dozen","bottle","bag","box"];
+    const itemIsWeight = weightUnits.includes(itemUnit) || volUnits.includes(itemUnit);
+    const parsedIsWeight = weightUnits.includes(unit) || volUnits.includes(unit);
+    // If item is piece/packet but text has a weight → ignore parsed weight, use item unit
+    const resolvedUnit = (!itemIsWeight && parsedIsWeight) ? itemUnit : (unit || itemUnit);
+    // If we overrode the unit, also clear the qty (40g qty is meaningless for a packet item)
+    const resolvedQty  = (!itemIsWeight && parsedIsWeight) ? "" : qty;
+    const qtyLabel = resolvedQty ? ` · ${resolvedQty} ${resolvedUnit}` : "";
     return {
       type: "expense",
       catId: "food",
       subId,
       itemId: bestItem.id,
-      qty,
+      qty: resolvedQty,
       unit: resolvedUnit,
       amount,
-      note: "",
+      note: autoNote,
       confidence: amount ? "high" : "low",
       preview: `${icon} ${name}${qtyLabel} · ৳${amount}`
     };
@@ -11482,7 +12175,7 @@ function parseSmartEntry(raw, cats, items) {
       catPath: _smartPath,
       itemId: "",
       qty, unit, amount,
-      note: "",
+      note: autoNote,
       confidence: amount && bestCatScore >= 0.8 ? "high" : "low",
       preview: `${icon} ${label} · ৳${amount}`
     };
@@ -12011,11 +12704,91 @@ function SmartFAB({ theme, onIncome, onExpense, onQuickEntryType }) {
 }
 
 // --- Budget Modal ---
+// ── MONTHLY CHECKLIST STORAGE ──────────────────────────────────────────────
+const KEYS_CHECKLIST = "ft_checklist_v1";
+function _clMonthKey() {
+  const n = new Date();
+  return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,"0")}`;
+}
+function _loadChecklist() {
+  try {
+    const raw = (window.__safeStorage||localStorage).getItem(KEYS_CHECKLIST);
+    return raw ? JSON.parse(raw) : { items: [], ticked: {}, month: "" };
+  } catch { return { items: [], ticked: {}, month: "" }; }
+}
+function _saveChecklist(data) {
+  try { (window.__safeStorage||localStorage).setItem(KEYS_CHECKLIST, JSON.stringify(data)); } catch {}
+}
+
 function BudgetModal({ open, onClose, cats, budgets, setBudgets, theme }) {
   const t = mergeTheme(theme);
+  const [activeTab, setActiveTab] = useState("budget");
   const [localBudgets, setLocalBudgets] = useState({});
-  useEffect(() => { if (open) setLocalBudgets({ ...budgets }); }, [open]);
 
+  // ── Checklist state ──
+  const [clItems, setClItems] = useState([]);
+  const [clTicked, setClTicked] = useState({});
+  const [clMonth, setClMonth] = useState("");
+  const [addingType, setAddingType] = useState(null); // "expense"|"income"|null
+  const [newLabel, setNewLabel] = useState("");
+  const [newAmount, setNewAmount] = useState("");
+  const [editingId, setEditingId] = useState(null);
+  const [editLabel, setEditLabel] = useState("");
+  const [editAmount, setEditAmount] = useState("");
+
+  useEffect(() => {
+    if (open) {
+      setLocalBudgets({ ...budgets });
+      const data = _loadChecklist();
+      const curMon = _clMonthKey();
+      // Fresh month → reset ticks only
+      if (data.month !== curMon) {
+        data.ticked = {};
+        data.month  = curMon;
+        _saveChecklist(data);
+      }
+      setClItems(data.items || []);
+      setClTicked(data.ticked || {});
+      setClMonth(curMon);
+    }
+  }, [open]);
+
+  function _persist(items, ticked) {
+    const data = { items, ticked, month: clMonth };
+    _saveChecklist(data);
+    setClItems(items);
+    setClTicked(ticked);
+  }
+
+  function toggleTick(id) {
+    const next = { ...clTicked, [id]: !clTicked[id] };
+    _persist(clItems, next);
+  }
+  function addItem() {
+    if (!newLabel.trim()) return;
+    const id = "cl_" + Date.now();
+    const item = { id, label: newLabel.trim(), amount: parseFloat(newAmount)||0, type: addingType };
+    const next = [...clItems, item];
+    _persist(next, clTicked);
+    setNewLabel(""); setNewAmount(""); setAddingType(null);
+  }
+  function removeItem(id) {
+    const next = clItems.filter(i => i.id !== id);
+    const t2 = { ...clTicked }; delete t2[id];
+    _persist(next, t2);
+  }
+  function startEdit(item) {
+    setEditingId(item.id);
+    setEditLabel(item.label);
+    setEditAmount(String(item.amount||""));
+  }
+  function saveEdit(id) {
+    const next = clItems.map(i => i.id === id ? { ...i, label: editLabel.trim()||i.label, amount: parseFloat(editAmount)||0 } : i);
+    _persist(next, clTicked);
+    setEditingId(null);
+  }
+
+  // Budget tab
   function handleChange(catId, val) {
     const n = val.replace(/[^0-9.]/g, "");
     setLocalBudgets(prev => ({ ...prev, [catId]: n }));
@@ -12030,54 +12803,217 @@ function BudgetModal({ open, onClose, cats, budgets, setBudgets, theme }) {
     onClose();
   }
 
-  return /*#__PURE__*/React.createElement(Modal, { open, onClose },
-    /*#__PURE__*/React.createElement("div", { style: { padding: "22px 16px 0" } },
-      /*#__PURE__*/React.createElement("div", { style: { width: 36, height: 4, background: "#48484A", borderRadius: 2, margin: "0 auto 14px" } }),
-      /*#__PURE__*/React.createElement("div", { style: { color: "#fff", fontSize: 19, fontWeight: 800, marginBottom: 4 } }, "🎯 Monthly Budgets"),
-      /*#__PURE__*/React.createElement("div", { style: { color: "#8E8E93", fontSize: 13, marginBottom: 16 } }, "Set a spending cap per expense category"),
-      ((cats||{}).expenses||[]).map(cat =>
-        /*#__PURE__*/React.createElement("div", {
-          key: cat.id,
-          style: { display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }
-        },
-          /*#__PURE__*/React.createElement("div", {
-            style: { width: 36, height: 36, borderRadius: 10, background: (cat.color || "#8E8E93") + "22", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 17, flexShrink: 0 }
-          }, cat.icon),
-          /*#__PURE__*/React.createElement("div", { style: { flex: 1 } },
-            /*#__PURE__*/React.createElement("div", { style: { color: "#fff", fontSize: 13, fontWeight: 700, marginBottom: 4 } }, cat.label)
-          ),
-          /*#__PURE__*/React.createElement("div", { style: { display: "flex", alignItems: "center", background: "#2C2C2E", borderRadius: 10, padding: "6px 10px", gap: 4, width: 130 } },
-            /*#__PURE__*/React.createElement("span", { style: { color: "#8E8E93", fontSize: 14 } }, "৳"),
-            /*#__PURE__*/React.createElement("input", {
-              value: localBudgets[cat.id] || "",
-              onChange: e => handleChange(cat.id, e.target.value),
-              type: "number", inputMode: "numeric",
-              placeholder: "No limit",
-              style: { background: "transparent", border: "none", outline: "none", color: "#fff", fontSize: 14, fontWeight: 700, width: "100%" }
-            })
+  const expenses = clItems.filter(i => i.type === "expense");
+  const incomes  = clItems.filter(i => i.type === "income");
+  const totalExp = expenses.reduce((s,i)=>s+i.amount,0);
+  const totalInc = incomes.reduce((s,i)=>s+i.amount,0);
+  const paidExp  = expenses.filter(i=>clTicked[i.id]).reduce((s,i)=>s+i.amount,0);
+  const paidInc  = incomes.filter(i=>clTicked[i.id]).reduce((s,i)=>s+i.amount,0);
+  const fmtF2    = v => "৳" + (v||0).toLocaleString("en-IN");
+
+  const tabBtn = (id, label) => React.createElement("button", {
+    key: id, onClick: () => setActiveTab(id),
+    style: {
+      flex: 1, padding: "9px 0", borderRadius: 10, border: "none", cursor: "pointer", fontSize: 13, fontWeight: 700, outline: "none",
+      background: activeTab === id ? t.accent : "#2C2C2E",
+      color: activeTab === id ? "#fff" : "#8E8E93",
+      transition: "all .2s"
+    }
+  }, label);
+
+  const clRow = (item) => {
+    const done = !!clTicked[item.id];
+    const isEditing = editingId === item.id;
+    return React.createElement("div", {
+      key: item.id,
+      style: { display: "flex", alignItems: "center", gap: 10, padding: "10px 0", borderBottom: "1px solid #2C2C2E" }
+    },
+      // Tick circle
+      React.createElement("div", {
+        onClick: () => toggleTick(item.id),
+        style: {
+          width: 26, height: 26, borderRadius: "50%", flexShrink: 0, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
+          background: done ? "#34C759" : "transparent",
+          border: done ? "none" : "2px solid #48484A",
+          fontSize: 14, color: "#fff", transition: "all .2s"
+        }
+      }, done ? "✓" : ""),
+      isEditing
+        ? React.createElement("div", { style: { flex: 1, display: "flex", gap: 6 } },
+            React.createElement("input", {
+              value: editLabel, onChange: e => setEditLabel(e.target.value),
+              style: { flex: 2, background: "#2C2C2E", border: "none", borderRadius: 8, color: "#fff", fontSize: 13, padding: "6px 8px", outline: "none" }
+            }),
+            React.createElement("input", {
+              value: editAmount, onChange: e => setEditAmount(e.target.value),
+              type: "number", inputMode: "decimal",
+              style: { flex: 1, background: "#2C2C2E", border: "none", borderRadius: 8, color: "#fff", fontSize: 13, padding: "6px 8px", outline: "none" }
+            }),
+            React.createElement("button", { onClick: () => saveEdit(item.id), style: { background: "#34C759", border: "none", borderRadius: 8, color: "#fff", fontWeight: 800, fontSize: 13, padding: "6px 10px", cursor: "pointer" } }, "✓")
           )
+        : React.createElement("div", { style: { flex: 1 }, onClick: () => startEdit(item) },
+            React.createElement("div", { style: { color: done ? "#48484A" : "#fff", fontSize: 13, fontWeight: 700, textDecoration: done ? "line-through" : "none", transition: "all .2s" } }, item.label),
+            item.amount > 0 && React.createElement("div", { style: { color: done ? "#48484A" : (item.type==="income" ? "#34C759" : "#FF9F0A"), fontSize: 11, fontWeight: 600, marginTop: 2 } }, fmtF2(item.amount))
+          ),
+      !isEditing && React.createElement("button", {
+        onClick: () => removeItem(item.id),
+        style: { background: "transparent", border: "none", color: "#FF453A", fontSize: 16, cursor: "pointer", padding: "0 4px", lineHeight: 1 }
+      }, "✕")
+    );
+  };
+
+  const addRow = (type) => addingType === type
+    ? React.createElement("div", { style: { display: "flex", gap: 6, marginTop: 8 } },
+        React.createElement("input", {
+          value: newLabel, onChange: e => setNewLabel(e.target.value),
+          placeholder: type === "income" ? "আয়ের নাম..." : "খরচের নাম...",
+          autoFocus: true,
+          style: { flex: 2, background: "#2C2C2E", border: "none", borderRadius: 10, color: "#fff", fontSize: 13, padding: "8px 10px", outline: "none" }
+        }),
+        React.createElement("input", {
+          value: newAmount, onChange: e => setNewAmount(e.target.value),
+          type: "number", inputMode: "decimal", placeholder: "৳ পরিমাণ",
+          style: { flex: 1, background: "#2C2C2E", border: "none", borderRadius: 10, color: "#fff", fontSize: 13, padding: "8px 10px", outline: "none" }
+        }),
+        React.createElement("button", { onClick: addItem, style: { background: type==="income"?"#34C759":"#FF9F0A", border: "none", borderRadius: 10, color: "#fff", fontWeight: 800, fontSize: 13, padding: "8px 12px", cursor: "pointer" } }, "Add"),
+        React.createElement("button", { onClick: () => { setAddingType(null); setNewLabel(""); setNewAmount(""); }, style: { background: "#3A3A3C", border: "none", borderRadius: 10, color: "#8E8E93", fontWeight: 700, fontSize: 13, padding: "8px 10px", cursor: "pointer" } }, "✕")
+      )
+    : React.createElement("button", {
+        onClick: () => { setAddingType(type); setNewLabel(""); setNewAmount(""); },
+        style: { width: "100%", marginTop: 8, padding: "9px", borderRadius: 10, border: `1px dashed ${type==="income"?"#34C75944":"#FF9F0A44"}`, background: "transparent", color: type==="income"?"#34C759":"#FF9F0A", fontSize: 12, fontWeight: 700, cursor: "pointer" }
+      }, type==="income" ? "+ আয় যোগ করো" : "+ খরচ যোগ করো");
+
+  return React.createElement(Modal, { open, onClose },
+    React.createElement("div", { style: { padding: "22px 16px 0" } },
+      React.createElement("div", { style: { width: 36, height: 4, background: "#48484A", borderRadius: 2, margin: "0 auto 14px" } }),
+      // Tab switcher
+      React.createElement("div", { style: { display: "flex", gap: 6, marginBottom: 16, background: "#1C1C1E", borderRadius: 12, padding: 4 } },
+        tabBtn("budget", "🎯 Budgets"),
+        tabBtn("checklist", "✅ Checklist")
+      ),
+
+      // ── BUDGET TAB ──
+      activeTab === "budget" && React.createElement(React.Fragment, null,
+        React.createElement("div", { style: { color: "#8E8E93", fontSize: 13, marginBottom: 16 } }, "Set a spending cap per expense category"),
+        ((cats||{}).expenses||[]).map(cat =>
+          React.createElement("div", {
+            key: cat.id,
+            style: { display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }
+          },
+            React.createElement("div", {
+              style: { width: 36, height: 36, borderRadius: 10, background: (cat.color || "#8E8E93") + "22", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 17, flexShrink: 0 }
+            }, cat.icon),
+            React.createElement("div", { style: { flex: 1 } },
+              React.createElement("div", { style: { color: "#fff", fontSize: 13, fontWeight: 700, marginBottom: 4 } }, cat.label)
+            ),
+            React.createElement("div", { style: { display: "flex", alignItems: "center", background: "#2C2C2E", borderRadius: 10, padding: "6px 10px", gap: 4, width: 130 } },
+              React.createElement("span", { style: { color: "#8E8E93", fontSize: 14 } }, "৳"),
+              React.createElement("input", {
+                value: localBudgets[cat.id] || "",
+                onChange: e => handleChange(cat.id, e.target.value),
+                type: "number", inputMode: "numeric",
+                placeholder: "No limit",
+                style: { background: "transparent", border: "none", outline: "none", color: "#fff", fontSize: 14, fontWeight: 700, width: "100%" }
+              })
+            )
+          )
+        ),
+        React.createElement("div", { style: { display: "flex", gap: 10, marginTop: 8, marginBottom: 16 } },
+          React.createElement("button", {
+            onClick: onClose,
+            style: { flex: 1, padding: "14px", borderRadius: 14, border: "none", cursor: "pointer", background: "#2C2C2E", color: "#fff", fontSize: 15, fontWeight: 700, outline: "none" }
+          }, "Cancel"),
+          React.createElement("button", {
+            onClick: handleSave,
+            style: { flex: 2, padding: "14px", borderRadius: 14, border: "none", cursor: "pointer", background: t.grad, color: "#fff", fontSize: 15, fontWeight: 800, outline: "none" }
+          }, "Save Budgets")
         )
       ),
-      /*#__PURE__*/React.createElement("div", { style: { display: "flex", gap: 10, marginTop: 8, marginBottom: 16 } },
-        /*#__PURE__*/React.createElement("button", {
-          onClick: onClose,
-          style: { flex: 1, padding: "14px", borderRadius: 14, border: "none", cursor: "pointer", background: "#2C2C2E", color: "#fff", fontSize: 15, fontWeight: 700, outline: "none" }
-        }, "Cancel"),
-        /*#__PURE__*/React.createElement("button", {
-          onClick: handleSave,
-          style: { flex: 2, padding: "14px", borderRadius: 14, border: "none", cursor: "pointer", background: t.grad, color: "#fff", fontSize: 15, fontWeight: 800, outline: "none" }
-        }, "Save Budgets")
+
+      // ── CHECKLIST TAB ──
+      activeTab === "checklist" && React.createElement("div", { style: { paddingBottom: 24 } },
+        // Summary bar
+        React.createElement("div", { style: { display: "flex", gap: 8, marginBottom: 16 } },
+          React.createElement("div", { style: { flex: 1, background: "#FF9F0A18", borderRadius: 12, padding: "10px 12px", border: "1px solid #FF9F0A33" } },
+            React.createElement("div", { style: { color: "#8E8E93", fontSize: 10, fontWeight: 700, letterSpacing: 1, marginBottom: 4 } }, "খরচ দেওয়া"),
+            React.createElement("div", { style: { color: "#FF9F0A", fontSize: 16, fontWeight: 800 } }, fmtF2(paidExp)),
+            React.createElement("div", { style: { color: "#636366", fontSize: 10, marginTop: 2 } }, `বাকি ${fmtF2(totalExp - paidExp)}`)
+          ),
+          React.createElement("div", { style: { flex: 1, background: "#34C75918", borderRadius: 12, padding: "10px 12px", border: "1px solid #34C75933" } },
+            React.createElement("div", { style: { color: "#8E8E93", fontSize: 10, fontWeight: 700, letterSpacing: 1, marginBottom: 4 } }, "আয় পেয়েছি"),
+            React.createElement("div", { style: { color: "#34C759", fontSize: 16, fontWeight: 800 } }, fmtF2(paidInc)),
+            React.createElement("div", { style: { color: "#636366", fontSize: 10, marginTop: 2 } }, `বাকি ${fmtF2(totalInc - paidInc)}`)
+          )
+        ),
+        // Expense section
+        React.createElement("div", { style: { color: "#FF9F0A", fontSize: 11, fontWeight: 800, letterSpacing: 1, marginBottom: 6, marginTop: 4 } }, "💸 মাসিক খরচ"),
+        expenses.length === 0 && React.createElement("div", { style: { color: "#48484A", fontSize: 12, paddingBottom: 6 } }, "কোনো খরচ নেই"),
+        expenses.map(clRow),
+        addRow("expense"),
+        // Income section
+        React.createElement("div", { style: { color: "#34C759", fontSize: 11, fontWeight: 800, letterSpacing: 1, marginTop: 18, marginBottom: 6 } }, "💰 মাসিক আয়"),
+        incomes.length === 0 && React.createElement("div", { style: { color: "#48484A", fontSize: 12, paddingBottom: 6 } }, "কোনো আয় নেই"),
+        incomes.map(clRow),
+        addRow("income"),
+        // Month label
+        React.createElement("div", { style: { color: "#48484A", fontSize: 10, textAlign: "center", marginTop: 16 } }, `${clMonth} — প্রতি মাসে নতুন করে শুরু হয়`)
       )
     )
   );
 }
-
 // --- Core Application Entry Point Component ---  
 
 // ── What's New Modal ──
 function WhatsNewModal({ open, onClose }) {
   if (!open) return null;
   const notes = [
+    {
+      version: "v48.0",
+      date: "30 Jun 2026",
+      items: [
+        { icon: "📦", label: "Fix", text: "Item unit correction — রসুন/আদা → kg, কলিজা → kg, সস → bottle, ঘি/মধু/চিজ/দই → gram। ১৬টি item unit ঠিক করা হয়েছে।" },
+        { icon: "🐛", label: "Fix", text: "Bought tab qty bug — Onion 9kg কিনলে 531kg দেখানোর bug ঠিক করা হয়েছে। qty এখন সঠিকভাবে unit-normalized হয়, string concatenation আর হবে না।" },
+        { icon: "🧠", label: "New", text: "AI Engine v4.0 — সম্পূর্ণ offline, ৫টি নতুন analysis module যোগ হয়েছে।" },
+        { icon: "🚨", label: "New", text: "Cash Flow Gap Detector — মাসের কোন দিনে balance ঘাটতিতে যাবে সেটা আগেই warn করবে।" },
+        { icon: "🔄", label: "New", text: "Item Substitution Engine — চিকেন দাম বাড়লে সস্তা protein suggest করবে (মাছ, ডিম, ডাল)।" },
+        { icon: "⚡", label: "New", text: "Spending Velocity — এই মাসে খরচ কত দ্রুত বাড়ছে গত মাসের তুলনায় real-time দেখাবে।" },
+        { icon: "🌙", label: "New", text: "Seasonal Pattern Detector — ঈদ/রমজান/শীত মৌসুমে খরচ বাড়লে automatically alert দেবে।" },
+        { icon: "💬", label: "New", text: "Coach v4 — সব tip এখন বাংলায়, specific টাকার পরিমাণ সহ actionable advice।" },
+      ],
+    },
+    {
+      version: "v47.2",
+      date: "30 Jun 2026",
+      items: [
+        { icon: "✅", label: "New", text: "Monthly Checklist — 🎯 বাটনে নতুন 'Checklist' tab। মাসিক fixed খরচ (house rent, net bill, bua beton, bike park, school beton...) ও আয় (জীবননগর rent...) আলাদা list হিসেবে রাখো। Tick করলে paid দেখাবে, paid vs বাকি summary দেখাবে। Main data-র সাথে কোনো সম্পর্ক নেই।" },
+        { icon: "🔄", label: "New", text: "Checklist প্রতি মাসে নতুন করে শুরু হয় — items থাকে, শুধু tick reset হয়। Add, edit, delete সব করা যায়।" },
+        { icon: "⚖️", label: "Fix", text: "Unit Normalization — এখন kg ও gram মিলিয়ে entry দিলেও সঠিক price/unit হিসাব হবে। সব qty আগে gram বা ml-এ convert হয়, তারপর ৳/gram বা ৳/ml দেখায়। .258 gram বা 1 kg — সব compare করা যাবে।" },
+        { icon: "🐛", label: "Fix", text: "Prices tab crash fix — totalQty string হয়ে যাওয়ার কারণে .toFixed() error হত, এখন parseFloat দিয়ে সব জায়গায় ঠিক করা হয়েছে।" },
+      ],
+    },
+    {
+      version: "v47.0",
+      date: "29 Jun 2026",
+      items: [
+        { icon: "📊", label: "New", text: "Price Tracker — item list-এ এখন গড়ে মাসে কত kg/ltr কেনো (Avg Monthly Qty) সেটা দেখাবে।" },
+        { icon: "🔴", label: "New", text: "Price Tracker — Lowest/Highest highlight: কোন মাসে সবচেয়ে সস্তা ছিল (সবুজ) আর কোন মাসে সবচেয়ে দামি ছিল (লাল) table-এ আলাদা রঙে দেখাবে।" },
+        { icon: "🔔", label: "New", text: "Price Alert: প্রতিটা item-এর জন্য alert price সেট করলে সেই দামের উপরে গেলে warning দেখাবে।" },
+        { icon: "💰", label: "New", text: "Overview — Savings Rate Card: income-এর কত % save হচ্ছে সেটা আলাদা card-এ দেখাবে।" },
+        { icon: "🏆", label: "New", text: "Overview — Top 3 Categories: এই মাসে কোথায় বেশি খরচ হয়েছে সেই top 3 category দেখাবে।" },
+        { icon: "📅", label: "New", text: "Overview — Daily Average Burn: মাসের এখন পর্যন্ত গড় daily খরচ দেখাবে।" },
+        { icon: "🗓️", label: "New", text: "Calendar View: কোন দিন কত খরচ হয়েছে সেটা calendar-এ color দিয়ে দেখাবে। Daily tab-এ পাবে।" },
+        { icon: "⚡", label: "New", text: "Smart Reminders: budget limit কাছে আসলে warning, আর item অনেকদিন কেনা না হলে মনে করিয়ে দেবে।" },
+        { icon: "📦", label: "New", text: "Stock Tracker: কত কিনলাম, কত দিন চলবে estimate — যেমন ৫ kg চাল কিনলে ~১৫ দিন। Units tab-এ।" },
+      ],
+    },
+    {
+      version: "v44.0",
+      date: "28 Jun 2026",
+      items: [
+        { icon: "📊", label: "New", text: "Price Tracker table-এ Qty column যোগ হয়েছে — Date | Qty | Price/unit | Change | % এখন একসাথে দেখা যায়। প্রতিটা row-এ সেই দিন/মাসে কত kg/ltr কিনেছিলে সেটাও পাশেই দেখাবে।" },
+        { icon: "🛒", label: "New", text: "Consumption Summary block যোগ হয়েছে — item select করলে SUMMARY-র নিচে দেখাবে: Avg/Month (গড়ে মাসে কত kg/ltr ও টাকা), This Month (এই মাসে কত), All Time (মোট)। একনজরে বোঝা যাবে কোন item-এ মাসে কতটুকু লাগে।" },
+      ]
+    },
     {
       version: "v42.0",
       date: "29 Jun 2026",
@@ -12329,7 +13265,25 @@ function WhatsNewModal({ open, onClose }) {
 }
 
 function App() {
-  const [entries, setEntries] = useState(() => { const v = load(KEYS.entries, []); return Array.isArray(v) ? v : []; });
+  const [entries, setEntries] = useState(() => {
+    const v = load(KEYS.entries, []);
+    const arr = Array.isArray(v) ? v : [];
+    // One-time startup migration: fix entries whose unit mismatches current item definition
+    const allDefaultItems = [...DEFAULT_GROCERY, ...DEFAULT_MEAT, ...DEFAULT_FISH];
+    const itemUnitMap = {};
+    allDefaultItems.forEach(i => { itemUnitMap[i.id] = i.unit; });
+    const wt = ["gram","g","gm","kg","kilo","kilogram"];
+    const vol = ["ml","milliliter","millilitre","liter","litre","l"];
+    return arr.map(e => {
+      if (!e.itemId || !e.unit) return e;
+      const currentUnit = itemUnitMap[e.itemId];
+      if (!currentUnit) return e;
+      const entryIsWeight = wt.includes((e.unit||"").toLowerCase()) || vol.includes((e.unit||"").toLowerCase());
+      const itemIsWeight  = wt.includes(currentUnit) || vol.includes(currentUnit);
+      if (entryIsWeight && !itemIsWeight) return { ...e, unit: currentUnit, qty: null };
+      return e;
+    });
+  });
   const [cats, setCats] = useState(() => {
     // v30.0 fresh start — always use DEFAULT_CATS (new key ft_cats_v7)
     const saved = load(KEYS.cats, null);
@@ -12550,6 +13504,11 @@ function App() {
       /*#__PURE__*/React.createElement("div", { style: { color: "#8E8E93", fontSize: 11 } }, "Tap 🎯 in the header to adjust your budgets")
     );
   })(),
+  /*#__PURE__*/React.createElement(CalendarDayView, { entries: entries, theme: theme }),
+  /*#__PURE__*/React.createElement(SavingsRateCard, { entries: entries, theme: theme }),
+  /*#__PURE__*/React.createElement(Top3CatsCard, { entries: entries, cats: cats, theme: theme }),
+  /*#__PURE__*/React.createElement(StockTrackerCard, { entries: entries, items: items, theme: theme }),
+  /*#__PURE__*/React.createElement(SmartRemindersCard, { entries: entries, items: items, cats: cats, budgets: budgets, theme: theme }),
   /*#__PURE__*/React.createElement(OverviewCarousel, { entries: entries, cats: cats, filtered: filtered, theme: theme, budgets: budgets }),
   /*#__PURE__*/React.createElement(AutoInsightsCard, { entries: entries, cats: cats, theme: theme, budgets: budgets, items: items }),
   ((cats||{}).expenses||[]).map(cat => {
@@ -12722,13 +13681,14 @@ function App() {
     const totals = {};
     itemized.forEach(e => {
       const k = e.itemId;
+      const itemUnit = allItems.find(i => i.id === k)?.unit || e.unit || "";
       if (!totals[k]) totals[k] = {
         item: allItems.find(i => i.id === k),
         qty: 0,
-        unit: e.unit,
+        unit: itemUnit,
         spend: 0
       };
-      totals[k].qty += parseFloat(e.qty);
+      totals[k].qty += _normQty(e.qty, e.unit || itemUnit);
       totals[k].spend += e.amount;
     });
     const grocIds = new Set(items.grocery.map(i => i.id));
@@ -12807,7 +13767,7 @@ function App() {
         fontSize: 12,
         fontWeight: 700
       }
-    }, fmtUnit(qty, unit))), /*#__PURE__*/React.createElement("div", {
+    }, _fmtQtyDisplay(qty, unit))), /*#__PURE__*/React.createElement("div", {
       style: {
         color: "#8E8E93",
         fontSize: 12,
@@ -12944,10 +13904,19 @@ return /*#__PURE__*/React.createElement("div", {
     }, "Shahariar Alam ©")
   )
   )), /*#__PURE__*/React.createElement("div", {
+    style: { display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 5 }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 10, fontWeight: 800, letterSpacing: 0.4,
+      color: (theme.primary || "#BF5AF2") + "BB",
+      background: (theme.primary || "#BF5AF2") + "18",
+      border: "1px solid " + (theme.primary || "#BF5AF2") + "33",
+      borderRadius: 6, padding: "2px 7px", userSelect: "none"
+    }
+  }, APP_VERSION), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
-      gap: 6,
-      marginTop: 6
+      gap: 6
     }
   }, /*#__PURE__*/React.createElement("button", {
     onClick: () => setShowMgr(true),
@@ -13001,7 +13970,7 @@ return /*#__PURE__*/React.createElement("div", {
       fontWeight: 700,
       outline: "none"
     }
-  }, "📋"))), /*#__PURE__*/React.createElement("div", {
+  }, "📋")))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       gap: 8,
@@ -13544,6 +14513,374 @@ class AppErrorBoundary extends React.Component {
     }
     return this.props.children;
   }
+}
+
+
+// ═══════════════════════════════════════════════════════════════════
+// v45 NEW FEATURES
+// ═══════════════════════════════════════════════════════════════════
+
+// ── PRICE ALERT STORAGE KEY ──
+const KEYS_PRICE_ALERTS = 'ft_price_alerts_v1';
+
+// ── STOCK DURATION ESTIMATES (days per unit per kg) ──
+const STOCK_DAYS = {
+  'rice': 3, 'dal': 7, 'flour': 5, 'sugar': 10, 'salt': 30, 'oil': 5,
+  'onion': 4, 'garlic': 14, 'ginger': 10, 'potato': 4, 'tomato': 3,
+  'milk': 1, 'egg': 2, 'butter': 14, 'cheese': 7,
+  'chicken': 2, 'beef': 3, 'fish': 2,
+  'default_grocery': 5, 'default_meat': 2, 'default_fish': 2,
+};
+
+function getStockDays(item) {
+  if (!item) return 5;
+  const label = (item.label || '').toLowerCase();
+  for (const [key, days] of Object.entries(STOCK_DAYS)) {
+    if (label.includes(key)) return days;
+  }
+  const grp = (item.group || '').toLowerCase();
+  if (grp === 'meat') return STOCK_DAYS.default_meat;
+  if (grp === 'fish') return STOCK_DAYS.default_fish;
+  return STOCK_DAYS.default_grocery;
+}
+
+// ── STOCK TRACKER WIDGET ──
+function StockTrackerCard({ entries, items, theme }) {
+  const t = mergeTheme(theme);
+  const now = new Date();
+  const curMon = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+
+  const allItems = [...(items.grocery||[]), ...(items.meat||[]), ...(items.fish||[])];
+  const recentPurchases = [];
+
+  allItems.forEach(item => {
+    const itemEntries = entries.filter(e =>
+      e.itemId === item.id && e.qty && e.type === 'expense'
+    ).sort((a,b) => new Date(b.date) - new Date(a.date));
+    if (!itemEntries.length) return;
+
+    const latest = itemEntries[0];
+    // Normalize qty to base unit (grams/ml), then convert to kg/L for stock calc
+    const entryUnit = (latest.unit || item.unit || "").trim().toLowerCase();
+    const normQtyBase = _normQty(parseFloat(latest.qty || 0), entryUnit);
+    // Convert normalized base (grams→kg, ml→L) for human display and stock calc
+    const isVol = ["ml","milliliter","millilitre","liter","litre","l"].includes(entryUnit);
+    const isWt  = ["gram","g","gm","kg","kilo","kilogram"].includes(entryUnit);
+    // qty in "major unit" (kg or L) for daysPerUnit calculation; piece/packet: raw count
+    const qtyMajor = (isWt || isVol) ? normQtyBase / 1000 : parseFloat(latest.qty || 0);
+    const qty = qtyMajor;
+    if (!qty) return;
+
+    const daysPerUnit = getStockDays(item);
+    const estimatedDays = Math.round(qty * daysPerUnit);
+    const purchaseDate = new Date(latest.date);
+    const daysSince = Math.floor((now - purchaseDate) / 86400000);
+    const daysLeft = Math.max(0, estimatedDays - daysSince);
+    const pct = Math.max(0, Math.min(100, (daysLeft / estimatedDays) * 100));
+
+    recentPurchases.push({
+      item, qty, unit: latest.unit || item.unit || '',
+      rawQty: parseFloat(latest.qty || 0), rawUnit: latest.unit || item.unit || '',
+      estimatedDays, daysSince, daysLeft, pct,
+      date: latest.date, amount: latest.amount
+    });
+  });
+
+  if (!recentPurchases.length) return null;
+
+  const sorted = recentPurchases.sort((a,b) => a.daysLeft - b.daysLeft).slice(0, 8);
+
+  return React.createElement('div', { style: { background:'#1C1C1E', borderRadius:16, margin:'0 16px 10px', overflow:'hidden' } },
+    React.createElement('div', { style: { padding:'11px 16px 8px', color:'#8E8E93', fontSize:10, fontWeight:700, letterSpacing:1.2 } }, '📦 STOCK TRACKER'),
+    sorted.map((p, i) => {
+      const clr = p.daysLeft <= 1 ? '#FF453A' : p.daysLeft <= 3 ? '#FF9F0A' : '#34C759';
+      return React.createElement('div', {
+        key: p.item.id,
+        style: { padding:'9px 16px', borderTop:'1px solid #2C2C2E', display:'flex', alignItems:'center', gap:10 }
+      },
+        React.createElement('div', { style:{ fontSize:18, flexShrink:0 } }, p.item.icon || '📦'),
+        React.createElement('div', { style:{ flex:1, minWidth:0 } },
+          React.createElement('div', { style:{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:4 } },
+            React.createElement('div', { style:{ color:'#fff', fontSize:12, fontWeight:600 } }, p.item.label),
+            React.createElement('div', { style:{ color:clr, fontSize:11, fontWeight:800 } },
+              p.daysLeft === 0 ? '⚠️ শেষ!' : `~${p.daysLeft} দিন বাকি`
+            )
+          ),
+          React.createElement('div', { style:{ height:4, background:'#3A3A3C', borderRadius:2, overflow:'hidden' } },
+            React.createElement('div', { style:{ width:`${p.pct}%`, height:'100%', background:clr, borderRadius:2, transition:'width 0.3s' } })
+          ),
+          React.createElement('div', { style:{ display:'flex', justifyContent:'space-between', marginTop:3 } },
+            React.createElement('div', { style:{ color:'#636366', fontSize:10 } }, `${_fmtQtyDisplay(UNIT_TO_BASE_FACTOR[p.rawUnit] !== undefined ? _normQty(p.rawQty, p.rawUnit) : p.rawQty, p.rawUnit)} কেনা`),
+            React.createElement('div', { style:{ color:'#636366', fontSize:10 } }, `${p.daysSince} দিন আগে`)
+          )
+        )
+      );
+    })
+  );
+}
+
+// ── SAVINGS RATE CARD ──
+function SavingsRateCard({ entries, theme }) {
+  const t = mergeTheme(theme);
+  const now = new Date();
+  const curMon = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+
+  const curInc = entries.filter(e=>e.type==='income'&&_mKey(e.date)===curMon).reduce((s,e)=>s+e.amount,0);
+  const curExp = entries.filter(e=>e.type==='expense'&&_mKey(e.date)===curMon).reduce((s,e)=>s+e.amount,0);
+  const savings = curInc - curExp;
+  const savRate = curInc > 0 ? Math.round((savings/curInc)*100) : null;
+
+  // Daily avg burn
+  const dayOfMonth = now.getDate();
+  const dailyAvg = dayOfMonth > 0 ? Math.round(curExp / dayOfMonth) : 0;
+
+  // Top 3 cats
+  if (curInc === 0 && curExp === 0) return null;
+
+  return React.createElement('div', {
+    style: { margin:'0 16px 10px', display:'grid', gridTemplateColumns:'1fr 1fr', gap:8 }
+  },
+    // Savings rate
+    React.createElement('div', {
+      style: { background:'#1C1C1E', borderRadius:14, padding:'12px 14px' }
+    },
+      React.createElement('div', { style:{ color:'#8E8E93', fontSize:9, fontWeight:700, letterSpacing:1, marginBottom:6 } }, '💰 SAVINGS RATE'),
+      savRate !== null
+        ? React.createElement('div', null,
+            React.createElement('div', { style:{ color: savRate>=20?'#34C759':savRate>=0?'#FF9F0A':'#FF453A', fontSize:24, fontWeight:900, lineHeight:1.1 } }, `${savRate}%`),
+            React.createElement('div', { style:{ color:'#636366', fontSize:10, marginTop:4 } },
+              savings >= 0 ? `৳${Math.round(savings).toLocaleString()} বাঁচছে` : `৳${Math.round(-savings).toLocaleString()} ঘাটতি`
+            )
+          )
+        : React.createElement('div', { style:{ color:'#48484A', fontSize:12 } }, 'Income নেই')
+    ),
+    // Daily burn
+    React.createElement('div', {
+      style: { background:'#1C1C1E', borderRadius:14, padding:'12px 14px' }
+    },
+      React.createElement('div', { style:{ color:'#8E8E93', fontSize:9, fontWeight:700, letterSpacing:1, marginBottom:6 } }, '🔥 DAILY AVG BURN'),
+      React.createElement('div', { style:{ color:'#FF9F0A', fontSize:22, fontWeight:900, lineHeight:1.1 } }, `৳${dailyAvg.toLocaleString()}`),
+      React.createElement('div', { style:{ color:'#636366', fontSize:10, marginTop:4 } }, `${dayOfMonth} দিন ধরে`)
+    )
+  );
+}
+
+// ── TOP 3 CATEGORIES CARD ──
+function Top3CatsCard({ entries, cats, theme }) {
+  const t = mergeTheme(theme);
+  const now = new Date();
+  const curMon = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+  const curExp = entries.filter(e=>e.type==='expense'&&_mKey(e.date)===curMon).reduce((s,e)=>s+e.amount,0);
+  if (!curExp) return null;
+
+  const catTotals = (cats.expenses||[]).map(c => ({
+    ...c,
+    amt: entries.filter(e=>e.type==='expense'&&e.catId===c.id&&_mKey(e.date)===curMon).reduce((s,e)=>s+e.amount,0)
+  })).filter(c=>c.amt>0).sort((a,b)=>b.amt-a.amt).slice(0,3);
+
+  if (!catTotals.length) return null;
+
+  return React.createElement('div', {
+    style: { background:'#1C1C1E', borderRadius:14, margin:'0 16px 10px', padding:'12px 14px' }
+  },
+    React.createElement('div', { style:{ color:'#8E8E93', fontSize:9, fontWeight:700, letterSpacing:1, marginBottom:10 } }, '🏆 এই মাসে TOP খরচ'),
+    catTotals.map((c, i) => {
+      const pct = Math.round((c.amt/curExp)*100);
+      return React.createElement('div', { key:c.id, style:{ display:'flex', alignItems:'center', gap:10, marginBottom: i<catTotals.length-1?8:0 } },
+        React.createElement('div', { style:{ fontSize:16, width:24, textAlign:'center' } }, ['🥇','🥈','🥉'][i]),
+        React.createElement('div', { style:{ flex:1 } },
+          React.createElement('div', { style:{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:3 } },
+            React.createElement('div', { style:{ color:'#fff', fontSize:12, fontWeight:600 } }, `${c.icon||''} ${c.label}`),
+            React.createElement('div', { style:{ color:c.color||'#FF9F0A', fontSize:12, fontWeight:800 } }, `৳${Math.round(c.amt).toLocaleString()}`)
+          ),
+          React.createElement('div', { style:{ height:3, background:'#3A3A3C', borderRadius:2, overflow:'hidden' } },
+            React.createElement('div', { style:{ width:`${pct}%`, height:'100%', background:c.color||'#FF9F0A', borderRadius:2 } })
+          )
+        ),
+        React.createElement('div', { style:{ color:'#636366', fontSize:10, width:28, textAlign:'right' } }, `${pct}%`)
+      );
+    })
+  );
+}
+
+// ── SMART REMINDERS CARD ──
+function SmartRemindersCard({ entries, items, cats, budgets, theme }) {
+  const t = mergeTheme(theme);
+  const now = new Date();
+  const curMon = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+  const dayOfMonth = now.getDate();
+  const daysInMonth = new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
+  const daysLeft = daysInMonth - dayOfMonth;
+
+  const reminders = [];
+
+  // 1. Budget warning — near limit (>80%)
+  (cats.expenses||[]).forEach(c => {
+    const budget = budgets[c.id];
+    if (!budget) return;
+    const spent = entries.filter(e=>e.type==='expense'&&e.catId===c.id&&_mKey(e.date)===curMon).reduce((s,e)=>s+e.amount,0);
+    const pct = (spent/budget)*100;
+    if (pct >= 80 && pct <= 100) {
+      reminders.push({ icon:'⚠️', color:'#FF9F0A', text:`${c.icon||''} ${c.label} budget ${Math.round(pct)}% শেষ — ৳${Math.round(budget-spent).toLocaleString()} বাকি` });
+    } else if (pct > 100) {
+      reminders.push({ icon:'🚨', color:'#FF453A', text:`${c.icon||''} ${c.label} budget পার! ৳${Math.round(spent-budget).toLocaleString()} বেশি খরচ` });
+    }
+  });
+
+  // 2. Items not bought in 14+ days
+  const allItems = [...(items.grocery||[]), ...(items.meat||[]), ...(items.fish||[])];
+  allItems.forEach(item => {
+    const itemEntries = entries.filter(e=>e.itemId===item.id&&e.type==='expense');
+    if (!itemEntries.length) return;
+    const lastDate = new Date(itemEntries.sort((a,b)=>new Date(b.date)-new Date(a.date))[0].date);
+    const daysSince = Math.floor((now - lastDate) / 86400000);
+    const daysThreshold = getStockDays(item) * 2; // double the stock days
+    if (daysSince >= daysThreshold && daysSince <= 60) {
+      reminders.push({ icon:'🛒', color:'#0A84FF', text:`${item.icon||''} ${item.label} ${daysSince} দিন ধরে কেনা হয়নি` });
+    }
+  });
+
+  if (!reminders.length) return null;
+
+  return React.createElement('div', {
+    style: { background:'#1C1C1E', borderRadius:14, margin:'0 16px 10px', overflow:'hidden' }
+  },
+    React.createElement('div', { style:{ padding:'11px 16px 8px', color:'#8E8E93', fontSize:10, fontWeight:700, letterSpacing:1.2 } }, '🔔 SMART REMINDERS'),
+    reminders.slice(0,5).map((r, i) =>
+      React.createElement('div', { key:i, style:{ padding:'9px 16px', borderTop:'1px solid #2C2C2E', display:'flex', alignItems:'center', gap:10 } },
+        React.createElement('div', { style:{ fontSize:16 } }, r.icon),
+        React.createElement('div', { style:{ color:r.color, fontSize:12, fontWeight:600, flex:1 } }, r.text)
+      )
+    )
+  );
+}
+
+// ── CALENDAR VIEW ──
+function CalendarDayView({ entries, theme, onClose }) {
+  const t = mergeTheme(theme);
+  const now = new Date();
+  const [viewYear, setViewYear] = React.useState(now.getFullYear());
+  const [viewMonth, setViewMonth] = React.useState(now.getMonth());
+  const [selDay, setSelDay] = React.useState(null);
+
+  const daysInMonth = new Date(viewYear, viewMonth+1, 0).getDate();
+  const firstDow = new Date(viewYear, viewMonth, 1).getDay();
+  const monthKey = `${viewYear}-${String(viewMonth+1).padStart(2,'0')}`;
+
+  // Compute daily totals
+  const dayTotals = {};
+  entries.filter(e => _mKey(e.date) === monthKey).forEach(e => {
+    const d = e.date.slice(8,10);
+    if (!dayTotals[d]) dayTotals[d] = { exp: 0, inc: 0, entries: [] };
+    if (e.type === 'expense') dayTotals[d].exp += e.amount;
+    else dayTotals[d].inc += e.amount;
+    dayTotals[d].entries.push(e);
+  });
+
+  const maxExp = Math.max(...Object.values(dayTotals).map(d=>d.exp), 1);
+
+  const monthNames = ['জানুয়ারি','ফেব্রুয়ারি','মার্চ','এপ্রিল','মে','জুন','জুলাই','আগস্ট','সেপ্টেম্বর','অক্টোবর','নভেম্বর','ডিসেম্বর'];
+  const dowLabels = ['রবি','সোম','মঙ্গ','বুধ','বৃহ','শুক্র','শনি'];
+
+  const selDayStr = selDay != null ? String(selDay).padStart(2,'0') : null;
+  const selDayData = selDayStr ? (dayTotals[selDayStr] || null) : null;
+
+  return React.createElement('div', { style:{ background:'#1C1C1E', borderRadius:16, margin:'0 16px 10px', overflow:'hidden' } },
+    // Header
+    React.createElement('div', { style:{ padding:'12px 14px 8px', display:'flex', justifyContent:'space-between', alignItems:'center' } },
+      React.createElement('button', {
+        onClick: () => { const d=new Date(viewYear,viewMonth-1,1); setViewYear(d.getFullYear()); setViewMonth(d.getMonth()); setSelDay(null); },
+        style:{ background:'#2C2C2E', border:'none', color:'#fff', borderRadius:8, padding:'4px 10px', fontSize:16, cursor:'pointer' }
+      }, '‹'),
+      React.createElement('div', { style:{ color:'#fff', fontWeight:800, fontSize:14 } }, `${monthNames[viewMonth]} ${viewYear}`),
+      React.createElement('button', {
+        onClick: () => { const d=new Date(viewYear,viewMonth+1,1); setViewYear(d.getFullYear()); setViewMonth(d.getMonth()); setSelDay(null); },
+        style:{ background:'#2C2C2E', border:'none', color:'#fff', borderRadius:8, padding:'4px 10px', fontSize:16, cursor:'pointer' }
+      }, '›')
+    ),
+    // Day-of-week headers
+    React.createElement('div', { style:{ display:'grid', gridTemplateColumns:'repeat(7,1fr)', padding:'0 8px' } },
+      dowLabels.map(d => React.createElement('div', { key:d, style:{ textAlign:'center', color:'#636366', fontSize:9, fontWeight:700, padding:'4px 0' } }, d))
+    ),
+    // Calendar grid
+    React.createElement('div', { style:{ display:'grid', gridTemplateColumns:'repeat(7,1fr)', padding:'0 8px 8px', gap:2 } },
+      // Empty cells before first day
+      Array.from({length: firstDow}).map((_,i) => React.createElement('div', { key:`e${i}` })),
+      // Day cells
+      Array.from({length: daysInMonth}).map((_,i) => {
+        const day = i+1;
+        const dayStr = String(day).padStart(2,'0');
+        const data = dayTotals[dayStr];
+        const isToday = viewYear===now.getFullYear() && viewMonth===now.getMonth() && day===now.getDate();
+        const isSel = selDay === day;
+        const intensity = data ? Math.round((data.exp/maxExp)*100) : 0;
+        const dotColor = data ? (data.exp > 0 ? `rgba(255,69,58,${0.2+intensity*0.008})` : 'transparent') : 'transparent';
+
+        return React.createElement('div', {
+          key: day,
+          onClick: () => setSelDay(isSel ? null : day),
+          style: {
+            textAlign:'center', padding:'4px 2px', borderRadius:8, cursor:'pointer',
+            background: isSel ? '#0A84FF22' : isToday ? '#FFFFFF11' : dotColor,
+            border: isSel ? '1px solid #0A84FF' : isToday ? '1px solid #FFFFFF33' : '1px solid transparent',
+            position:'relative'
+          }
+        },
+          React.createElement('div', { style:{ color: isToday?'#0A84FF': isSel?'#0A84FF':'#fff', fontSize:11, fontWeight:isToday||isSel?900:400 } }, day),
+          data && data.exp > 0 && React.createElement('div', { style:{ width:4, height:4, borderRadius:2, background: data.exp>0?'#FF453A':'#34C759', margin:'1px auto 0' } })
+        );
+      })
+    ),
+    // Selected day detail
+    selDayData && React.createElement('div', { style:{ borderTop:'1px solid #3A3A3C', padding:'10px 14px' } },
+      React.createElement('div', { style:{ color:'#8E8E93', fontSize:10, fontWeight:700, marginBottom:8 } },
+        `${selDay} ${monthNames[viewMonth]} — ৳${Math.round(selDayData.exp).toLocaleString()} খরচ`
+      ),
+      selDayData.entries.slice(0,5).map((e,i) =>
+        React.createElement('div', { key:i, style:{ display:'flex', justifyContent:'space-between', padding:'5px 0', borderTop:i>0?'1px solid #2C2C2E':'none' } },
+          React.createElement('div', { style:{ color:'#fff', fontSize:12 } }, e.note || e.catId || 'entry'),
+          React.createElement('div', { style:{ color: e.type==='income'?'#34C759':'#FF453A', fontSize:12, fontWeight:700 } },
+            (e.type==='income'?'+':'−') + '৳' + Math.round(e.amount).toLocaleString()
+          )
+        )
+      ),
+      selDayData.entries.length > 5 && React.createElement('div', { style:{ color:'#636366', fontSize:10, textAlign:'center', marginTop:4 } }, `+${selDayData.entries.length-5} আরও`)
+    )
+  );
+}
+
+// ── PRICE ALERT FEATURE (injected into price tab) ──
+// We'll store alerts in localStorage key KEYS_PRICE_ALERTS
+function usePriceAlerts() {
+  const [alerts, setAlerts] = React.useState(() => {
+    try {
+      const v = (window.__safeStorage || localStorage).getItem(KEYS_PRICE_ALERTS);
+      return v ? JSON.parse(v) : {};
+    } catch { return {}; }
+  });
+
+  function setAlert(itemId, price) {
+    setAlerts(prev => {
+      const next = { ...prev };
+      if (!price) delete next[itemId];
+      else next[itemId] = parseFloat(price);
+      try { (window.__safeStorage || localStorage).setItem(KEYS_PRICE_ALERTS, JSON.stringify(next)); } catch {}
+      return next;
+    });
+  }
+
+  return [alerts, setAlert];
+}
+
+// ── LOWEST/HIGHEST PRICE HIGHLIGHT HELPER ──
+function getPriceMinMax(priceHistory) {
+  if (!priceHistory || priceHistory.length < 2) return { minIdx: -1, maxIdx: -1 };
+  let minIdx = 0, maxIdx = 0;
+  priceHistory.forEach((r, i) => {
+    if (r.price < priceHistory[minIdx].price) minIdx = i;
+    if (r.price > priceHistory[maxIdx].price) maxIdx = i;
+  });
+  return { minIdx, maxIdx };
 }
 
 function __mountApp() {
